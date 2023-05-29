@@ -1,0 +1,1 @@
+(() => { var e = document.body; "theme-light" == localStorage.getItem("theme") ? e.classList.add("theme-light") : e.classList.add("theme-light") })();

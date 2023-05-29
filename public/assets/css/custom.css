@@ -1,0 +1,32 @@
+/* .selectize-control.bootstrap5 .selectize-select {
+    color: #fff;
+    background-color: #343a40;
+}
+
+.selectize-dropdown-content {
+    background-color: #343a40;
+}
+
+.selectize-dropdown-content .option {
+    color: #fff;
+}
+
+.selectize-control.bootstrap5 .selected-item {
+    background-color: #58616b;
+} */
+
+.badge {
+    display: inline-block;
+    padding: 5px 10px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    border-radius: 15px;
+    color: #fff;
+}
+
+.badge-warning {
+    background-color: #ffc107;
+}
