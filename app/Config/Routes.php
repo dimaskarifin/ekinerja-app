@@ -60,9 +60,16 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         //jabatan
         $routes->get('kelola-jabatan', 'JabatanController::index');
         $routes->post('kelola-jabatan/store', 'JabatanController::store');
+        $routes->get('kelola-jabatan/edit', 'JabatanController::edit');
+        $routes->post('kelola-jabatan/update', 'JabatanController::update');
+        $routes->get('kelola-jabatan/delete/(:num)', 'JabatanController::delete/$1');
 
         //bidang
         $routes->get('kelola-bidang', 'BidangController::index');
+        $routes->post('kelola-bidang/store', 'BidangController::store');
+        $routes->get('kelola-bidang/edit', 'BidangController::edit');
+        $routes->post('kelola-bidang/update', 'BidangController::update');
+        $routes->get('kelola-bidang/delete/(:num)', 'BidangController::delete/$1');
     });
 
     //Routes Pelaksana

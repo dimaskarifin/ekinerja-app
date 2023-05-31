@@ -4,7 +4,7 @@
 <section class="section">
     <div class="card">
         <div class="card-header">
-            <a class="btn icon icon-left btn-primary" data-bs-target="#modalCreate" data-bs-toggle="modal"><i data-feather="edit"></i> Tambah Data Pengawas</a>
+            <a class="btn icon icon-left btn-primary" data-bs-target="#modalCreate" data-bs-toggle="modal"><i data-feather="edit"></i> Tambah Data Bidang</a>
         </div>
         <div class="card-body">
             <table class="table" id="table1">
@@ -25,7 +25,7 @@
                             <td><?= $row['nama_bidang']; ?></td>
                             <td>
                                 <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $row['id'] ?>"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('mandor/kelola-pengawas/delete/' . $row['id']); ?>"><i class="bi bi-trash"></i></a>
+                                <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('mandor/kelola-bidang/delete/' . $row['id']); ?>"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -44,12 +44,12 @@
                     Tambah Data Bidang
                 </h4>
             </div>
-            <form action="<?= base_url('pemilik/users/store') ?>" method="POST">
+            <form action="<?= base_url('mandor/kelola-bidang/store') ?>" method="POST">
                 <?= csrf_field(); ?>
                 <div class="modal-body">
-                    <label>Nama Jabatan</label>
+                    <label>Nama Bidang</label>
                     <div class="form-group">
-                        <input id="nama_jabatan" name="nama_jabatan" type="text" placeholder="Masukkan Nama Jabatan" class="form-control" />
+                        <input id="nama_bidang" name="nama_bidang" type="text" placeholder="Masukkan Nama Bidang" class="form-control" />
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -67,16 +67,16 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel33">
-                    Update Data Jabatan
+                    Update Data Bidang
                 </h4>
             </div>
-            <form action="<?= base_url('pemilik/users/update') ?>" method="POST" enctype="multipart/form-data">
+            <form action="<?= base_url('mandor/kelola-bidang/update') ?>" method="POST" enctype="multipart/form-data">
                 <?= csrf_field(); ?>
                 <div class="modal-body">
                     <input type="hidden" name="id" id="editId">
-                    <label>Nama Jabatan</label>
+                    <label>Nama Bidang</label>
                     <div class="form-group">
-                        <input id="editJabatan" name="nama_jabatan" type="text" placeholder="Masukkan Nama Jabatan" class="form-control" />
+                        <input id="editBidang" name="nama_bidang" type="text" placeholder="Masukkan Nama Bidang" class="form-control" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Tutup</button>
@@ -95,7 +95,7 @@
         var this_id = $(this).data('id');
         $.ajax({
             type: "GET",
-            url: "<?= base_url('pemilik/users/edit'); ?>",
+            url: "<?= base_url('mandor/kelola-bidang/edit'); ?>",
             data: {
                 id: this_id,
             },
@@ -103,8 +103,8 @@
                 $('#modalUpdate').modal('show');
                 var encoded_data = response.data;
                 var decoded_data = JSON.parse(atob(encoded_data));
-                $('#editId').val(decoded_data.users.id);
-                $('#editUsername').val(decoded_data.users.username);
+                $('#editId').val(decoded_data.bidang.id);
+                $('#editBidang').val(decoded_data.bidang.nama_bidang);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('AJAX Error: ');

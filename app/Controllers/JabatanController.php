@@ -60,4 +60,48 @@ class JabatanController extends BaseController
         session()->setFlashdata("success", "Data berhasil ditambahkan");
         return redirect()->to(base_url('mandor/kelola-jabatan'));
     }
+
+    public function edit()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+
+            $data = [
+                'jabatan' => $this->jabatan->getJabatan($id),
+            ];
+            $encoded_data = base64_encode(json_encode($data));
+
+            return $this->response->setContentType('application/json')->setJSON(array('data' => $encoded_data));
+        }
+    }
+
+    public function update()
+    {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->rulesJb());
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('mandor/kelola-jabatan'));
+        }
+
+        $jabatan = [
+            'nama_jabatan' => $data['nama_jabatan'],
+        ];
+        $this->jabatan->updateJabatan($jabatan, $data['id']);
+
+        session()->setFlashdata('success', 'Berhasil memperbarui data');
+        return redirect()->to(base_url('mandor/kelola-jabatan'));
+    }
+
+    public function delete($id)
+    {
+        $this->jabatan->deleteJabatan($id);
+        session()->setFlashdata('success', 'Data berhasil dihapus');
+        return redirect()->to(base_url('mandor/kelola-jabatan'));
+    }
 }
