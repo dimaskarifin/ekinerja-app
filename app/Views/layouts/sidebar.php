@@ -49,21 +49,21 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item <?= uri_string() === 'mandor/kelola-pengawas' ? 'active' : ''; ?>">
                         <a href="<?= base_url('mandor/kelola-pengawas'); ?>" class="sidebar-link">
                             <i class="bi bi-person-vcard"></i>
                             <span>Kelola Pengawas</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item <?= uri_string() === 'mandor/kelola-jabatan' ? 'active' : ''; ?>">
                         <a href="<?= base_url('mandor/kelola-jabatan'); ?>" class="sidebar-link">
                             <i class="bi bi-credit-card-2-back-fill"></i>
                             <span>Kelola Jabatan</span>
                         </a>
                     </li>
 
-                    <li class="sidebar-item">
+                    <li class="sidebar-item <?= uri_string() === 'mandor/kelola-bidang' ? 'active' : ''; ?>">
                         <a href="<?= base_url('mandor/kelola-bidang'); ?>" class="sidebar-link">
                             <i class="bi bi-filter-square-fill"></i>
                             <span>Kelola Bidang</span>
