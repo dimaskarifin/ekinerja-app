@@ -50,21 +50,21 @@
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="table.html" class="sidebar-link">
+                        <a href="<?= base_url('mandor/kelola-pengawas'); ?>" class="sidebar-link">
                             <i class="bi bi-person-vcard"></i>
                             <span>Kelola Pengawas</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="table.html" class="sidebar-link">
+                        <a href="<?= base_url('mandor/kelola-jabatan'); ?>" class="sidebar-link">
                             <i class="bi bi-credit-card-2-back-fill"></i>
                             <span>Kelola Jabatan</span>
                         </a>
                     </li>
 
                     <li class="sidebar-item">
-                        <a href="table.html" class="sidebar-link">
+                        <a href="<?= base_url('mandor/kelola-bidang'); ?>" class="sidebar-link">
                             <i class="bi bi-filter-square-fill"></i>
                             <span>Kelola Bidang</span>
                         </a>
@@ -73,26 +73,42 @@
 
                 <?php if (session()->get('role') === 'pelaksana') : ?>
                     <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-tukang' ? 'active' : ''; ?>">
-                        <a href="<?= base_url('mandor/kelola-tukang'); ?>" class="sidebar-link">
+                        <a href="<?= base_url('pelaksana/kelola-tukang'); ?>" class="sidebar-link">
                             <i class="bi bi-person-badge-fill"></i>
                             <span>Kelola Tukang</span>
                         </a>
                     </li>
                 <?php endif ?>
 
-                <li class="sidebar-title">Laporan</li>
+                <li class="sidebar-title">Manajemen Kinerja</li>
 
                 <li class="sidebar-item">
                     <a href="table.html" class="sidebar-link">
-                        <i class="bi bi-file-earmark-person"></i>
-                        <span>Profile Users</span>
+                        <i class="bi bi-clipboard2-fill"></i>
+                        <span>Kelola Kegiatan</span>
                     </a>
                 </li>
 
                 <li class="sidebar-item">
-                    <a href="<?= base_url('logout'); ?>" class="sidebar-link">
-                        <i class="bi bi-box-arrow-right"></i>
-                        <span>Sign Out</span>
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-clipboard2-data-fill"></i>
+                        <span>Kelola E-Kinerja</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-title">Pelaporan</li>
+
+                <li class="sidebar-item">
+                    <a href="table.html" class="sidebar-link">
+                        <i class="bi bi-calendar2-date-fill"></i>
+                        <span>Laporan Harian</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a href="#" class="sidebar-link">
+                        <i class="bi bi-calendar2-month-fill"></i>
+                        <span>Laporan Bulanan</span>
                     </a>
                 </li>
 
@@ -111,218 +127,6 @@
                     <a href="<?= base_url('logout'); ?>" class="sidebar-link">
                         <i class="bi bi-box-arrow-right"></i>
                         <span>Sign Out</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item has-sub active">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-pentagon-fill"></i>
-                        <span>Widgets</span>
-                    </a>
-
-                    <ul class="submenu active">
-                        <li class="submenu-item active">
-                            <a href="ui-widgets-chatbox.html" class="submenu-link">Chatbox</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="ui-widgets-pricing.html" class="submenu-link">Pricing</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="ui-widgets-todolist.html" class="submenu-link">To-do List</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-egg-fill"></i>
-                        <span>Icons</span>
-                    </a>
-
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="ui-icons-bootstrap-icons.html" class="submenu-link">Bootstrap Icons
-                            </a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="ui-icons-fontawesome.html" class="submenu-link">Fontawesome</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="ui-icons-dripicons.html" class="submenu-link">Dripicons</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-bar-chart-fill"></i>
-                        <span>Charts</span>
-                    </a>
-
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="ui-chart-chartjs.html" class="submenu-link">ChartJS</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="ui-chart-apexcharts.html" class="submenu-link">Apexcharts</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="ui-file-uploader.html" class="sidebar-link">
-                        <i class="bi bi-cloud-arrow-up-fill"></i>
-                        <span>File Uploader</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-map-fill"></i>
-                        <span>Maps</span>
-                    </a>
-
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="ui-map-google-map.html" class="submenu-link">Google Map</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="ui-map-jsvectormap.html" class="submenu-link">JS Vector Map</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-three-dots"></i>
-                        <span>Multi-level Menu</span>
-                    </a>
-
-                    <ul class="submenu">
-                        <li class="submenu-item has-sub">
-                            <a href="#" class="submenu-link">First Level</a>
-
-                            <ul class="submenu submenu-level-2">
-                                <li class="submenu-item">
-                                    <a href="ui-multi-level-menu.html" class="submenu-link">Second Level</a>
-                                </li>
-
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-link">Second Level Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-
-                        <li class="submenu-item has-sub">
-                            <a href="#" class="submenu-link">Another Menu</a>
-
-                            <ul class="submenu submenu-level-2">
-                                <li class="submenu-item">
-                                    <a href="#" class="submenu-link">Second Level Menu</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-title">Pages</li>
-
-                <li class="sidebar-item">
-                    <a href="application-email.html" class="sidebar-link">
-                        <i class="bi bi-envelope-fill"></i>
-                        <span>Email Application</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="application-chat.html" class="sidebar-link">
-                        <i class="bi bi-chat-dots-fill"></i>
-                        <span>Chat Application</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="application-gallery.html" class="sidebar-link">
-                        <i class="bi bi-image-fill"></i>
-                        <span>Photo Gallery</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="application-checkout.html" class="sidebar-link">
-                        <i class="bi bi-basket-fill"></i>
-                        <span>Checkout Page</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-person-badge-fill"></i>
-                        <span>Authentication</span>
-                    </a>
-
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="auth-login.html" class="submenu-link">Login</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="auth-register.html" class="submenu-link">Register</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="auth-forgot-password.html" class="submenu-link">Forgot Password</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-item has-sub">
-                    <a href="#" class="sidebar-link">
-                        <i class="bi bi-x-octagon-fill"></i>
-                        <span>Errors</span>
-                    </a>
-
-                    <ul class="submenu">
-                        <li class="submenu-item">
-                            <a href="error-403.html" class="submenu-link">403</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="error-404.html" class="submenu-link">404</a>
-                        </li>
-
-                        <li class="submenu-item">
-                            <a href="error-500.html" class="submenu-link">500</a>
-                        </li>
-                    </ul>
-                </li>
-
-                <li class="sidebar-title">Raise Support</li>
-
-                <li class="sidebar-item">
-                    <a href="https://zuramai.github.io/mazer/docs" class="sidebar-link">
-                        <i class="bi bi-life-preserver"></i>
-                        <span>Documentation</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class="sidebar-link">
-                        <i class="bi bi-puzzle"></i>
-                        <span>Contribute</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a href="https://github.com/zuramai/mazer#donation" class="sidebar-link">
-                        <i class="bi bi-cash"></i>
-                        <span>Donate</span>
                     </a>
                 </li>
             </ul>

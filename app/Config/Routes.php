@@ -45,6 +45,24 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
         //Users
         $routes->get('kelola-users', 'UsersController::index');
+        $routes->post('kelola-users/store', 'UsersController::store');
+        $routes->get('kelola-users/edit', 'UsersController::editMandor');
+        $routes->post('kelola-users/update', 'UsersController::updateMandor');
+        $routes->get('kelola-users/delete/(:num)', 'UsersController::delete/$1');
+
+        //pengawas
+        $routes->get('kelola-pengawas', 'PengawasController::index');
+        $routes->post('kelola-pengawas/store', 'PengawasController::store');
+        $routes->get('kelola-pengawas/edit', 'PengawasController::edit');
+        $routes->post('kelola-pengawas/update', 'PengawasController::update');
+        $routes->get('kelola-pengawas/delete/(:num)', 'PengawasController::delete/$1');
+
+        //jabatan
+        $routes->get('kelola-jabatan', 'JabatanController::index');
+        $routes->post('kelola-jabatan/store', 'JabatanController::store');
+
+        //bidang
+        $routes->get('kelola-bidang', 'BidangController::index');
     });
 
     //Routes Pelaksana

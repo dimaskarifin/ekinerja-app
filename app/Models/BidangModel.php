@@ -55,22 +55,22 @@ class BidangModel extends Model
 
     public function getBidang($id)
     {
-        $this->where(['id' => $id])->first();
+        return $this->where(['id' => $id])->first();
     }
     public function getBidangs()
     {
-        $this->orderBy('updated_at', 'desc');
+        return $this->orderBy('updated_at', 'desc')->findAll();
     }
     public function insertBidang($data)
     {
-        $this->insert($data);
+        return $this->insert($data);
     }
     public function updateBidang($data, $id)
     {
-        $this->update($id, $data);
+        return $this->update($id, $data);
     }
     public function deleteBidang($id)
     {
-        $this->delete($id);
+        return $this->delete($id);
     }
 }

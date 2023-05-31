@@ -40,8 +40,8 @@
                             <td><?= $val->nama_jabatan; ?></td>
                             <td><?= $val->nama_bidang; ?></td>
                             <td>
-                                <a class="btn icon icon-left btn-warning" id="btnEdit" data-id="<?= $val->id ?>"><i data-feather="alert-triangle"></i> Update User</a>
-                                <a class="btn icon icon-left btn-danger" id="btnDelete" data-id="<?= base_url('pemilik/users/delete/' . $val->id); ?>"><i data-feather="alert-circle"></i> Delete User</a>
+                                <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $val->id_users ?>"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('mandor/kelola-users/delete/' . $val->id_users); ?>"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -51,29 +51,90 @@
     </div>
 </section>
 
-<!--modal Create Users -->
+<!--Modal Create -->
 <div class="modal fade text-left" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel33">
-                    Create User
+                    Tambah Data Users
                 </h4>
             </div>
-            <form action="<?= base_url('pemilik/users/store') ?>" method="POST">
-                <?= csrf_field(); ?>
+            <form action="<?= base_url('mandor/kelola-users/store') ?>" method="POST" enctype="multipart/form-data" files="true">
+                <?= csrf_field() ?>
                 <div class="modal-body">
-                    <label>Username</label>
-                    <div class="form-group">
-                        <input id="username" name="username" type="text" placeholder="Username" class="form-control" />
-                    </div>
-                    <label for="password">Kata Sandi: </label>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Kata Sandi" class="form-control" required />
-                    </div>
-                    <label>Role User: </label>
-                    <div class="form-group">
-                        <input id="role" name="role" type="text" placeholder="Role User" class="form-control" value="admin" readonly />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>NIK</label>
+                            <div class="form-group">
+                                <input id="addNIK" name="nik" type="number" placeholder="Masukkan NIK" class="form-control" pattern="/^-?\d+\.?\d*$/" onkeypress="if(this.value.length==16) return false;">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama</label>
+                            <div class="form-group">
+                                <input id="addNama" name="nama" type="text" placeholder="Masukkan Nama" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Password</label>
+                            <div class="form-group">
+                                <input id="addPassword" name="password" type="password" placeholder="Masukkan Password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Role</label>
+                            <div class="form-group">
+                                <select name="role" id="addRole" class="selectize">
+                                    <option value=""></option>
+                                    <option value="mandor">Mandor</option>
+                                    <option value="pelaksana">Pelaksana</option>
+                                    <option value="tukang">Tukang</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Foto User</label>
+                            <div class="form-group">
+                                <input id="addFoto" name="foto" type="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama Pengawas</label>
+                            <div class="form-group">
+                                <select name="pengawas_id" id="addPengawas" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($pengawas as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_pengawas']; ?>">
+                                            <?= $row['nama_pengawas'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama Jabatan</label>
+                            <div class="form-group">
+                                <select name="jabatan_id" id="addJabatan" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($jabatan as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_jabatan']; ?>">
+                                            <?= $row['nama_jabatan'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama Bidang</label>
+                            <div class="form-group">
+                                <select name="bidang_id" id="addBidang" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($bidang as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_bidang']; ?>">
+                                            <?= $row['nama_bidang'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -91,24 +152,85 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel33">
-                    Update Data User
+                    Update Data Users
                 </h4>
             </div>
-            <form action="<?= base_url('pemilik/users/update') ?>" method="POST" enctype="multipart/form-data">
-                <?= csrf_field(); ?>
+            <form action="<?= base_url('mandor/kelola-users/update') ?>" method="POST" enctype="multipart/form-data" files="true">
+                <?= csrf_field() ?>
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="editId">
-                    <label>Username</label>
-                    <div class="form-group">
-                        <input id="editUsername" name="username" type="text" placeholder="Username" class="form-control" />
-                    </div>
-                    <label for="password">Kata Sandi: </label>
-                    <div class="form-group">
-                        <input type="password" id="editPassword" name="password" placeholder="Masukkan Kata Sandi Baru" class="form-control" required />
-                    </div>
-                    <label>Role User: </label>
-                    <div class="form-group">
-                        <input id="editRole" name="role" type="text" placeholder="Role User" class="form-control" value="admin" readonly />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <input type="hidden" id="editId" name="id">
+                            <label>NIK</label>
+                            <div class="form-group">
+                                <input id="editNIK" name="nik" type="number" placeholder="Masukkan NIK" class="form-control" pattern="/^-?\d+\.?\d*$/" onkeypress="if(this.value.length==16) return false;">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama</label>
+                            <div class="form-group">
+                                <input id="editNama" name="nama" type="text" placeholder="Masukkan Nama" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Password</label>
+                            <div class="form-group">
+                                <input id="editPassword" name="password" type="password" placeholder="Masukkan Password" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Role</label>
+                            <div class="form-group">
+                                <select name="role" id="editRole" class="selectize">
+                                    <option value=""></option>
+                                    <option value="mandor">Mandor</option>
+                                    <option value="pelaksana">Pelaksana</option>
+                                    <option value="tukang">Tukang</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Foto User</label>
+                            <div class="form-group">
+                                <input id="editFoto" name="foto" type="file" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama Pengawas</label>
+                            <div class="form-group">
+                                <select name="pengawas_id" id="editPengawas" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($pengawas as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_pengawas']; ?>">
+                                            <?= $row['nama_pengawas'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama Jabatan</label>
+                            <div class="form-group">
+                                <select name="jabatan_id" id="editJabatan" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($jabatan as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_jabatan']; ?>">
+                                            <?= $row['nama_jabatan'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama Bidang</label>
+                            <div class="form-group">
+                                <select name="bidang_id" id="editBidang" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($bidang as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_bidang']; ?>">
+                                            <?= $row['nama_bidang'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -124,11 +246,59 @@
 <?= $this->section('script'); ?>
 <?= $this->include('layouts/message-alert'); ?>
 <script>
+    const lightbox = GLightbox({
+        selector: '.glightbox'
+    });
+
+    $(function() {
+        $('#addPengawas').selectize({
+            placeholder: 'Pilih Pengawas',
+            searchField: 'label',
+            searchField: ["nama_pengawas"],
+        });
+        $('#addRole').selectize({
+            placeholder: 'Pilih Role',
+            searchField: 'label',
+        });
+        $('#addJabatan').selectize({
+            placeholder: 'Pilih Jabatan',
+            searchField: 'label',
+        });
+        $('#addBidang').selectize({
+            placeholder: 'Pilih Bidang',
+            searchField: 'label',
+        });
+        $('#addPengawas').selectize({
+            placeholder: 'Pilih Pengawas',
+            searchField: 'label',
+            searchField: ["nama_pengawas"],
+        });
+        $('#editRole').selectize({
+            placeholder: 'Pilih Role',
+            searchField: 'label',
+        });
+        $('#editPengawas').selectize({
+            placeholder: 'Pilih Pengawas',
+            searchField: 'label',
+            searchField: ["nama_pengawas"],
+        });
+        $('#editJabatan').selectize({
+            placeholder: 'Pilih Jabatan',
+            searchField: 'label',
+        });
+        $('#editBidang').selectize({
+            placeholder: 'Pilih Bidang',
+            searchField: 'label',
+        });
+    })
+
+
     $('body').on('click', '#btnEdit', function() {
         var this_id = $(this).data('id');
+        // alert(this_id);
         $.ajax({
             type: "GET",
-            url: "<?= base_url('pemilik/users/edit'); ?>",
+            url: "<?= base_url('mandor/kelola-users/edit'); ?>",
             data: {
                 id: this_id,
             },
@@ -136,9 +306,14 @@
                 $('#modalUpdate').modal('show');
                 var encoded_data = response.data;
                 var decoded_data = JSON.parse(atob(encoded_data));
-                $('#editId').val(decoded_data.users.id);
-                $('#editUsername').val(decoded_data.users.username);
-                $('#editRole').val(decoded_data.users.role);
+                console.log(decoded_data);
+                $('#editId').val(decoded_data.users[0].id);
+                $('#editNIK').val(decoded_data.users[0].nik);
+                $('#editNama').val(decoded_data.users[0].nama);
+                $('#editRole')[0].selectize.setValue(decoded_data.users[0].role);
+                $('#editPengawas')[0].selectize.setValue(decoded_data.users[0].pengawas_id);
+                $('#editJabatan')[0].selectize.setValue(decoded_data.users[0].jabatan_id);
+                $('#editBidang')[0].selectize.setValue(decoded_data.users[0].bidang_id);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('AJAX Error: ');

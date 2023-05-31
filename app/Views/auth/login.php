@@ -101,7 +101,7 @@
                             <?= $this->include('auth/message-block'); ?>
                             <div class="mb-3">
                                 <label for="nik" class="form-label">NIK</label>
-                                <input type="number" class="form-control" id="nik" name="nik" placeholder="Masukkan NIK" autofocus />
+                                <input type="number" class="form-control" id="nik" name="nik" placeholder="Masukkan NIK" autofocus pattern="/^-?\d+\.?\d*$/" onkeypress="if(this.value.length==16) return false;" />
                             </div>
                             <div class="mb-3 form-password-toggle">
                                 <div class="d-flex justify-content-between">

@@ -55,7 +55,7 @@ class JabatanModel extends Model
 
     public function getJabatan($id)
     {
-        $this->where(['id' => $id])->first();
+        return $this->where(['id' => $id])->first();
     }
 
     public function getJabatans()

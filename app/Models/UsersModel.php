@@ -57,18 +57,34 @@ class UsersModel extends Model
     public function getDetails()
     {
         $builder = $this->db->table('users');
-        $builder->join('pengawas', 'pengawas.id = users.pengawas_id')
+        $builder->select('users.*, users.id as id_users, pengawas.*, jabatan.*, bidang.*')
+            ->join('pengawas', 'pengawas.id = users.pengawas_id')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
-            ->join('bidang', 'bidang.id = users.bidang_id');
+            ->join('bidang', 'bidang.id = users.bidang_id')
+            ->where('users.deleted_at', null);
         $query = $builder->get();
         return $query->getResult();
     }
     public function getDetailTukang()
     {
         $builder = $this->db->table('users');
-        $builder->join('pengawas', 'pengawas.id = users.pengawas_id')
+        $builder->select('users.*, users.id as id_users, pengawas.*, jabatan.*, bidang.*')
+            ->join('pengawas', 'pengawas.id = users.pengawas_id')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
             ->join('bidang', 'bidang.id = users.bidang_id')->where('role', 'tukang');
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
+    //users model
+    public function getDetailEdit($id)
+    {
+        $builder = $this->db->table('users');
+        $builder->select('users.*, users.id as id_users, pengawas.*, jabatan.*, bidang.*')
+            ->join('pengawas', 'pengawas.id = users.pengawas_id')
+            ->join('jabatan', 'jabatan.id = users.jabatan_id')
+            ->join('bidang', 'bidang.id = users.bidang_id')
+            ->where('users.id', $id);
         $query = $builder->get();
         return $query->getResult();
     }
@@ -93,14 +109,6 @@ class UsersModel extends Model
 
     public function deleteUser($id)
     {
-        $data = $this->find($id);
-
-        if ($data) {
-            $this->delete($id);
-            $path = ROOTPATH . 'public/assets/image' . $data['foto'];
-            if (file_exists($path)) {
-                unlink($path);
-            }
-        }
+        return $this->delete($id);
     }
 }
