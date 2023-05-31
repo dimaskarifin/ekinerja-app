@@ -70,6 +70,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-bidang/edit', 'BidangController::edit');
         $routes->post('kelola-bidang/update', 'BidangController::update');
         $routes->get('kelola-bidang/delete/(:num)', 'BidangController::delete/$1');
+
+        //Kegiatan
+        $routes->get('kelola-kegiatan', 'KegiatanController::index');
+        $routes->post('kelola-kegiatan/store', 'KegiatanController::store');
     });
 
     //Routes Pelaksana
