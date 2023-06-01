@@ -80,4 +80,53 @@ class KegiatanController extends BaseController
         session()->setFlashdata("success", "Berhasil menambahkan data");
         return redirect()->to(base_url('mandor/kelola-kegiatan'));
     }
+
+    public function edit()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+
+            $data = [
+                'kegiatan' => $this->kegiatan->editDetailKegiatan($id)
+            ];
+
+            $encoded_data = base64_encode(json_encode($data));
+            return $this->response->setContentType('application/json')
+                ->setJSON(array('data' => $encoded_data));
+        }
+    }
+    public function update()
+    {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->rulesKG());
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('mandor/kelola-kegiatan'));
+        }
+
+        $dataKG = [
+            'id_users' => $data['id_users'],
+            'uraian_kegiatan' => $data['uraian_kegiatan'],
+            'satuan' => $data['satuan'],
+            'target' => $data['target']
+        ];
+
+        $this->kegiatan->updateKegiatan($dataKG, $data['id']);
+
+        session()->setFlashdata('success', 'Berhasil memperbarui data');
+        return redirect()->to(base_url('mandor/kelola-kegiatan'));
+    }
+
+    public function delete($id)
+    {
+        $this->kegiatan->deleteKegiatan($id);
+
+        session()->setFlashdata('success', 'Data berhasil dihapus');
+        return redirect()->to(base_url('mandor/kelola-kegiatan'));
+    }
 }

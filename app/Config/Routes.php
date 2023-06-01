@@ -74,6 +74,9 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         //Kegiatan
         $routes->get('kelola-kegiatan', 'KegiatanController::index');
         $routes->post('kelola-kegiatan/store', 'KegiatanController::store');
+        $routes->get('kelola-kegiatan/edit', 'KegiatanController::edit');
+        $routes->post('kelola-kegiatan/update', 'KegiatanController::update');
+        $routes->get('kelola-kegiatan/delete/(:num)', 'KegiatanController::delete/$1');
     });
 
     //Routes Pelaksana

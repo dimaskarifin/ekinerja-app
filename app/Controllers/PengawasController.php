@@ -94,6 +94,7 @@ class PengawasController extends BaseController
         ];
 
         $this->pengawas->updatePengawas($pengawas, $data['id']);
+
         session()->setFlashdata('success', 'Berhasil memperbarui data pengawas');
         return redirect()->to(base_url('mandor/kelola-pengawas'));
     }
@@ -101,6 +102,7 @@ class PengawasController extends BaseController
     public function delete($id)
     {
         $this->pengawas->deletePengawas($id);
+
         session()->setFlashdata('success', 'Data berhasil dihapus');
         return redirect()->to(base_url('mandor/kelola-pengawas'));
     }

@@ -64,7 +64,17 @@ class KegiatanModel extends Model
             ->where('kegiatan.deleted_at', null);
 
         $query = $builder->get();
-        return $query->getResultObject();
+        return $query->getResult();
+    }
+
+    public function editDetailKegiatan($id)
+    {
+        $builder = $this->db->table('kegiatan');
+        $builder->select('kegiatan.*, kegiatan.id as id_kegiatan, users.nama')
+            ->join('users', 'users.id = kegiatan.id_users')
+            ->where('kegiatan.id', $id);
+        $query = $builder->get();
+        return $query->getResult();
     }
 
     public function getKegiatan($id)
