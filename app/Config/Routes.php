@@ -41,6 +41,21 @@ $routes->get('errors', 'AuthController::errors');
 $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('dashboard', 'DashboardController');
 
+
+    //Kegiatan
+    $routes->get('kelola-kegiatan', 'KegiatanController::index');
+    $routes->post('kelola-kegiatan/store', 'KegiatanController::store');
+    $routes->get('kelola-kegiatan/edit', 'KegiatanController::edit');
+    $routes->post('kelola-kegiatan/update', 'KegiatanController::update');
+    $routes->get('kelola-kegiatan/delete/(:num)', 'KegiatanController::delete/$1');
+
+    //kinerja
+    $routes->get('kelola-ekinerja', 'EkinerjaController::index');
+    $routes->post('kelola-ekinerja/store', 'EkinerjaController::store');
+
+    //profileUser
+    $routes->get('profile-user', 'ProfileUser::index');
+
     //Routes Mandor
     $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
         //Users
@@ -70,13 +85,6 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-bidang/edit', 'BidangController::edit');
         $routes->post('kelola-bidang/update', 'BidangController::update');
         $routes->get('kelola-bidang/delete/(:num)', 'BidangController::delete/$1');
-
-        //Kegiatan
-        $routes->get('kelola-kegiatan', 'KegiatanController::index');
-        $routes->post('kelola-kegiatan/store', 'KegiatanController::store');
-        $routes->get('kelola-kegiatan/edit', 'KegiatanController::edit');
-        $routes->post('kelola-kegiatan/update', 'KegiatanController::update');
-        $routes->get('kelola-kegiatan/delete/(:num)', 'KegiatanController::delete/$1');
     });
 
     //Routes Pelaksana

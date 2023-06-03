@@ -77,8 +77,7 @@ class UsersController extends BaseController
             'bidang' => $this->bidang->getBidangs()
         ];
 
-        // var_dump($data['users']);
-        // die;
+        dd($data['users']);
 
         return view('mandor/users/index', $data);
     }

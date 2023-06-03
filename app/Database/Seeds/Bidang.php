@@ -10,13 +10,13 @@ class Bidang extends Seeder
     {
         $bidang = [
             [
-                'nama_bidang' => 'Bidang Operational',
+                'nama_bidang' => 'Konstruksi Bangunan',
             ],
             [
-                'nama_bidang' => 'Bidang Kejuruan',
+                'nama_bidang' => 'Konstruksi Teknik',
             ],
             [
-                'nama_bidang' => 'Bidang Onderdil',
+                'nama_bidang' => 'Konstruksi Industri',
             ],
         ];
 

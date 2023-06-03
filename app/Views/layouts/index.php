@@ -19,7 +19,6 @@
         href="<?= base_url(); ?>/admin/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/admin/assets/css/pages/fontawesome.min.css" />
 
-    <link rel="stylesheet" href="<?= base_url('assets/library/bs-datepicker/bootstrap-datepicker.min.css') ?>">
     <link rel="stylesheet"
         href="<?= base_url(); ?>admin/assets/extensions/choices.js/public/assets/styles/choices.css" />
 
@@ -82,7 +81,6 @@
     <!-- select choice -->
     <script src="<?= base_url(); ?>admin/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="<?= base_url(); ?>admin/assets/js/pages/form-element-select.js"></script>
-
     <script>
     $(document).ready(function() {
         /* Get data table */

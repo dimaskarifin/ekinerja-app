@@ -4,7 +4,7 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class PengawasModel extends Model
+class EkinerjaModel extends Model
 {
 
     public function __construct()
@@ -12,7 +12,7 @@ class PengawasModel extends Model
 
         parent::__construct();
         //get all fields array
-        $fields = $this->db->getFieldNames('pengawas');
+        $fields = $this->db->getFieldNames('ekinerja');
 
         //build the fields to array
         foreach ($fields as $field) {
@@ -22,7 +22,8 @@ class PengawasModel extends Model
         }
     }
 
-    protected $table            = 'pengawas';
+    protected $DBGroup          = 'default';
+    protected $table            = 'ekinerja';
     protected $primaryKey       = 'id';
     protected $useAutoIncrement = true;
     protected $returnType       = 'array';
@@ -53,25 +54,30 @@ class PengawasModel extends Model
     protected $beforeDelete   = [];
     protected $afterDelete    = [];
 
-    public function getPengawas($id)
+    public function getDetailKinerja()
     {
-        return $this->where(['id' => $id])->first();
+        $builder = $this->db->table('ekinerja');
+        $builder->select('ekinerja.*, ekinerja.id as id_ekinerja, users.nama, kegiatan.uraian_kegiatan')
+            ->join('users', 'users.id = ekinerja.id_users')
+            ->join('kegiatan', 'kegiatan.id = ekinerja.id_kegiatan')
+            ->where('ekinerja.deleted_at', null);
+
+        $query = $builder->get();
+        return $query->getResult();
     }
 
-    public function getAllPengawas()
+    public function insertEkinerja($data)
     {
-        return $this->orderBy('updated_at', 'desc')->findAll();
+        return $this->insert($data);
     }
-    public function insertPengawas($data)
+
+    public function updateEkinerja($data, $id)
     {
-        $this->insert($data);
+        return $this->update($id, $data);
     }
-    public function updatePengawas($data, $id)
+
+    public function deleteEkinerja($id)
     {
-        $this->update($id, $data);
-    }
-    public function deletePengawas($id)
-    {
-        $this->delete($id);
+        return $this->delete($id);
     }
 }

@@ -10,13 +10,10 @@ class Pengawas extends Seeder
     {
         $pengawas = [
             [
-                'nama_pengawas' => 'Ir.Keren Banget',
+                'nama_pengawas' => 'Sutiyono',
             ],
             [
-                'nama_pengawas' => 'Dr.Semangat',
-            ],
-            [
-                'nama_pengawas' => 'Dr.Semngat',
+                'nama_pengawas' => 'Suryono',
             ],
         ];
 

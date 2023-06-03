@@ -61,7 +61,8 @@ class UsersModel extends Model
             ->join('pengawas', 'pengawas.id = users.pengawas_id')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
             ->join('bidang', 'bidang.id = users.bidang_id')
-            ->where('users.deleted_at', null);
+            ->where('users.deleted_at', null)
+            ->orderBy('users.updated_at', 'desc');
         $query = $builder->get();
         return $query->getResult();
     }

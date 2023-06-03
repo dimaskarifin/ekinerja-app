@@ -10,13 +10,22 @@ class Jabatan extends Seeder
     {
         $jabatan = [
             [
-                'nama_jabatan' => 'ketua',
+                'nama_jabatan' => 'Tukang',
             ],
             [
-                'nama_jabatan' => 'sekretaris',
+                'nama_jabatan' => 'Sopir',
             ],
             [
-                'nama_jabatan' => 'bendahara',
+                'nama_jabatan' => 'Pelaksana',
+            ],
+            [
+                'nama_jabatan' => 'Operator',
+            ],
+            [
+                'nama_jabatan' => 'Mandor',
+            ],
+            [
+                'nama_jabatan' => 'Tenaga Kebersihan',
             ],
         ];
 
