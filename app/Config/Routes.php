@@ -55,9 +55,11 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
 
     //profileUser
     $routes->get('profile-user', 'ProfileUser::index');
+    $routes->post('profile-user/(:num)', 'ProfileUser::update/$1');
 
     //laporan
     $routes->get('laporan', 'LaporanController::index');
+    $routes->get('laporan/export-pdf', 'LaporanController::exportPdf');
 
     //Routes Mandor
     $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
