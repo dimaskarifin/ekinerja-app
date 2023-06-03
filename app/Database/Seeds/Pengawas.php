@@ -15,6 +15,9 @@ class Pengawas extends Seeder
             [
                 'nama_pengawas' => 'Suryono',
             ],
+            [
+                'nama_pengawas' => 'Pelaksana',
+            ],
         ];
 
         $this->db->table('pengawas')->insertBatch($pengawas);

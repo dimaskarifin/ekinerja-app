@@ -8,6 +8,11 @@ class Users extends Seeder
 {
     public function run()
     {
+        /**
+         * pengawas id 1 = Sutiyono
+         * pengawas id 2 = Suryono
+         * pengawas id 3 = Pelaksana
+         * */ 
         $user = [
             [
                 'nik' => 3506220101610010,
@@ -15,7 +20,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'mandor',
                 'foto' => 'Imam.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 1,
                 'jabatan_id' => 5,
                 'bidang_id' => 3,
             ],
@@ -35,7 +40,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'pelaksana',
                 'foto' => 'Sutiyono.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 1,
                 'jabatan_id' => 3,
                 'bidang_id' => 3,
             ],
@@ -55,7 +60,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'tukang',
                 'foto' => 'Puji.jpeg',
-                'pengawas_id' => 2,
+                'pengawas_id' => 1,
                 'jabatan_id' => 1,
                 'bidang_id' => 2,
             ],
@@ -65,7 +70,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'tukang',
                 'foto' => 'Samiaji.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 1,
                 'jabatan_id' => 2,
                 'bidang_id' => 3,
             ],
@@ -75,7 +80,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'tukang',
                 'foto' => 'Kuswandi.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 1,
                 'jabatan_id' => 2,
                 'bidang_id' => 3,
             ],
@@ -85,7 +90,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'tukang',
                 'foto' => 'Eko.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 1,
                 'jabatan_id' => 1,
                 'bidang_id' => 3,
             ],
@@ -95,7 +100,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'tukang',
                 'foto' => 'Kurnia.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 2,
                 'jabatan_id' => 2,
                 'bidang_id' => 3,
             ],
@@ -105,7 +110,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'tukang',
                 'foto' => 'Wijianto.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 1,
                 'jabatan_id' => 4,
                 'bidang_id' => 3,
             ],
@@ -115,7 +120,7 @@ class Users extends Seeder
                 'password' => password_hash('12345678', PASSWORD_DEFAULT),
                 'role' => 'tukang',
                 'foto' => 'Jaelani.jpeg',
-                'pengawas_id' => 3,
+                'pengawas_id' => 2,
                 'jabatan_id' => 2,
                 'bidang_id' => 3,
             ],
