@@ -56,6 +56,9 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     //profileUser
     $routes->get('profile-user', 'ProfileUser::index');
 
+    //laporan
+    $routes->get('laporan', 'LaporanController::index');
+
     //Routes Mandor
     $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
         //Users
