@@ -78,6 +78,9 @@
     <script src="<?= base_url('assets/library/sweetalert2/sweetalert2.min.js') ?>"></script>
     <script src="<?= base_url('assets/library/glightbox/js/glightbox.min.js') ?>"></script>
 
+    <!-- chart js -->
+    <script src="<?= base_url('assets/library/chartjs/chart.min.js') ?>"></script>
+
     <!-- select choice -->
     <script src="<?= base_url(); ?>admin/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="<?= base_url(); ?>admin/assets/js/pages/form-element-select.js"></script>
