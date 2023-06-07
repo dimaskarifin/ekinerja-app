@@ -72,7 +72,10 @@ class UsersModel extends Model
         $builder->select('users.*, users.id as id_users, pengawas.*, jabatan.*, bidang.*')
             ->join('pengawas', 'pengawas.id = users.pengawas_id')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
-            ->join('bidang', 'bidang.id = users.bidang_id')->where('role', 'tukang');
+            ->join('bidang', 'bidang.id = users.bidang_id')
+            ->where('users.deleted_at', null)
+            ->where('role', 'tukang')
+            ->orderBy('users.updated_at', 'desc');
         $query = $builder->get();
         return $query->getResult();
     }
@@ -87,6 +90,7 @@ class UsersModel extends Model
             ->join('bidang', 'bidang.id = users.bidang_id')
             ->where('users.id', $id);
         $query = $builder->get();
+        
         return $query->getResult();
     }
 

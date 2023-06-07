@@ -2,9 +2,11 @@
 
 namespace App\Filters;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use Sabberworm\CSS\Value\URL;
 
 class PelaksanaFilter implements FilterInterface
 {
@@ -31,7 +33,8 @@ class PelaksanaFilter implements FilterInterface
         }
 
         if ($session->get('role') !== 'pelaksana') {
-            return redirect()->to(base_url('errors'));
+            throw PageNotFoundException::forPageNotFound();
+            // return redirect()->to(base_url('errors'));
         }
     }
 

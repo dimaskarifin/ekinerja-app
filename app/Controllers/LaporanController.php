@@ -42,10 +42,12 @@ class LaporanController extends BaseController
 
         $dompdf = new Dompdf();
 
+        $mandor = $this->user->where('role', 'mandor')->first();
+
         $data = [];
         $data['kinerjas'] = $this->ekinerja->getLaporan($get_data);
-        $data['nik_mandor'] = session('nik');
-        $data['mandor'] = session('nama');
+        $data['nik_mandor'] = $mandor['nik'];
+        $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;
         $data['tanggal'] = $tanggal;
         $data['tanggal_sekarang'] = $tanggal_sekarang;

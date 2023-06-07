@@ -96,8 +96,12 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->group('pelaksana', ['filter' => 'PelaksanaFilter'], function ($routes) {
         //data Tukang
         $routes->get('kelola-tukang', 'UsersController::indexPelaksana');
+        $routes->post('kelola-tukang/store', 'UsersController::storePelaksana');
+        $routes->get('kelola-tukang/edit', 'UsersController::editMandor');
+        $routes->post('kelola-tukang/update', 'UsersController::updatePelaksana');
+        $routes->get('kelola-tukang/delete/(:num)', 'UsersController::deletePelaksana/$1');
     });
-
+    
     //Routes Tukang
     $routes->group('tukang', ['filter' => 'TukangFilter'], function ($routes) {
         //data Tukang

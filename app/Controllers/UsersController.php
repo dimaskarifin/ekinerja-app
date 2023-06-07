@@ -126,22 +126,18 @@ class UsersController extends BaseController
         return redirect()->to(base_url('mandor/kelola-users'));
     }
 
-    public function storePelaksana()
-    {
-        //mengambil semua request
-        $data = $this->request->getPost();
-    }
-
     public function editMandor()
     {
+        $id = $this->request->getVar('id');
+
         if ($this->request->isAJAX()) {
-            $id = $this->request->getVar('id');
 
             $data = [
                 'users' => $this->users->getDetailEdit($id),
             ];
 
             $encoded_data = base64_encode(json_encode($data));
+            
             return $this->response->setContentType('application/json')
                 ->setJSON(array('data' => $encoded_data));
         }
@@ -206,10 +202,111 @@ class UsersController extends BaseController
 
         $this->users->updateUser($dataUser, $data['id']);
         return redirect()->to(base_url('mandor/kelola-users'));
+    
     }
 
-    public function editPelaksana()
+    public function storePelaksana()
     {
+        //mengambil semua request
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->RulesUsers());
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('pelaksana/kelola-tukang'));
+        }
+        $file = $this->request->getFile('foto');
+        $nameFile = $data['nik'] . '.' . $file->getClientExtension();
+        $file->move(FCPATH . 'assets/uploads', $nameFile);
+
+        $dataUsers = [
+            'nik' => $data['nik'],
+            'nama' => $data['nama'],
+            'password' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'role' => $data['role'],
+            'foto' => $nameFile,
+            'pengawas_id' => $data['pengawas_id'],
+            'jabatan_id' => $data['jabatan_id'],
+            'bidang_id' => $data['bidang_id']
+        ];
+
+        $this->users->insertUser($dataUsers);
+
+        session()->setFlashdata("success", "Berhasil menambahkan data!");
+        return redirect()->to(base_url('pelaksana/kelola-tukang'));
+    }
+
+    public function updatePelaksana()
+    {
+        $data = $this->request->getPost();
+        // dd($data);
+
+        $validation = \Config\Services::validation();
+        //define file
+        $file = $this->request->getFile('foto');
+        $arrRules = $this->RulesUsers();
+
+        //jika file valid
+        if (!$file->isValid()) {
+            unset($arrRules['foto']);
+        }
+
+        
+        // Check NIK baru== NIK LAMA
+        $get_data_user = $this->users->getUser($data['id']);
+        if ($get_data_user['nik'] == $data['nik']) {
+            unset($arrRules['nik']);
+        }
+
+        // Check PASSWORD Kosong atau tidak, kalo kosong hapus rules
+        if (empty($data['password'])) {
+            unset($arrRules['password']);
+        }
+
+        $validation->setRules($arrRules);
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('pelaksana/kelola-tukang'));
+        }
+
+        //data insert
+        $dataUser = [
+            'nik' => $data['nik'],
+            'nama' => $data['nama'],
+            'role' => $data['role'],
+            'pengawas_id' => $data['pengawas_id'],
+            'jabatan_id' => $data['jabatan_id'],
+            'bidang_id' => $data['bidang_id']
+        ];
+
+        // Jika password tidak kosong maka update password
+        if (!empty($data['password'])) {
+            $dataUser['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
+        }
+
+        //condition jika file valid maka jalankan
+        if ($file->isValid() && !$file->hasMoved()) {
+            $nameFile = $data['nik'] . '.' . $file->getClientExtension();
+            $file->move(FCPATH . 'assets/uploads', $nameFile);
+
+            $dataUser['foto'] = $nameFile;
+        }
+
+        $this->users->updateUser($dataUser, $data['id']);
+        return redirect()->to(base_url('pelaksana/kelola-tukang'));
+    }
+
+    public function deletePelaksana($id)
+    {
+        // dd($id);
+        $this->users->deleteUser($id);
+        session()->setFlashdata("success", "Data berhasil dihapus");
+        return redirect()->to(base_url('pelaksana/kelola-tukang'));
     }
 
     public function delete($id)
