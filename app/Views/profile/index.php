@@ -39,7 +39,7 @@
                             <input type="password" class="form-control" name="new_password" required>
                         </div>
                         <div class="form-group">
-                            <label for="">Konifrmasi Password <span class="text-danger">*</span></label>
+                            <label for="">Konfirmasi Password <span class="text-danger">*</span></label>
                             <input type="password" class="form-control" name="confirm_password" required>
                         </div>
                         <div class="d-grid gap-2 mt-4">

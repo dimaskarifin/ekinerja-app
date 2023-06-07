@@ -4,7 +4,8 @@
 <section class="section">
     <div class="card">
         <div class="card-header">
-            <a class="btn icon icon-left btn-primary" data-bs-target="#modalCreate" data-bs-toggle="modal"><i data-feather="edit"></i> Tambah Data Kegiatan</a>
+            <a class="btn icon icon-left btn-primary" data-bs-target="#modalCreate" data-bs-toggle="modal"><i
+                    data-feather="edit"></i> Tambah Data Kegiatan</a>
         </div>
         <div class="card-body">
             <table class="table" id="table1">
@@ -23,17 +24,20 @@
                     $no = 1;
                     ?>
                     <?php foreach ($kegiatan as $row) : ?>
-                        <tr>
-                            <td><?= $no++; ?></td>
-                            <td><?= $row->nama; ?></td>
-                            <td><?= $row->uraian_kegiatan; ?></td>
-                            <td><?= $row->satuan; ?></td>
-                            <td><?= $row->target; ?></td>
-                            <td>
-                                <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $row->id_kegiatan ?>"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('mandor/kelola-kegiatan/delete/' . $row->id_kegiatan); ?>"><i class="bi bi-trash"></i></a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td><?= $no++; ?></td>
+                        <td><?= $row->nama; ?></td>
+                        <td><?= $row->uraian_kegiatan; ?></td>
+                        <td><?= $row->satuan; ?></td>
+                        <td><?= $row->target; ?></td>
+                        <td>
+                            <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $row->id_kegiatan ?>"><i
+                                    class="bi bi-pencil-square"></i></a>
+                            <a class="btn icon btn-lg btn-danger" id="btnDelete"
+                                data-id="<?= base_url('mandor/kelola-kegiatan/delete/' . $row->id_kegiatan); ?>"><i
+                                    class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
@@ -42,7 +46,8 @@
 </section>
 
 <!--modal Create Kegiatan -->
-<div class="modal fade text-left" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+<div class="modal fade text-left" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+    aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
@@ -60,8 +65,8 @@
                                 <select name="id_users" id="addPegawai" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($users as $row) : ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
-                                            <?= $row['nama'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                        <?= $row['nama'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -69,7 +74,8 @@
                         <div class="col-md-8">
                             <label>Uraian Kegiatan</label>
                             <div class="form-group">
-                                <textarea class="form-control" id="uraian_kegiatan" name="uraian_kegiatan" rows="3"></textarea>
+                                <textarea class="form-control" id="uraian_kegiatan" name="uraian_kegiatan"
+                                    rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -86,7 +92,8 @@
                         <div class="col-md-8">
                             <label>Target</label>
                             <div class="form-group">
-                                <input id="target" name="target" type="text" placeholder="Masukkan Target" class="form-control">
+                                <input id="target" name="target" type="text" placeholder="Masukkan Target"
+                                    class="form-control">
                             </div>
                         </div>
                     </div>
@@ -101,7 +108,8 @@
 </div>
 
 <!-- modal Update kegiatan -->
-<div class="modal fade text-left" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+<div class="modal fade text-left" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -120,8 +128,8 @@
                                 <select name="id_users" id="editPegawai" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($users as $row) : ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
-                                            <?= $row['nama'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                        <?= $row['nama'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -129,7 +137,8 @@
                         <div class="col-md-8">
                             <label>Uraian Kegiatan</label>
                             <div class="form-group">
-                                <textarea class="form-control" id="editKegiatan" name="uraian_kegiatan" rows="3"></textarea>
+                                <textarea class="form-control" id="editKegiatan" name="uraian_kegiatan"
+                                    rows="3"></textarea>
                             </div>
                         </div>
                         <div class="col-md-8">
@@ -146,7 +155,8 @@
                         <div class="col-md-8">
                             <label>Target</label>
                             <div class="form-group">
-                                <input id="editTarget" name="target" type="text" placeholder="Masukkan Target" class="form-control">
+                                <input id="editTarget" name="target" type="text" placeholder="Masukkan Target"
+                                    class="form-control">
                             </div>
                         </div>
                     </div>
@@ -164,75 +174,75 @@
 <?= $this->section('script'); ?>
 <?= $this->include('layouts/message-alert'); ?>
 <script>
-    $(function() {
-        $('#addPegawai').selectize({
-            placeholder: 'Pilih Pegawai',
-            searchField: 'label',
-        });
-        $('#addSatuan').selectize({
-            placeholder: 'Pilih Satuan',
-            searchField: 'label',
-            create: true
-        });
-        $('#editPegawai').selectize({
-            placeholder: 'Pilih Pegawai',
-            searchField: 'label',
-        });
-        $('#editSatuan').selectize({
-            placeholder: 'Pilih Satuan',
-            searchField: 'label',
-            create: true
-        });
+$(function() {
+    $('#addPegawai').selectize({
+        placeholder: 'Pilih Pegawai',
+        searchField: 'label',
+    });
+    $('#addSatuan').selectize({
+        placeholder: 'Pilih Satuan',
+        searchField: 'label',
+        create: true
+    });
+    $('#editPegawai').selectize({
+        placeholder: 'Pilih Pegawai',
+        searchField: 'label',
+    });
+    $('#editSatuan').selectize({
+        placeholder: 'Pilih Satuan',
+        searchField: 'label',
+        create: true
+    });
+})
+
+
+
+$('body').on('click', '#btnEdit', function() {
+    var this_id = $(this).data('id');
+    $.ajax({
+        type: "GET",
+        url: "<?= base_url('mandor/kelola-kegiatan/edit'); ?>",
+        data: {
+            id: this_id,
+        },
+        success: function(response) {
+            $('#modalUpdate').modal('show');
+            var encoded_data = response.data;
+            var decoded_data = JSON.parse(atob(encoded_data));
+            // console.log(decoded_data);
+            $('#editId').val(decoded_data.kegiatan[0].id);
+            $('#editPegawai')[0].selectize.setValue(decoded_data.kegiatan[0].id_users);
+            $('#editKegiatan').val(decoded_data.kegiatan[0].uraian_kegiatan);
+            $('#editSatuan')[0].selectize.setValue(decoded_data.kegiatan[0].satuan);
+            $('#editTarget').val(decoded_data.kegiatan[0].target);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('AJAX Error: ');
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
+    });
+});
+
+$('body').on('click', '#btnDelete', function() {
+    var this_id = $(this).data('id');
+
+    Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Kembali',
+    }).then((result) => {
+        if (result.value) {
+            window.location.href = this_id;
+        }
     })
-
-
-
-    $('body').on('click', '#btnEdit', function() {
-        var this_id = $(this).data('id');
-        $.ajax({
-            type: "GET",
-            url: "<?= base_url('mandor/kelola-kegiatan/edit'); ?>",
-            data: {
-                id: this_id,
-            },
-            success: function(response) {
-                $('#modalUpdate').modal('show');
-                var encoded_data = response.data;
-                var decoded_data = JSON.parse(atob(encoded_data));
-                console.log(decoded_data);
-                $('#editId').val(decoded_data.kegiatan[0].id);
-                $('#editPegawai')[0].selectize.setValue(decoded_data.kegiatan[0].id_users);
-                $('#editKegiatan').val(decoded_data.kegiatan[0].uraian_kegiatan);
-                $('#editSatuan')[0].selectize.setValue(decoded_data.kegiatan[0].satuan);
-                $('#editTarget').val(decoded_data.kegiatan[0].target);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('AJAX Error: ');
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
-    });
-
-    $('body').on('click', '#btnDelete', function() {
-        var this_id = $(this).data('id');
-
-        Swal.fire({
-            title: 'Apakah kamu yakin?',
-            text: "Anda tidak akan dapat mengembalikan ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Kembali',
-        }).then((result) => {
-            if (result.value) {
-                window.location.href = this_id;
-            }
-        })
-    });
+});
 </script>
 <?= $this->endSection(); ?>
 

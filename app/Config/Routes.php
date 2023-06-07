@@ -52,6 +52,9 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     //kinerja
     $routes->get('kelola-ekinerja', 'EkinerjaController::index');
     $routes->post('kelola-ekinerja/store', 'EkinerjaController::store');
+    $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
+    $routes->post('kelola-ekinerja/update', 'EkinerjaController::update');
+    $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::delete/$1');
 
     //profileUser
     $routes->get('profile-user', 'ProfileUser::index');
@@ -101,7 +104,7 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->post('kelola-tukang/update', 'UsersController::updatePelaksana');
         $routes->get('kelola-tukang/delete/(:num)', 'UsersController::deletePelaksana/$1');
     });
-    
+
     //Routes Tukang
     $routes->group('tukang', ['filter' => 'TukangFilter'], function ($routes) {
         //data Tukang

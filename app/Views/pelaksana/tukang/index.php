@@ -27,41 +27,41 @@
                     $no = 1;
                     ?>
                     <?php foreach ($users as $key => $val): ?>
-                        <tr>
-                            <td>
-                                <?= $no++; ?>
-                            </td>
-                            <td>
-                                <div class="avatar avatar-xl me-3">
-                                    <img src="<?= base_url('assets/uploads/' . $val->foto); ?>" alt="foto" srcset="" />
-                                </div>
-                            </td>
-                            <td><strong>
-                                    <?= $val->nik; ?>
-                                </strong></td>
-                            <td>
-                                <?= $val->nama; ?>
-                            </td>
-                            <td>
-                                <?= $val->role; ?>
-                            </td>
-                            <td>
-                                <?= $val->nama_pengawas; ?>
-                            </td>
-                            <td>
-                                <?= $val->nama_jabatan; ?>
-                            </td>
-                            <td>
-                                <?= $val->nama_bidang; ?>
-                            </td>
-                            <td>
-                                <a href="#" class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $val->id_users ?>"><i
-                                        class="bi bi-pencil-square"></i></a>
-                                <a href="#" class="btn icon btn-lg btn-danger" id="btnDelete"
-                                    data-id="<?= base_url('pelaksana/kelola-tukang/delete/' . $val->id_users); ?>"><i
-                                        class="bi bi-trash"></i></a>
-                            </td>
-                        </tr>
+                    <tr>
+                        <td>
+                            <?= $no++; ?>
+                        </td>
+                        <td>
+                            <div class="avatar avatar-xl me-3">
+                                <img src="<?= base_url('assets/uploads/' . $val->foto); ?>" alt="foto" srcset="" />
+                            </div>
+                        </td>
+                        <td><strong>
+                                <?= $val->nik; ?>
+                            </strong></td>
+                        <td>
+                            <?= $val->nama; ?>
+                        </td>
+                        <td>
+                            <?= $val->role; ?>
+                        </td>
+                        <td>
+                            <?= $val->nama_pengawas; ?>
+                        </td>
+                        <td>
+                            <?= $val->nama_jabatan; ?>
+                        </td>
+                        <td>
+                            <?= $val->nama_bidang; ?>
+                        </td>
+                        <td>
+                            <a href="#" class="btn icon btn-lg btn-warning" id="btnEdit"
+                                data-id="<?= $val->id_users ?>"><i class="bi bi-pencil-square"></i></a>
+                            <a href="#" class="btn icon btn-lg btn-danger" id="btnDelete"
+                                data-id="<?= base_url('pelaksana/kelola-tukang/delete/' . $val->id_users); ?>"><i
+                                    class="bi bi-trash"></i></a>
+                        </td>
+                    </tr>
                     <?php endforeach ?>
                 </tbody>
             </table>
@@ -126,8 +126,8 @@
                                 <select name="pengawas_id" id="addPengawas" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($pengawas as $row): ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_pengawas']; ?>">
-                                            <?= $row['nama_pengawas'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_pengawas']; ?>">
+                                        <?= $row['nama_pengawas'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -138,8 +138,8 @@
                                 <select name="jabatan_id" id="addJabatan" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($jabatan as $row): ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_jabatan']; ?>">
-                                            <?= $row['nama_jabatan'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_jabatan']; ?>">
+                                        <?= $row['nama_jabatan'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -150,8 +150,8 @@
                                 <select name="bidang_id" id="addBidang" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($bidang as $row): ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_bidang']; ?>">
-                                            <?= $row['nama_bidang'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_bidang']; ?>">
+                                        <?= $row['nama_bidang'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -225,8 +225,8 @@
                                 <select name="pengawas_id" id="editPengawas" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($pengawas as $row): ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_pengawas']; ?>">
-                                            <?= $row['nama_pengawas'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_pengawas']; ?>">
+                                        <?= $row['nama_pengawas'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -237,8 +237,8 @@
                                 <select name="jabatan_id" id="editJabatan" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($jabatan as $row): ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_jabatan']; ?>">
-                                            <?= $row['nama_jabatan'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_jabatan']; ?>">
+                                        <?= $row['nama_jabatan'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -249,8 +249,8 @@
                                 <select name="bidang_id" id="editBidang" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($bidang as $row): ?>
-                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_bidang']; ?>">
-                                            <?= $row['nama_bidang'] ?></option>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama_bidang']; ?>">
+                                        <?= $row['nama_bidang'] ?></option>
                                     <?php endforeach; ?>
                                 </select>
                             </div>
@@ -270,96 +270,95 @@
 <?= $this->section('script'); ?>
 <?= $this->include('layouts/message-alert'); ?>
 <script>
+$('#addPengawas').selectize({
+    placeholder: 'Pilih Pengawas',
+    searchField: 'label',
+    searchField: ["nama_pengawas"],
+});
+$('#addRole').selectize({
+    placeholder: 'Pilih Role',
+    searchField: 'label',
+});
+$('#addJabatan').selectize({
+    placeholder: 'Pilih Jabatan',
+    searchField: 'label',
+});
+$('#addBidang').selectize({
+    placeholder: 'Pilih Bidang',
+    searchField: 'label',
+});
+$('#addPengawas').selectize({
+    placeholder: 'Pilih Pengawas',
+    searchField: 'label',
+    searchField: ["nama_pengawas"],
+});
+$('#editRole').selectize({
+    placeholder: 'Pilih Role',
+    searchField: 'label',
+});
+$('#editPengawas').selectize({
+    placeholder: 'Pilih Pengawas',
+    searchField: 'label',
+    searchField: ["nama_pengawas"],
+});
+$('#editJabatan').selectize({
+    placeholder: 'Pilih Jabatan',
+    searchField: 'label',
+});
+$('#editBidang').selectize({
+    placeholder: 'Pilih Bidang',
+    searchField: 'label',
+});
 
-    $('#addPengawas').selectize({
-        placeholder: 'Pilih Pengawas',
-        searchField: 'label',
-        searchField: ["nama_pengawas"],
-    });
-    $('#addRole').selectize({
-        placeholder: 'Pilih Role',
-        searchField: 'label',
-    });
-    $('#addJabatan').selectize({
-        placeholder: 'Pilih Jabatan',
-        searchField: 'label',
-    });
-    $('#addBidang').selectize({
-        placeholder: 'Pilih Bidang',
-        searchField: 'label',
-    });
-    $('#addPengawas').selectize({
-        placeholder: 'Pilih Pengawas',
-        searchField: 'label',
-        searchField: ["nama_pengawas"],
-    });
-    $('#editRole').selectize({
-        placeholder: 'Pilih Role',
-        searchField: 'label',
-    });
-    $('#editPengawas').selectize({
-        placeholder: 'Pilih Pengawas',
-        searchField: 'label',
-        searchField: ["nama_pengawas"],
-    });
-    $('#editJabatan').selectize({
-        placeholder: 'Pilih Jabatan',
-        searchField: 'label',
-    });
-    $('#editBidang').selectize({
-        placeholder: 'Pilih Bidang',
-        searchField: 'label',
-    });
+$('body').on('click', '#btnEdit', function() {
+    var this_id = $(this).data('id');
 
-    $('body').on('click', '#btnEdit', function() {
-        var this_id = $(this).data('id');
-        
-        $.ajax({
-            type: "GET",
-            url: "<?= base_url('pelaksana/kelola-tukang/edit'); ?>",
-            data: {
-                id: this_id,
-            },
-            success: function(response) {
-                $('#modalUpdate').modal('show');
-                var encoded_data = response.data;
-                var decoded_data = JSON.parse(atob(encoded_data));
-                console.log(decoded_data);
-                $('#editId').val(decoded_data.users[0].id_users);
-                $('#editNIK').val(decoded_data.users[0].nik);
-                $('#editNama').val(decoded_data.users[0].nama);
-                $('#editRole')[0].selectize.setValue(decoded_data.users[0].role);
-                $('#editPengawas')[0].selectize.setValue(decoded_data.users[0].pengawas_id);
-                $('#editJabatan')[0].selectize.setValue(decoded_data.users[0].jabatan_id);
-                $('#editBidang')[0].selectize.setValue(decoded_data.users[0].bidang_id);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                console.log('AJAX Error: ');
-                console.log(jqXHR);
-                console.log(textStatus);
-                console.log(errorThrown);
-            }
-        });
+    $.ajax({
+        type: "GET",
+        url: "<?= base_url('pelaksana/kelola-tukang/edit'); ?>",
+        data: {
+            id: this_id,
+        },
+        success: function(response) {
+            $('#modalUpdate').modal('show');
+            var encoded_data = response.data;
+            var decoded_data = JSON.parse(atob(encoded_data));
+            // console.log(decoded_data);
+            $('#editId').val(decoded_data.users[0].id_users);
+            $('#editNIK').val(decoded_data.users[0].nik);
+            $('#editNama').val(decoded_data.users[0].nama);
+            $('#editRole')[0].selectize.setValue(decoded_data.users[0].role);
+            $('#editPengawas')[0].selectize.setValue(decoded_data.users[0].pengawas_id);
+            $('#editJabatan')[0].selectize.setValue(decoded_data.users[0].jabatan_id);
+            $('#editBidang')[0].selectize.setValue(decoded_data.users[0].bidang_id);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log('AJAX Error: ');
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        }
     });
+});
 
-    $('body').on('click', '#btnDelete', function() {
-        var this_id = $(this).data('id');
+$('body').on('click', '#btnDelete', function() {
+    var this_id = $(this).data('id');
 
-        Swal.fire({
-            title: 'Apakah kamu yakin?',
-            text: "Anda tidak akan dapat mengembalikan ini!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Kembali',
-        }).then((result) => {
-            if (result.value) {
-                window.location.href = this_id;
-            }
-        })
-    });
+    Swal.fire({
+        title: 'Apakah kamu yakin?',
+        text: "Anda tidak akan dapat mengembalikan ini!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Ya, hapus!',
+        cancelButtonText: 'Kembali',
+    }).then((result) => {
+        if (result.value) {
+            window.location.href = this_id;
+        }
+    })
+});
 </script>
 <?= $this->endSection(); ?>
 
