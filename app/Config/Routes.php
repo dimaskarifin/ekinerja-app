@@ -106,10 +106,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     });
 
     //Routes Tukang
-    $routes->group('tukang', ['filter' => 'TukangFilter'], function ($routes) {
-        //data Tukang
-        $routes->get('kelola-kegiatan', 'KegiatanController::index');
-    });
+    // $routes->group('tukang', ['filter' => 'TukangFilter'], function ($routes) {
+    //data Tukang
+    //     $routes->get('kelola-kegiatan', 'KegiatanController::index');
+    // });
 });
 
 

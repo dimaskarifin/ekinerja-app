@@ -9,18 +9,16 @@
     <link rel="stylesheet" href="<?= base_url(); ?>/admin/assets/css/main/app.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/admin/assets/css/main/app-dark.css" />
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="<?= base_url(); ?>signin/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="<?= base_url(); ?>login/assets/img/favicon/favicon.ico" />
 
     <link rel="stylesheet" href="<?= base_url(); ?>/admin/assets/css/shared/iconly.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css">
 
     <link rel="stylesheet" href="<?= base_url(); ?>/admin/assets/css/pages/datatables.css" />
-    <link rel="stylesheet"
-        href="<?= base_url(); ?>/admin/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>/admin/assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css" />
     <link rel="stylesheet" href="<?= base_url(); ?>/admin/assets/css/pages/fontawesome.min.css" />
 
-    <link rel="stylesheet"
-        href="<?= base_url(); ?>admin/assets/extensions/choices.js/public/assets/styles/choices.css" />
+    <link rel="stylesheet" href="<?= base_url(); ?>admin/assets/extensions/choices.js/public/assets/styles/choices.css" />
 
     <link rel="stylesheet" href="<?= base_url('assets/library/selectize/selectize.bootstrap5.min.css'); ?>">
     <link rel="stylesheet" href="<?= base_url('assets/library/sweetalert2/sweetalert2.min.css') ?>">
@@ -85,19 +83,19 @@
     <script src="<?= base_url(); ?>admin/assets/extensions/choices.js/public/assets/scripts/choices.js"></script>
     <script src="<?= base_url(); ?>admin/assets/js/pages/form-element-select.js"></script>
     <script>
-    $(document).ready(function() {
-        /* Get data table */
-        var table = $('#table1').DataTable({
-            oLanguage: {
-                sUrl: "<?= base_url('assets/library/dataTables/indonesian.json') ?>"
-            }
-        })
+        $(document).ready(function() {
+            /* Get data table */
+            var table = $('#table1').DataTable({
+                oLanguage: {
+                    sUrl: "<?= base_url('assets/library/dataTables/indonesian.json') ?>"
+                }
+            })
 
-        $('.modal').modal({
-            backdrop: "static",
-            keyboard: false
+            $('.modal').modal({
+                backdrop: "static",
+                keyboard: false
+            });
         });
-    });
     </script>
 
     <?= $this->renderSection('script'); ?>
