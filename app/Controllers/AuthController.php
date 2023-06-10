@@ -17,6 +17,12 @@ class AuthController extends BaseController
 
     public function index()
     {
+        $session = \Config\Services::session();
+
+        if ($session->get('logged_in')) {
+            return redirect()->to(base_url('dashboard'));
+        }
+
         return view('auth/login');
     }
 

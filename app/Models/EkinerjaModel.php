@@ -67,6 +67,18 @@ class EkinerjaModel extends Model
         return $query->getResult();
     }
 
+    public function getDetailKinerjaMP()
+    {
+        $builder = $this->db->table('ekinerja');
+        $builder->select('ekinerja.*, ekinerja.id as id_ekinerja, users.nama, kegiatan.uraian_kegiatan')
+            ->join('users', 'users.id = ekinerja.id_users')
+            ->join('kegiatan', 'kegiatan.id = ekinerja.id_kegiatan')
+            ->where('ekinerja.deleted_at', null);
+
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
     public function editDetailKinerja($id)
     {
         $builder = $this->db->table('ekinerja');

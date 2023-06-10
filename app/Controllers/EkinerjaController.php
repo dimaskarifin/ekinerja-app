@@ -55,7 +55,7 @@ class EkinerjaController extends BaseController
     {
         $data = [
             'title' => 'Kelola E-Kinerja',
-            'ekinerja' => $this->ekinerja->getDetailKinerja(),
+            'ekinerja' => $this->ekinerja->getDetailKinerjaMP(),
             'users'    => $this->users->getUsers(),
             'kegiatan' => $this->kegiatan->getKegiatansAll(),
         ];
@@ -67,7 +67,7 @@ class EkinerjaController extends BaseController
     {
         $data = [
             'title' => 'Kelola E-Kinerja',
-            'ekinerja' => $this->ekinerja->getDetailKinerja(),
+            'ekinerja' => $this->ekinerja->getDetailKinerjaMP(),
             'users'    => $this->users->getUsers(),
             'kegiatan' => $this->kegiatan->getKegiatansAll(),
         ];
@@ -88,60 +88,60 @@ class EkinerjaController extends BaseController
     }
 
 
-    public function storeMandor()
-    {
-        $data = $this->request->getPost();
+    // public function storeMandor()
+    // {
+    //     $data = $this->request->getPost();
 
-        $validation = \Config\Services::validation();
-        $validation->setRules($this->rulesEK());
+    //     $validation = \Config\Services::validation();
+    //     $validation->setRules($this->rulesEK());
 
-        if (!$validation->run($_POST)) {
-            $errors = $validation->getErrors();
-            $arr = implode("<br>", $errors);
-            session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('mandor/kelola-ekinerja'));
-        }
+    //     if (!$validation->run($_POST)) {
+    //         $errors = $validation->getErrors();
+    //         $arr = implode("<br>", $errors);
+    //         session()->setFlashdata("warning", $arr);
+    //         return redirect()->to(base_url('mandor/kelola-ekinerja'));
+    //     }
 
-        $dataEK = [
-            'id_users' => $data['id_users'],
-            'id_kegiatan' => $data['id_kegiatan'],
-            'output' => $data['output'],
-            'waktu_mulai' => $data['tanggal_mulai'],
-            'waktu_selesai' => $data['tanggal_selesai']
-        ];
+    //     $dataEK = [
+    //         'id_users' => $data['id_users'],
+    //         'id_kegiatan' => $data['id_kegiatan'],
+    //         'output' => $data['output'],
+    //         'waktu_mulai' => $data['tanggal_mulai'],
+    //         'waktu_selesai' => $data['tanggal_selesai']
+    //     ];
 
-        $this->ekinerja->insertEkinerja($dataEK);
+    //     $this->ekinerja->insertEkinerja($dataEK);
 
-        session()->setFlashdata('success', 'Berhasil menambahkan data kinerja');
-        return redirect()->to(base_url('kelola-ekinerja'));
-    }
-    public function storePelaksana()
-    {
-        $data = $this->request->getPost();
+    //     session()->setFlashdata('success', 'Berhasil menambahkan data kinerja');
+    //     return redirect()->to(base_url('kelola-ekinerja'));
+    // }
+    // public function storePelaksana()
+    // {
+    //     $data = $this->request->getPost();
 
-        $validation = \Config\Services::validation();
-        $validation->setRules($this->rulesEK());
+    //     $validation = \Config\Services::validation();
+    //     $validation->setRules($this->rulesEK());
 
-        if (!$validation->run($_POST)) {
-            $errors = $validation->getErrors();
-            $arr = implode("<br>", $errors);
-            session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
-        }
+    //     if (!$validation->run($_POST)) {
+    //         $errors = $validation->getErrors();
+    //         $arr = implode("<br>", $errors);
+    //         session()->setFlashdata("warning", $arr);
+    //         return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
+    //     }
 
-        $dataEK = [
-            'id_users' => $data['id_users'],
-            'id_kegiatan' => $data['id_kegiatan'],
-            'output' => $data['output'],
-            'waktu_mulai' => $data['tanggal_mulai'],
-            'waktu_selesai' => $data['tanggal_selesai']
-        ];
+    //     $dataEK = [
+    //         'id_users' => $data['id_users'],
+    //         'id_kegiatan' => $data['id_kegiatan'],
+    //         'output' => $data['output'],
+    //         'waktu_mulai' => $data['tanggal_mulai'],
+    //         'waktu_selesai' => $data['tanggal_selesai']
+    //     ];
 
-        $this->ekinerja->insertEkinerja($dataEK);
+    //     $this->ekinerja->insertEkinerja($dataEK);
 
-        session()->setFlashdata('success', 'Berhasil menambahkan data kinerja');
-        return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
-    }
+    //     session()->setFlashdata('success', 'Berhasil menambahkan data kinerja');
+    //     return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
+    // }
 
     public function storeTukang()
     {
@@ -210,7 +210,7 @@ class EkinerjaController extends BaseController
             $errors = $validation->getErrors();
             $arr = implode("<br>", $errors);
             session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('kelola-ekinerja'));
+            return redirect()->to(base_url('mandor/kelola-ekinerja'));
         }
 
         $dataEK = [
@@ -223,7 +223,34 @@ class EkinerjaController extends BaseController
 
         $this->ekinerja->updateEkinerja($dataEK, $data['id']);
         session()->setFlashdata("success", "Berhasil memperbarui data");
-        return redirect()->to(base_url('kelola-ekinerja'));
+        return redirect()->to(base_url('mandor/kelola-ekinerja'));
+    }
+
+    public function updatePelaksana()
+    {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->rulesEK());
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
+        }
+
+        $dataEK = [
+            'id_users' => $data['id_users'],
+            'id_kegiatan' => $data['id_kegiatan'],
+            'output' => $data['output'],
+            'waktu_mulai' => $data['tanggal_mulai'],
+            'waktu_selesai' => $data['tanggal_selesai']
+        ];
+
+        $this->ekinerja->updateEkinerja($dataEK, $data['id']);
+        session()->setFlashdata("success", "Berhasil memperbarui data");
+        return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
     }
 
     public function updateTukang()
@@ -258,7 +285,15 @@ class EkinerjaController extends BaseController
         $this->ekinerja->deleteEkinerja($id);
 
         session()->setFlashdata("success", "Berhasil menghapus data");
-        return redirect()->to(base_url('kelola-ekinerja'));
+        return redirect()->to(base_url('mandor/kelola-ekinerja'));
+    }
+
+    public function deletePelaksana($id)
+    {
+        $this->ekinerja->deleteEkinerja($id);
+
+        session()->setFlashdata("success", "Berhasil menghapus data");
+        return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
     }
 
     public function deleteTukang($id)

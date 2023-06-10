@@ -4,8 +4,7 @@
 <section class="section">
     <div class="card">
         <div class="card-header">
-            <a class="btn icon icon-left btn-primary" data-bs-target="#modalCreate" data-bs-toggle="modal"><i
-                    data-feather="edit"></i> Tambah Data E-Kinerja</a>
+            <!-- <a class="btn icon icon-left btn-primary" data-bs-target="#modalCreate" data-bs-toggle="modal"><i data-feather="edit"></i> Tambah Data E-Kinerja</a> -->
         </div>
         <div class="card-body">
             <table class="table" id="table1">
@@ -36,7 +35,7 @@
                             <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $val->id_ekinerja ?>"><i
                                     class="bi bi-pencil-square"></i></a>
                             <a class="btn icon btn-lg btn-danger" id="btnDelete"
-                                data-id="<?= base_url('kelola-ekinerja/delete/' . $val->id_ekinerja); ?>"><i
+                                data-id="<?= base_url('pelaksana/kelola-ekinerja/delete/' . $val->id_ekinerja); ?>"><i
                                     class="bi bi-trash"></i></a>
                         </td>
                     </tr>
@@ -48,7 +47,7 @@
 </section>
 
 <!--Modal Create Ekinerja -->
-<div class="modal fade text-left" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+<!-- <div class="modal fade text-left" id="modalCreate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
     aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
         <div class="modal-content">
@@ -57,7 +56,7 @@
                     Tambah Data E-Kinerja
                 </h4>
             </div>
-            <form action="<?= base_url('pelaksana/kelola-ekinerja/store') ?>" method="POST">
+            <form action="<?= base_url('kelola-ekinerja/store') ?>" method="POST">
                 <?= csrf_field() ?>
                 <div class="modal-body">
                     <div class="row">
@@ -117,7 +116,7 @@
             </form>
         </div>
     </div>
-</div>
+</div> -->
 
 <!-- modal Update ekinerja -->
 <div class="modal fade text-left" id="modalUpdate" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
@@ -129,7 +128,7 @@
                     Update Data E-Kinerja
                 </h4>
             </div>
-            <form action="<?= base_url('kelola-ekinerja/update') ?>" method="POST">
+            <form action="<?= base_url('pelaksana/kelola-ekinerja/update') ?>" method="POST">
                 <?= csrf_field() ?>
                 <input type="hidden" name="id" id="editId">
                 <div class="modal-body">
@@ -137,19 +136,13 @@
                         <div class="col-md-12">
                             <label>Nama Pegawai</label>
                             <div class="form-group">
-                                <div class="col-md-12">
-                                    <label>Nama Pegawai</label>
-                                    <div class="form-group">
-                                        <select name="id_users" id="addPegawai" class="selectize">
-                                            <?php foreach ($users as $row) : ?>
-                                            <?php if (session()->get('id') === $row['id']) : ?>
-                                            <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
-                                                <?= $row['nama'] ?></option>
-                                            <?php endif ?>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
+                                <select name="id_users" id="editPegawai" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($users as $row) : ?>
+                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                        <?= $row['nama'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12">

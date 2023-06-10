@@ -89,7 +89,7 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
 
         //kinerja
         $routes->get('kelola-ekinerja', 'EkinerjaController::indexMandor');
-        $routes->post('kelola-ekinerja/store', 'EkinerjaController::store');
+        // $routes->post('kelola-ekinerja/store', 'EkinerjaController::store');
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
         $routes->post('kelola-ekinerja/update', 'EkinerjaController::update');
         $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::delete/$1');
@@ -108,8 +108,8 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-ekinerja', 'EkinerjaController::indexPelaksana');
         $routes->post('kelola-ekinerja/store', 'EkinerjaController::storePelaksana');
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
-        $routes->post('kelola-ekinerja/update', 'EkinerjaController::update');
-        $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::delete/$1');
+        $routes->post('kelola-ekinerja/update', 'EkinerjaController::updatePelaksana');
+        $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::deletePelaksana/$1');
     });
 
     //Routes Tukang
