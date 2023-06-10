@@ -120,8 +120,10 @@ class EkinerjaModel extends Model
 
             if (!empty($params['tanggal'])) {
                 $date_explode = explode('-', $params['tanggal']);
-                if ($params['kategori'] == 'month' || count($date_explode) == 2) {
+                if ($params['kategori'] == 'month' && count($date_explode) == 2) {
                     $query->where('MONTH(ekinerja.created_at)', $date_explode[1])->where('YEAR(ekinerja.created_at)', $date_explode[0]);
+                } else if ($params['kategori'] == 'week') {
+                    $query->where("DATE(ekinerja.created_at) BETWEEN '{$params['date_range']['start_date']}' AND '{$params['date_range']['end_date']}'");
                 } else {
                     $date_explode = explode('/', $params['tanggal']);
                     if (count($date_explode) == 3) {

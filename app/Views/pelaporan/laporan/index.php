@@ -23,10 +23,13 @@
                                         $old_value_kategori = isset($_GET['kategori']) ? $_GET['kategori'] : '';
                                         if (!empty($old_value_kategori)) { ?>
                                             <option value="date" <?php if ($old_value_kategori == 'date') { ?> selected <?php } ?>>Harian</option>
+                                            <option value="week" <?php if ($old_value_kategori == 'week') { ?> selected
+                                                <?php } ?>>Minggu</option>
                                             <option value="month" <?php if ($old_value_kategori == 'month') { ?> selected
                                                 <?php } ?>>Bulan</option>
                                         <?php } else { ?>
                                             <option value="date">Harian</option>
+                                            <option value="week">Minggu</option>
                                             <option value="month">Bulan</option>
                                         <?php } ?>
                                     </select>
@@ -38,7 +41,6 @@
                                     <select name="nik" id="nik" class="form-select" required>
                                         <option value="">Pilih NIK</option>
                                         <?php
-                                        // $old_value_nik = set_value('nik');
                                         $old_value_nik = isset($_GET['nik']) ? $_GET['nik'] : '';
 
                                         foreach ($users as $user) { ?>
@@ -59,21 +61,11 @@
                                 </div>
                                 <div class="form-group mt-2">
                                     <?php
-                                    // $old_value_tanggal = set_value('tanggal');
                                     $old_value_tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : '';
-
-                                    // if (!empty($old_value_tanggal)) {
-                                    //     if (count(explode('-', $old_value_tanggal)) == 2 || count(explode(' ', $old_value_tanggal)) == 2) {
-                                    //         $old_value_tanggal = date('F Y', strtotime($old_value_tanggal));
-                                    //     } else {
-                                    //         if (count(explode('/', $old_value_tanggal)) != 3) {
-                                    //             $old_value_tanggal = date('d/m/Y', strtotime($old_value_tanggal));
-                                    //         }
-                                    //     }
-                                    // }
                                     ?>
                                     <label for="">Tanggal <span class="text-danger">*</span></label>
                                     <input type="" name="tanggal" id="tanggal" class="form-control" placeholder="Pilih Kategori Dulu" required>
+                                    <span><small id="keterangan"></small></span>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
@@ -93,7 +85,7 @@
                 </div>
                 <div class="col-md-6 border-start">
                     <h5>Export</h5>
-                    <a href="#" class="btn btn-info btn-export mt-4">Export</a>
+                    <a href="javascript:void(0)" class="btn btn-info btn-export mt-4">Export</a>
                 </div>
             </div>
             <!-- end row -->
@@ -136,35 +128,6 @@
                     <?php } ?>
                 </tbody>
             </table>
-
-            <!-- <div class="row mt-5 text-center">
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="fs-5">Pengawas Lapangan</p>
-                        </div>
-                        <div class="col-12 mt-4">
-                            <img src="<?= base_url('assets/uploads/ttd/ttd.png') ?>" alt="" class="w-25">
-                        </div>
-                        <div class="col-12 mt-4">
-                            <p class="fs-5 fw-bold mb-0"><?= session('nama') ?> <br> NIP. <?= random_int(11111111, 99999999) ?></p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="row">
-                        <div class="col-12">
-                            <p class="fs-5">Kediri, <br> Pelaksana Lapangan</p>
-                        </div>
-                        <div class="col-12">
-                            <img src="<?= base_url('assets/uploads/ttd/ttd.png') ?>" alt="" class="w-25">
-                        </div>
-                        <div class="col-12 mt-3">
-                            <p class="fs-5 fw-bold mb-0"><?= session('nama') ?> <br> NIP. <?= random_int(11111111, 99999999) ?></p>
-                        </div>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
@@ -175,7 +138,7 @@
 
 <script>
     let table;
-    let kategori, nik, tanggal;
+    let type, kategori, nik, tanggal;
 
     $(document).ready(function () {
         datatable();
@@ -190,26 +153,56 @@
             $('#tanggal').attr('type', kategori);
             $("#tanggal").attr('readonly', false);
             $("#tanggal").val('<?= $old_value_tanggal ?>');
+            if (kategori == 'week') {
+                $("#keterangan").text(tampilkanTanggal('<?= $old_value_tanggal ?>'));
+            }
         } else {
             $('#tanggal').attr('type', '');
             $("#tanggal").attr('readonly', true);
-        }
-
-        if (kategori && nik && tanggal) {
-            $(".btn-export").attr('href', '<?= base_url('laporan/export-pdf') ?>'+'?kategori=' + kategori + '&nik=' + nik + '&tanggal=' + tanggal);
+            $("#keterangan").text();
         }
     });
 
     $('#kategori').change(function (e) {
         e.preventDefault();
-        let type = $(this).val();
+        type = $(this).val();
 
         if (type) {
             $('#tanggal').attr('type', type);
             $("#tanggal").attr('readonly', false);
+            if (type != 'week') {
+                $("#keterangan").text('');
+            }
         } else {
+            $("#keterangan").text('');
             $('#tanggal').attr('type', '');
+            $('#tanggal').val('');
             $("#tanggal").attr('readonly', true);
+        }
+    });
+    
+
+    $("#tanggal").change(function (e) {
+        e.preventDefault();
+
+        let this_value = $(this).val();
+
+        if (type == 'week') {
+            $("#keterangan").text(tampilkanTanggal(this_value));
+        }
+    });
+
+    $(".btn-export").click(function (e) { 
+        e.preventDefault();
+        
+        if (!kategori && !nik && !tanggal) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Gagal!',
+                html: 'Pilih Kategori, NIK dan Tanggal terlebih dahulu'
+            })
+        } else {
+            window.location.href = '<?= base_url('laporan/export-pdf') ?>'+'?kategori=' + kategori + '&nik=' + nik + '&tanggal=' + tanggal;
         }
     });
 
@@ -220,6 +213,28 @@
                 sUrl: "<?= base_url('assets/library/dataTables/indonesian.json') ?>"
             }
         })
+    }
+
+    function tampilkanTanggal(tanggal) {
+      // Mendapatkan nilai input tanggal per minggu
+      var inputTanggalPerMinggu = tanggal;
+
+      // Mendapatkan tanggal pertama dalam minggu yang dipilih
+      var tahun = parseInt(inputTanggalPerMinggu.substring(0, 4));
+      var minggu = parseInt(inputTanggalPerMinggu.substring(6, 8));
+      var tanggalPertama = new Date(tahun, 0, (minggu - 1) * 7 + 2);
+
+      // Membuat daftar tanggal per minggu
+      var tanggalPerMinggu = [];
+      for (var i = 0; i < 7; i++) {
+        var tanggal = new Date(tanggalPertama.getTime() + i * 24 * 60 * 60 * 1000);
+        var tanggalStr = tanggal.toLocaleDateString('id-ID', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$2-$1');
+        tanggalPerMinggu.push(tanggalStr);
+      }
+
+
+    //   return ''tanggalPerMinggu[0] + ' - ' +tanggalPerMinggu[6];
+      return `Minggu ke ${minggu} dari tahun ${tahun}, ${tanggalPerMinggu[0]} - ${tanggalPerMinggu[6]}`;
     }
 </script>
 
