@@ -9,8 +9,15 @@
                     <h3>Profile User</h3>
                 </div>
                 <div class="card-body">
-                    <form action="<?= base_url('profile-user/' . $user['id']) ?>" method="post">
+                    <form action="<?= base_url('profile-user/' . $user['id']) ?>" method="post" enctype="multipart/form-data">
                         <?= csrf_field() ?>
+                        <div class="text-center mb-3">
+                            <img src="<?= base_url('assets/uploads/' . $user['foto']); ?>" alt="foto" srcset="" class="w-50" />
+                        </div>
+                        <div class="form-group">
+                            <label for="">Foto</label>
+                            <input type="file" class="form-control" name="foto" value="" accept=".jpg,.jpeg,.png">
+                        </div>
                         <div class="form-group">
                             <label for="">NIK <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="nik" value="<?= $user['nik'] ?>" required>
