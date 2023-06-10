@@ -185,6 +185,20 @@ class EkinerjaController extends BaseController
         }
     }
 
+    public function editTukang()
+    {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+
+            $data = [
+                'kinerja' => $this->ekinerja->editDetailKinerja($id),
+            ];
+
+            $encoded_data = base64_encode(json_encode($data));
+            return $this->response->setContentType('application/json')->setJSON(array('data' => $encoded_data));
+        }
+    }
+
     public function update()
     {
         $data = $this->request->getPost();
@@ -212,11 +226,46 @@ class EkinerjaController extends BaseController
         return redirect()->to(base_url('kelola-ekinerja'));
     }
 
+    public function updateTukang()
+    {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->rulesEK());
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('tukang/kelola-ekinerja'));
+        }
+
+        $dataEK = [
+            'id_users' => $data['id_users'],
+            'id_kegiatan' => $data['id_kegiatan'],
+            'output' => $data['output'],
+            'waktu_mulai' => $data['tanggal_mulai'],
+            'waktu_selesai' => $data['tanggal_selesai']
+        ];
+
+        $this->ekinerja->updateEkinerja($dataEK, $data['id']);
+        session()->setFlashdata("success", "Berhasil memperbarui data");
+        return redirect()->to(base_url('tukang/kelola-ekinerja'));
+    }
+
     public function delete($id)
     {
         $this->ekinerja->deleteEkinerja($id);
 
         session()->setFlashdata("success", "Berhasil menghapus data");
         return redirect()->to(base_url('kelola-ekinerja'));
+    }
+
+    public function deleteTukang($id)
+    {
+        $this->ekinerja->deleteEkinerja($id);
+
+        session()->setFlashdata("success", "Berhasil menghapus data");
+        return redirect()->to(base_url('tukang/kelola-ekinerja'));
     }
 }

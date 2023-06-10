@@ -33,7 +33,7 @@
                             <td><?= $val->waktu_selesai; ?></td>
                             <td>
                                 <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $val->id_ekinerja ?>"><i class="bi bi-pencil-square"></i></a>
-                                <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('kelola-ekinerja/delete/' . $val->id_ekinerja); ?>"><i class="bi bi-trash"></i></a>
+                                <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('tukang/kelola-ekinerja/delete/' . $val->id_ekinerja); ?>"><i class="bi bi-trash"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -120,7 +120,7 @@
                     Update Data E-Kinerja
                 </h4>
             </div>
-            <form action="<?= base_url('kelola-ekinerja/update') ?>" method="POST">
+            <form action="<?= base_url('tukang/kelola-ekinerja/update') ?>" method="POST">
                 <?= csrf_field() ?>
                 <input type="hidden" name="id" id="editId">
                 <div class="modal-body">
@@ -208,7 +208,7 @@
         // alert(this_id);
         $.ajax({
             type: "GET",
-            url: "<?= base_url('kelola-ekinerja/edit'); ?>",
+            url: "<?= base_url('tukang/kelola-ekinerja/edit'); ?>",
             data: {
                 id: this_id,
             },
@@ -216,7 +216,7 @@
                 $('#modalUpdate').modal('show');
                 var encoded_data = response.data;
                 var decoded_data = JSON.parse(atob(encoded_data));
-                // console.log(decoded_data);
+                console.log(decoded_data);
                 $('#editId').val(decoded_data.kinerja[0].id);
                 $('#editPegawai')[0].selectize.setValue(decoded_data.kinerja[0].id_users);
                 $('#editKegiatan')[0].selectize.setValue(decoded_data.kinerja[0].id_kegiatan);
