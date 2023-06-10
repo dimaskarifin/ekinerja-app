@@ -10,15 +10,13 @@ class Kegiatan extends Seeder
     {
         $kegiatan = [
             [
-                'id_users'        => 1,
                 'uraian_kegiatan' => 'Pemetaan (Pengukuran Jalan)',
-                'satuan'          => 'M',
+                'satuan'          => 'm',
                 'target'          => '10'
             ],
             [
-                'id_users' => 2,
                 'uraian_kegiatan' => 'Pembersihan (Membersihkan rumput/semak)',
-                'satuan'          => 'M',
+                'satuan'          => 'm',
                 'target'          => '20'
             ],
         ];

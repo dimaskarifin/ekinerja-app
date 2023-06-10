@@ -15,10 +15,6 @@ class Kegiatan extends Migration
                 'unsigned' => true,
                 'auto_increment' => true,
             ],
-            'id_users' => [
-                'type' => 'BIGINT',
-                'constraint' => 20
-            ],
             'uraian_kegiatan' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255

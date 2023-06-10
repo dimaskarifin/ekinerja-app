@@ -51,19 +51,44 @@ class EkinerjaController extends BaseController
         return $rulesEK;
     }
 
-    public function index()
+    public function indexMandor()
     {
         $data = [
             'title' => 'Kelola E-Kinerja',
             'ekinerja' => $this->ekinerja->getDetailKinerja(),
             'users'    => $this->users->getUsers(),
-            'kegiatan' => $this->kegiatan->getKegiatans(),
+            'kegiatan' => $this->kegiatan->getKegiatansAll(),
         ];
 
         return view('mandor/kinerja/index', $data);
     }
 
-    public function store()
+    public function indexPelaksana()
+    {
+        $data = [
+            'title' => 'Kelola E-Kinerja',
+            'ekinerja' => $this->ekinerja->getDetailKinerja(),
+            'users'    => $this->users->getUsers(),
+            'kegiatan' => $this->kegiatan->getKegiatansAll(),
+        ];
+
+        return view('pelaksana/kinerja/index', $data);
+    }
+
+    public function indexTukang()
+    {
+        $data = [
+            'title' => 'Kelola E-Kinerja',
+            'ekinerja' => $this->ekinerja->getDetailKinerja(),
+            'users'    => $this->users->getUsers(),
+            'kegiatan' => $this->kegiatan->getKegiatansAll(),
+        ];
+
+        return view('tukang/kinerja/index', $data);
+    }
+
+
+    public function storeMandor()
     {
         $data = $this->request->getPost();
 
@@ -89,6 +114,61 @@ class EkinerjaController extends BaseController
 
         session()->setFlashdata('success', 'Berhasil menambahkan data kinerja');
         return redirect()->to(base_url('kelola-ekinerja'));
+    }
+    public function storePelaksana()
+    {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->rulesEK());
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
+        }
+
+        $dataEK = [
+            'id_users' => $data['id_users'],
+            'id_kegiatan' => $data['id_kegiatan'],
+            'output' => $data['output'],
+            'waktu_mulai' => $data['tanggal_mulai'],
+            'waktu_selesai' => $data['tanggal_selesai']
+        ];
+
+        $this->ekinerja->insertEkinerja($dataEK);
+
+        session()->setFlashdata('success', 'Berhasil menambahkan data kinerja');
+        return redirect()->to(base_url('pelaksana/kelola-ekinerja'));
+    }
+
+    public function storeTukang()
+    {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules($this->rulesEK());
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('tukang/kelola-ekinerja'));
+        }
+
+        $dataEK = [
+            'id_users' => $data['id_users'],
+            'id_kegiatan' => $data['id_kegiatan'],
+            'output' => $data['output'],
+            'waktu_mulai' => $data['tanggal_mulai'],
+            'waktu_selesai' => $data['tanggal_selesai']
+        ];
+
+        $this->ekinerja->insertEkinerja($dataEK);
+
+        session()->setFlashdata('success', 'Berhasil menambahkan data kinerja');
+        return redirect()->to(base_url('tukang/kelola-ekinerja'));
     }
 
     public function edit()

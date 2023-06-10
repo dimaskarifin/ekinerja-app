@@ -107,8 +107,8 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item <?= uri_string() === 'kelola-ekinerja' ? 'active' : ''; ?>">
-                        <a href="<?= base_url('kelola-ekinerja'); ?>" class="sidebar-link">
+                    <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-ekinerja' ? 'active' : ''; ?>">
+                        <a href="<?= base_url('pelaksana/kelola-ekinerja'); ?>" class="sidebar-link">
                             <i class="bi bi-clipboard2-data-fill"></i>
                             <span>Kelola E-Kinerja</span>
                         </a>
@@ -127,8 +127,8 @@
                         </a>
                     </li>
 
-                    <li class="sidebar-item <?= uri_string() === 'kelola-ekinerja' ? 'active' : ''; ?>">
-                        <a href="<?= base_url('kelola-ekinerja'); ?>" class="sidebar-link">
+                    <li class="sidebar-item <?= uri_string() === 'tukang/kelola-ekinerja' ? 'active' : ''; ?>">
+                        <a href="<?= base_url('tukang/kelola-ekinerja'); ?>" class="sidebar-link">
                             <i class="bi bi-clipboard2-data-fill"></i>
                             <span>Kelola E-Kinerja</span>
                         </a>

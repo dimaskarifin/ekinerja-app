@@ -35,7 +35,7 @@
                                 </div>
                             </div>
                             <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
-                                <h6 class="text-muted font-semibold">E-KINERJA</h6>
+                                <h6 class="text-muted font-semibold">TOTAL KINERJA</h6>
                                 <h6 class="font-extrabold mb-0">
                                     <?= $total_ekinerja ?>
                                 </h6>
@@ -89,7 +89,9 @@
     const plugin = {
         id: 'chartJs',
         beforeDraw: (chart, args, options) => {
-            const { ctx } = chart;
+            const {
+                ctx
+            } = chart;
             ctx.save();
             ctx.globalCompositeOperation = 'destination-over';
             ctx.fillStyle = options.color || '#99ffff';
@@ -98,12 +100,12 @@
         }
     };
 
-    $(document).ready(function () {
-        <?php 
+    $(document).ready(function() {
+        <?php
         $old_value_month = isset($_GET['tanggal']) ? $_GET['tanggal'] : '';
         foreach ($chart as $item) { ?>
             labels.push('<?= $item['nama'] ?>');
-            values.push(<?= $item['total_kegiatan'] ?>);
+            values.push(<?= $item['total_kinerja'] ?>);
         <?php } ?>
 
         $(".input-month").val('<?= $old_value_month ?>');
@@ -111,7 +113,7 @@
         chartJs(labels, values);
     });
 
-    $(".input-month").change(function (e) {
+    $(".input-month").change(function(e) {
         e.preventDefault();
 
         let get_data = $(this).val();
@@ -125,10 +127,10 @@
         chart = new Chart(ctx, {
             type: 'bar',
             data: {
-                labels: labels,  // Array of labels
+                labels: labels, // Array of labels
                 datasets: [{
-                    label: 'Kegiatan User',
-                    data: values,  // Array of data values
+                    label: 'Kinerja User',
+                    data: values, // Array of data values
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1

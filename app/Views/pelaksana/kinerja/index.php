@@ -57,7 +57,7 @@
                     Tambah Data E-Kinerja
                 </h4>
             </div>
-            <form action="<?= base_url('kelola-ekinerja/store') ?>" method="POST">
+            <form action="<?= base_url('pelaksana/kelola-ekinerja/store') ?>" method="POST">
                 <?= csrf_field() ?>
                 <div class="modal-body">
                     <div class="row">
@@ -137,13 +137,19 @@
                         <div class="col-md-12">
                             <label>Nama Pegawai</label>
                             <div class="form-group">
-                                <select name="id_users" id="editPegawai" class="selectize">
-                                    <option value=""></option>
-                                    <?php foreach ($users as $row) : ?>
-                                    <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
-                                        <?= $row['nama'] ?></option>
-                                    <?php endforeach; ?>
-                                </select>
+                                <div class="col-md-12">
+                                    <label>Nama Pegawai</label>
+                                    <div class="form-group">
+                                        <select name="id_users" id="addPegawai" class="selectize">
+                                            <?php foreach ($users as $row) : ?>
+                                            <?php if (session()->get('id') === $row['id']) : ?>
+                                            <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                                <?= $row['nama'] ?></option>
+                                            <?php endif ?>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -220,7 +226,7 @@ $('body').on('click', '#btnEdit', function() {
     // alert(this_id);
     $.ajax({
         type: "GET",
-        url: "<?= base_url('kelola-ekinerja/edit'); ?>",
+        url: "<?= base_url('pelaksana/kelola-ekinerja/edit'); ?>",
         data: {
             id: this_id,
         },

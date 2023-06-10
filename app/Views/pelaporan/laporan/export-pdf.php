@@ -8,84 +8,84 @@
     <title>Document</title>
 </head>
 <style>
-    .table,
-    th,
-    td {
-        border: 1px solid;
-        border-collapse: collapse;
-    }
+.table,
+th,
+td {
+    border: 1px solid;
+    border-collapse: collapse;
+}
 
-    .text-center {
-        text-align: center;
-    }
+.text-center {
+    text-align: center;
+}
 
-    .w-25 {
-        width: 25%;
-    }
+.w-25 {
+    width: 25%;
+}
 
-    .w-50 {
-        width: 50%;
-    }
+.w-50 {
+    width: 50%;
+}
 
-    .w-75 {
-        width: 75%;
-    }
+.w-75 {
+    width: 75%;
+}
 
-    .w-100 {
-        width: 100%;
-    }
+.w-100 {
+    width: 100%;
+}
 
-    .m-1 {
-        margin: 1em;
-    }
+.m-1 {
+    margin: 1em;
+}
 
-    .m-2 {
-        margin: 2em;
-    }
+.m-2 {
+    margin: 2em;
+}
 
-    .mt-2 {
-        margin-top: 2em;
-    }
+.mt-2 {
+    margin-top: 2em;
+}
 
-    .mt-3 {
-        margin-top: 3em;
-    }
+.mt-3 {
+    margin-top: 3em;
+}
 
-    .mt-4 {
-        margin-top: 4em;
-    }
+.mt-4 {
+    margin-top: 4em;
+}
 
-    .mb-3 {
-        margin-bottom: 3em;
-    }
+.mb-3 {
+    margin-bottom: 3em;
+}
 
-    .text-undeline {
-        text-decoration: underline;
-    }
+.text-undeline {
+    text-decoration: underline;
+}
 
-    .row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 10px;
-    }
+.row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
 
-    .col {
-        flex: 1;
-        padding: 10px;
-    }
+.col {
+    flex: 1;
+    padding: 10px;
+}
 
-    .border {
-        border: 1px solid;
-        border-collapse: collapse;
-    }
+.border {
+    border: 1px solid;
+    border-collapse: collapse;
+}
 
-    .fs-5 {
-        font-size: 15px;
-    }
+.fs-5 {
+    font-size: 15px;
+}
 
-    .fw-bold {
-        font-weight: bold;
-    }
+.fw-bold {
+    font-weight: bold;
+}
 </style>
 
 <body>
@@ -117,25 +117,25 @@
                 $no = 1;
                 if (count($kinerjas) > 0) {
                     foreach ($kinerjas as $kinerja) { ?>
-                        <tr>
-                            <td class="text-center">
-                                <?= $no++ ?>
-                            </td>
-                            <td>
-                                <?= $kinerja['uraian_kegiatan'] ?>
-                            </td>
-                            <td class="text-center">
-                                <?= $kinerja['target'] .' '. $kinerja['satuan'] ?>
-                            </td>
-                            <td>
-                                <?= $kinerja['output'] ?>
-                            </td>
-                        </tr>
-                    <?php } ?>
+                <tr>
+                    <td class="text-center">
+                        <?= $no++ ?>
+                    </td>
+                    <td>
+                        <?= $kinerja['uraian_kegiatan'] ?>
+                    </td>
+                    <td class="text-center">
+                        <?= $kinerja['target'] . ' ' . $kinerja['satuan'] ?>
+                    </td>
+                    <td>
+                        <?= $kinerja['output'] ?>
+                    </td>
+                </tr>
+                <?php } ?>
                 <?php } else { ?>
-                    <tr>
-                        <td colspan="4" class="text-center">Tidak ada data</td>
-                    </tr>
+                <tr>
+                    <td colspan="4" class="text-center">Tidak ada data</td>
+                </tr>
                 <?php } ?>
             </tbody>
         </table>
@@ -159,8 +159,8 @@
                     </p>
                     <br>
                     <p class="mt-3">
-                        <?= $user['nama'] ?> <br> NIK.
-                        <?= $user['nik'] ?>
+                        <span>Suryono</span> <br> NIK.
+                        <span>3504050606790003</span>
                     </p> <!-- nama dan nik pelaksana -->
                 </td>
             </tr>

@@ -10,22 +10,16 @@ class KegiatanController extends BaseController
 {
 
     protected $kegiatan;
-    protected $users;
 
     public function __construct()
     {
         helper(['form', 'url', 'validation', 'session', 'text']);
         $this->kegiatan = new KegiatanModel();
-        $this->users = new UsersModel();
     }
 
     public function rulesKG()
     {
         $rulesKG = [
-            'id_users' => [
-                'label' => 'Nama Pegawai',
-                'rules' => 'required'
-            ],
             'uraian_kegiatan' => [
                 'label' => 'Uraian Kegiatan',
                 'rules' => 'required'
@@ -47,11 +41,10 @@ class KegiatanController extends BaseController
 
         $data = [
             'title' => 'Kelola Kegiatan',
-            'kegiatan' => $this->kegiatan->getKegiatanDetail(),
-            'users' => $this->users->select('users.id, users.nama, users.role')->findAll()
+            'kegiatan' => $this->kegiatan->getKegiatans(),
         ];
 
-        return view('mandor/kegiatan/index', $data);
+        return view('kegiatan/index', $data);
     }
 
     public function store()
@@ -65,11 +58,10 @@ class KegiatanController extends BaseController
             $errors = $validation->getErrors();
             $arr = implode("<br>", $errors);
             session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('mandor/kelola-kegiatan'));
+            return redirect()->to(base_url('kelola-kegiatan'));
         }
 
         $dataKG = [
-            'id_users' => $data['id_users'],
             'uraian_kegiatan' => $data['uraian_kegiatan'],
             'satuan' => $data['satuan'],
             'target' => $data['target']
@@ -78,7 +70,7 @@ class KegiatanController extends BaseController
         $this->kegiatan->insertKegiatan($dataKG);
 
         session()->setFlashdata("success", "Berhasil menambahkan data");
-        return redirect()->to(base_url('mandor/kelola-kegiatan'));
+        return redirect()->to(base_url('kelola-kegiatan'));
     }
 
     public function edit()
@@ -87,7 +79,7 @@ class KegiatanController extends BaseController
             $id = $this->request->getVar('id');
 
             $data = [
-                'kegiatan' => $this->kegiatan->editDetailKegiatan($id)
+                'kegiatan' => $this->kegiatan->getKegiatan($id)
             ];
 
             $encoded_data = base64_encode(json_encode($data));
@@ -106,11 +98,10 @@ class KegiatanController extends BaseController
             $errors = $validation->getErrors();
             $arr = implode("<br>", $errors);
             session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('mandor/kelola-kegiatan'));
+            return redirect()->to(base_url('kelola-kegiatan'));
         }
 
         $dataKG = [
-            'id_users' => $data['id_users'],
             'uraian_kegiatan' => $data['uraian_kegiatan'],
             'satuan' => $data['satuan'],
             'target' => $data['target']
@@ -119,7 +110,7 @@ class KegiatanController extends BaseController
         $this->kegiatan->updateKegiatan($dataKG, $data['id']);
 
         session()->setFlashdata('success', 'Berhasil memperbarui data');
-        return redirect()->to(base_url('mandor/kelola-kegiatan'));
+        return redirect()->to(base_url('kelola-kegiatan'));
     }
 
     public function delete($id)
@@ -127,6 +118,6 @@ class KegiatanController extends BaseController
         $this->kegiatan->deleteKegiatan($id);
 
         session()->setFlashdata('success', 'Data berhasil dihapus');
-        return redirect()->to(base_url('mandor/kelola-kegiatan'));
+        return redirect()->to(base_url('kelola-kegiatan'));
     }
 }

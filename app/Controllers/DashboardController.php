@@ -29,7 +29,7 @@ class DashboardController extends BaseController
             'total_kegiatan' => $this->kegiatan->where('deleted_at', null)->countAllResults(),
             'total_ekinerja' => $this->ekinerja->where('deleted_at', null)->countAllResults(),
             'total_user' => $this->user->where('deleted_at', null)->countAllResults(),
-            'chart' => $this->kegiatan->getTotalKegiatanEachUser($get_data)
+            'chart' => $this->ekinerja->getTotalEkinerjaEachUser($get_data)
         ];
 
         return view('dashboard', $data);

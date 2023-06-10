@@ -323,7 +323,7 @@ $('body').on('click', '#btnEdit', function() {
             var encoded_data = response.data;
             var decoded_data = JSON.parse(atob(encoded_data));
             // console.log(decoded_data);
-            $('#editId').val(decoded_data.users[0].id);
+            $('#editId').val(decoded_data.users[0].id_users);
             $('#editNIK').val(decoded_data.users[0].nik);
             $('#editNama').val(decoded_data.users[0].nama);
             $('#editRole')[0].selectize.setValue(decoded_data.users[0].role);

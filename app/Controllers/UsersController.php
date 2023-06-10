@@ -72,10 +72,13 @@ class UsersController extends BaseController
         $data = [
             'title' => 'Kelola Data Users',
             'users' => $this->users->getDetails(),
+
             'pengawas' => $this->pengawas->getAllPengawas(),
             'jabatan' => $this->jabatan->getJabatans(),
             'bidang' => $this->bidang->getBidangs()
         ];
+
+        // dd($data['users']);
 
         return view('mandor/users/index', $data);
     }
@@ -137,7 +140,7 @@ class UsersController extends BaseController
             ];
 
             $encoded_data = base64_encode(json_encode($data));
-            
+
             return $this->response->setContentType('application/json')
                 ->setJSON(array('data' => $encoded_data));
         }
@@ -160,7 +163,8 @@ class UsersController extends BaseController
 
         // Check NIK baru== NIK LAMA
         $get_data_user = $this->users->getUser($data['id']);
-        if ($get_data_user['nik'] == $data['nik']) {
+        // dd($get_data_user);
+        if ($get_data_user['nik'] === $data['nik']) {
             unset($arrRules['nik']);
         }
 
@@ -201,8 +205,8 @@ class UsersController extends BaseController
         }
 
         $this->users->updateUser($dataUser, $data['id']);
+        session()->setFlashdata('success', 'Berhasil memperbarui data');
         return redirect()->to(base_url('mandor/kelola-users'));
-    
     }
 
     public function storePelaksana()
@@ -254,10 +258,10 @@ class UsersController extends BaseController
             unset($arrRules['foto']);
         }
 
-        
+
         // Check NIK baru== NIK LAMA
         $get_data_user = $this->users->getUser($data['id']);
-        if ($get_data_user['nik'] == $data['nik']) {
+        if ($get_data_user['nik'] === $data['nik']) {
             unset($arrRules['nik']);
         }
 
@@ -298,6 +302,7 @@ class UsersController extends BaseController
         }
 
         $this->users->updateUser($dataUser, $data['id']);
+        session()->setFlashdata('success', 'Berhasil memperbarui data tukang');
         return redirect()->to(base_url('pelaksana/kelola-tukang'));
     }
 

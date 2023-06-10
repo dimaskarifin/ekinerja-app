@@ -60,7 +60,8 @@ class EkinerjaModel extends Model
         $builder->select('ekinerja.*, ekinerja.id as id_ekinerja, users.nama, kegiatan.uraian_kegiatan')
             ->join('users', 'users.id = ekinerja.id_users')
             ->join('kegiatan', 'kegiatan.id = ekinerja.id_kegiatan')
-            ->where('ekinerja.deleted_at', null);
+            ->where('ekinerja.deleted_at', null)
+            ->where('nik', session('nik'));
 
         $query = $builder->get();
         return $query->getResult();
@@ -73,6 +74,18 @@ class EkinerjaModel extends Model
             ->join('users', 'users.id = ekinerja.id_users')
             ->join('kegiatan', 'kegiatan.id = ekinerja.id_kegiatan')
             ->where('ekinerja.id', $id);
+
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
+    public function getEkinerjaEachUser($id_users)
+    {
+        $builder = $this->db->table('ekinerja');
+        $builder->select('ekinerja.*, ekinerja.id as id_ekinerja, users.*, kegiatan.uraian_kegiatan')
+            ->join('users', 'users.id = ekinerja.id_users')
+            ->join('kegiatan', 'kegiatan.id = ekinerja.id_kegiatan')
+            ->where('id_users', $id_users);
 
         $query = $builder->get();
         return $query->getResult();
@@ -119,6 +132,22 @@ class EkinerjaModel extends Model
                     $query->where('DATE(ekinerja.created_at)', $date_explode);
                 }
             }
+        }
+
+        return $query->find();
+    }
+
+    public function getTotalEkinerjaEachUser($tanggal = '')
+    {
+        $query = $this->join('users', 'ekinerja.id_users = users.id')
+            ->select('users.nama, COUNT(ekinerja.id_users) as total_kinerja')
+            ->where('ekinerja.deleted_at', null)
+            ->groupBy('ekinerja.id_users');
+
+        if (!empty($tanggal)) {
+            $explode = explode('-', $tanggal['tanggal']);
+            $query->where('MONTH(ekinerja.created_at)', $explode[1]);
+            $query->where('YEAR(ekinerja.created_at)', $explode[0]);
         }
 
         return $query->find();

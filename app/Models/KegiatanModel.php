@@ -79,12 +79,24 @@ class KegiatanModel extends Model
 
     public function getKegiatan($id)
     {
-        return $this->where(['id' => $id])->first();
+        $builder = $this->db->table('kegiatan');
+        $builder->select('kegiatan.*')->where('kegiatan.id', $id);
+        $query = $builder->get();
+        return $query->getResult();
     }
     public function getKegiatans()
     {
+        $builder = $this->db->table('kegiatan');
+        $builder->select('kegiatan.*');
+        $query = $builder->get();
+        return $query->getResult();
+    }
+
+    public function getKegiatansAll()
+    {
         return $this->orderBy('updated_at', 'desc')->findAll();
     }
+
     public function insertKegiatan($data)
     {
         return $this->insert($data);
@@ -101,9 +113,9 @@ class KegiatanModel extends Model
     public function getTotalKegiatanEachUser($tanggal = '')
     {
         $query = $this->join('users', 'kegiatan.id_users = users.id')
-        ->select('users.nama, COUNT(kegiatan.id_users) as total_kegiatan')
-        ->where('kegiatan.deleted_at', null)
-        ->groupBy('kegiatan.id_users');
+            ->select('users.nama, COUNT(kegiatan.id_users) as total_kegiatan')
+            ->where('kegiatan.deleted_at', null)
+            ->groupBy('kegiatan.id_users');
 
         if (!empty($tanggal)) {
             $explode = explode('-', $tanggal['tanggal']);
