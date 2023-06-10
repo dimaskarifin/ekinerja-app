@@ -37,8 +37,8 @@
                             </div>
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="">NIK <span class="text-danger">*</span></label>
-                                    <select name="nik" id="nik" class="form-select" required>
+                                    <label for="">NIK</label>
+                                    <select name="nik" id="nik" class="form-select">
                                         <option value="">Pilih NIK</option>
                                         <?php
                                         $old_value_nik = isset($_GET['nik']) ? $_GET['nik'] : '';
@@ -166,6 +166,7 @@
     $('#kategori').change(function (e) {
         e.preventDefault();
         type = $(this).val();
+        kategori = $(this).val();
 
         if (type) {
             $('#tanggal').attr('type', type);
@@ -185,25 +186,23 @@
     $("#tanggal").change(function (e) {
         e.preventDefault();
 
-        let this_value = $(this).val();
+        tanggal = $(this).val();
 
         if (type == 'week') {
-            $("#keterangan").text(tampilkanTanggal(this_value));
+            $("#keterangan").text(tampilkanTanggal(tanggal));
         }
+    });
+
+    $("#nik").change(function (e) {
+        e.preventDefault()
+
+        nik = $(this).val();
     });
 
     $(".btn-export").click(function (e) { 
         e.preventDefault();
         
-        if (!kategori && !nik && !tanggal) {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Gagal!',
-                html: 'Pilih Kategori, NIK dan Tanggal terlebih dahulu'
-            })
-        } else {
-            window.location.href = '<?= base_url('laporan/export-pdf') ?>'+'?kategori=' + kategori + '&nik=' + nik + '&tanggal=' + tanggal;
-        }
+        window.location.href = '<?= base_url('laporan/export-pdf') ?>'+'?kategori=' + kategori + '&nik=' + nik + '&tanggal=' + tanggal;
     });
 
     function datatable() {

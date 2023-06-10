@@ -93,20 +93,25 @@
         <h3 class="text-undeline text-center">Laporan Pekerjaan
             <?= $kategori ?>
         </h3>
-        <p class="text-center">Hari / Tanggal :
+        <p class="text-center mb-3">Hari / Tanggal :
             <?= $tanggal ?>
         </p>
-        <p class="mt-3">NIK :
-            <?= $user['nik'] ?><br>
-            Nama:
-            <?= $user['nama'] ?>
-        </p>
+        <?php if (!empty($user)) { ?>
+            <p>NIK :
+                <?= $user['nik'] ?><br>
+                Nama:
+                <?= $user['nama'] ?>
+            </p>
+        <?php } ?>
 
         <!-- table -->
         <table class="table w-100">
             <thead>
                 <tr>
                     <th>No.</th>
+                    <?php if (empty($user)) { ?>
+                        <th>Nama</th>
+                    <?php } ?>
                     <th>Uraian Kegiatan</th>
                     <th>Satuan</th>
                     <th>Rincian</th>
@@ -121,6 +126,11 @@
                             <td class="text-center">
                                 <?= $no++ ?>
                             </td>
+                            <?php if (empty($user)) { ?>
+                                <td>
+                                    <?= $kinerja['nama'] ?>
+                                </td>
+                            <?php } ?>
                             <td>
                                 <?= $kinerja['uraian_kegiatan'] ?>
                             </td>
@@ -148,8 +158,8 @@
                     <p class="fs-5 mb-3">Pengawas Lapangan</p>
                     <br>
                     <p class="mt-4">
-                        <span>Imam Sururi</span> <br> NIK.
-                        <span>3506220101610010</span>
+                        <?= $mandor ?> <br> NIK.
+                        <?= $nik_mandor ?>
                     </p> <!-- nama dan nik mandor -->
                 </td>
                 <td style="border: none;">

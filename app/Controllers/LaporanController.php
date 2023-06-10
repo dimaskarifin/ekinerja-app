@@ -46,28 +46,37 @@ class LaporanController extends BaseController
     {
         $get_data = $this->request->getGet();
         $kategori = "";
-        if ($get_data['kategori'] == 'date') {
-            $kategori = "Harian";
-        } else if($get_data['kategori'] == 'week') {
-            $kategori = "Mingguan";
-        } else if ($get_data['kategori'] == 'month') {
-            $kategori = "Bulanan";
-        }
-        
+        $user = "";
+        $tanggal = "";
         $tanggal_sekarang = $this->tanggalIndo(date('Y-m-d'));
-        
-        if ($get_data['kategori'] != 'week') {
-            $tanggal = $this->tanggalIndo($get_data['tanggal']);
-        } else {
-            $tanggalPerMinggu = $this->tanggalPerMinggu($get_data['tanggal']);
-            $get_data['date_range']['start_date'] = "$tanggalPerMinggu[0]";
-            $get_data['date_range']['end_date'] = "$tanggalPerMinggu[6]";
-            $tanggalMulai = $this->tanggalIndo($tanggalPerMinggu[0]);
-            $tanggalSelesai = $this->tanggalIndo($tanggalPerMinggu[6]);
-            $tanggal = "{$tanggalMulai} - {$tanggalSelesai}";
+
+        if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
+            $user = $this->user->where('nik', $get_data['nik'])->first();
+
+            if ($get_data['kategori'] == 'date') {
+                $kategori = "Harian";
+            } else if($get_data['kategori'] == 'week') {
+                $kategori = "Mingguan";
+            } else if ($get_data['kategori'] == 'month') {
+                $kategori = "Bulanan";
+            }
+            
+            
+            if ($get_data['kategori'] != 'week') {
+                $tanggal = $this->tanggalIndo($get_data['tanggal']);
+            } else {
+                $tanggalPerMinggu = $this->tanggalPerMinggu($get_data['tanggal']);
+                $get_data['date_range']['start_date'] = "$tanggalPerMinggu[0]";
+                $get_data['date_range']['end_date'] = "$tanggalPerMinggu[6]";
+                $tanggalMulai = $this->tanggalIndo($tanggalPerMinggu[0]);
+                $tanggalSelesai = $this->tanggalIndo($tanggalPerMinggu[6]);
+                $tanggal = "{$tanggalMulai} - {$tanggalSelesai}";
+            }
         }
 
         $dompdf = new Dompdf();
+
+        $is_date = !empty($tanggal) ? $tanggal : $tanggal_sekarang;
 
         $mandor = $this->user->where('role', 'mandor')->first();
 
@@ -76,14 +85,14 @@ class LaporanController extends BaseController
         $data['nik_mandor'] = $mandor['nik'];
         $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;
-        $data['tanggal'] = $tanggal;
+        $data['tanggal'] = $is_date;
         $data['tanggal_sekarang'] = $tanggal_sekarang;
-        $data['user'] = $this->user->where('nik', $get_data['nik'])->first();
+        $data['user'] = $user;
 
         $dompdf->loadHtml(view('pelaporan/laporan/export-pdf', $data));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
-        $dompdf->stream("Laporan Kinerja $kategori - $tanggal.pdf");
+        $dompdf->stream("Laporan Kinerja $kategori - $is_date.pdf");
     }
 
     private function tanggalIndo($tanggal)
