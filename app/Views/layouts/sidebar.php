@@ -98,8 +98,8 @@
 
                 <li class="sidebar-title">Pelaporan</li>
 
-                <li class="sidebar-item <?= uri_string() === 'laporan' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('laporan'); ?>" class="sidebar-link">
+                <li class="sidebar-item <?= uri_string() === 'mandor/laporan' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('mandor/laporan'); ?>" class="sidebar-link">
                         <i class="bi bi-calendar2-date-fill"></i>
                         <span>Laporan</span>
                     </a>
@@ -133,8 +133,8 @@
 
                 <li class="sidebar-title">Pelaporan</li>
 
-                <li class="sidebar-item <?= uri_string() === 'laporan' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('laporan'); ?>" class="sidebar-link">
+                <li class="sidebar-item <?= uri_string() === 'pelaksana/laporan' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('pelaksana/laporan'); ?>" class="sidebar-link">
                         <i class="bi bi-calendar2-date-fill"></i>
                         <span>Laporan</span>
                     </a>
@@ -162,7 +162,7 @@
 
                 <li class="sidebar-title">Pelaporan</li>
 
-                <li class="sidebar-item <?= uri_string() === 'laporan' ? 'active' : ''; ?>">
+                <li class="sidebar-item <?= uri_string() === 'tukang/laporan' ? 'active' : ''; ?>">
                     <a href="<?= base_url('tukang/laporan'); ?>" class="sidebar-link">
                         <i class="bi bi-calendar2-date-fill"></i>
                         <span>Laporan</span>

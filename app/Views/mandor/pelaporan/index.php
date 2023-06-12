@@ -12,7 +12,7 @@
             <div class="row mb-3 border-bottom">
                 <div class="col-md-6">
                     <h5>Filter</h5>
-                    <form action="<?= base_url('laporan') ?>" method="get">
+                    <form action="<?= base_url('mandor/laporan') ?>" method="get">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -23,10 +23,8 @@
                                         $old_value_kategori = isset($_GET['kategori']) ? $_GET['kategori'] : '';
                                         if (!empty($old_value_kategori)) { ?>
                                             <option value="date" <?php if ($old_value_kategori == 'date') { ?> selected <?php } ?>>Harian</option>
-                                            <option value="week" <?php if ($old_value_kategori == 'week') { ?> selected
-                                                <?php } ?>>Minggu</option>
-                                            <option value="month" <?php if ($old_value_kategori == 'month') { ?> selected
-                                                <?php } ?>>Bulan</option>
+                                            <option value="week" <?php if ($old_value_kategori == 'week') { ?> selected <?php } ?>>Minggu</option>
+                                            <option value="month" <?php if ($old_value_kategori == 'month') { ?> selected <?php } ?>>Bulan</option>
                                         <?php } else { ?>
                                             <option value="date">Harian</option>
                                             <option value="week">Minggu</option>
@@ -46,7 +44,8 @@
                                         foreach ($users as $user) { ?>
                                             <?php if (!empty($old_value_nik)) { ?>
                                                 <?php if ($user['nik'] == $old_value_nik) { ?>
-                                                    <option value="<?= $user['nik'] ?>" selected><?= $user['nik'] . ' - ' . $user['nama'] ?>
+                                                    <option value="<?= $user['nik'] ?>" selected>
+                                                        <?= $user['nik'] . ' - ' . $user['nama'] ?>
                                                     </option>
                                                 <?php } else { ?>
                                                     <option value="<?= $user['nik'] ?>"><?= $user['nik'] . ' - ' . $user['nama'] ?>
@@ -70,7 +69,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="d-grid gap-2 mt-2 mb-3">
-                                            <a href="<?= base_url('laporan') ?>" class="btn btn-warning">Reset</a>
+                                            <a href="<?= base_url('mandor/laporan') ?>" class="btn btn-warning">Reset</a>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -94,6 +93,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama Pegawai</th>
                         <th>Kegiatan</th>
                         <th>Target</th>
                         <th>Waktu Mulai</th>
@@ -108,6 +108,9 @@
                         <tr>
                             <td>
                                 <?= $no++ ?>
+                            </td>
+                            <td>
+                                <?= $laporan['nama'] ?>
                             </td>
                             <td>
                                 <?= $laporan['uraian_kegiatan'] ?>
@@ -140,7 +143,7 @@
     let table;
     let type, kategori, nik, tanggal;
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         datatable();
 
         $("#tanggal").attr('readonly', true);
@@ -163,7 +166,7 @@
         }
     });
 
-    $('#kategori').change(function (e) {
+    $('#kategori').change(function(e) {
         e.preventDefault();
         type = $(this).val();
         kategori = $(this).val();
@@ -181,9 +184,9 @@
             $("#tanggal").attr('readonly', true);
         }
     });
-    
 
-    $("#tanggal").change(function (e) {
+
+    $("#tanggal").change(function(e) {
         e.preventDefault();
 
         tanggal = $(this).val();
@@ -193,16 +196,18 @@
         }
     });
 
-    $("#nik").change(function (e) {
+    $("#nik").change(function(e) {
         e.preventDefault()
 
         nik = $(this).val();
     });
 
-    $(".btn-export").click(function (e) { 
+    $(".btn-export").click(function(e) {
         e.preventDefault();
-        
-        window.location.href = '<?= base_url('laporan/export-pdf') ?>'+'?kategori=' + kategori + '&nik=' + nik + '&tanggal=' + tanggal;
+
+        window.location.href = '<?= base_url('mandor/laporan/export-pdf') ?>' + '?kategori=' + kategori + '&nik=' +
+            nik +
+            '&tanggal=' + tanggal;
     });
 
     function datatable() {
@@ -215,25 +220,29 @@
     }
 
     function tampilkanTanggal(tanggal) {
-      // Mendapatkan nilai input tanggal per minggu
-      var inputTanggalPerMinggu = tanggal;
+        // Mendapatkan nilai input tanggal per minggu
+        var inputTanggalPerMinggu = tanggal;
 
-      // Mendapatkan tanggal pertama dalam minggu yang dipilih
-      var tahun = parseInt(inputTanggalPerMinggu.substring(0, 4));
-      var minggu = parseInt(inputTanggalPerMinggu.substring(6, 8));
-      var tanggalPertama = new Date(tahun, 0, (minggu - 1) * 7 + 2);
+        // Mendapatkan tanggal pertama dalam minggu yang dipilih
+        var tahun = parseInt(inputTanggalPerMinggu.substring(0, 4));
+        var minggu = parseInt(inputTanggalPerMinggu.substring(6, 8));
+        var tanggalPertama = new Date(tahun, 0, (minggu - 1) * 7 + 2);
 
-      // Membuat daftar tanggal per minggu
-      var tanggalPerMinggu = [];
-      for (var i = 0; i < 7; i++) {
-        var tanggal = new Date(tanggalPertama.getTime() + i * 24 * 60 * 60 * 1000);
-        var tanggalStr = tanggal.toLocaleDateString('id-ID', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$2-$1');
-        tanggalPerMinggu.push(tanggalStr);
-      }
+        // Membuat daftar tanggal per minggu
+        var tanggalPerMinggu = [];
+        for (var i = 0; i < 7; i++) {
+            var tanggal = new Date(tanggalPertama.getTime() + i * 24 * 60 * 60 * 1000);
+            var tanggalStr = tanggal.toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit'
+            }).replace(/(\d+)\/(\d+)\/(\d+)/, '$3-$2-$1');
+            tanggalPerMinggu.push(tanggalStr);
+        }
 
 
-    //   return ''tanggalPerMinggu[0] + ' - ' +tanggalPerMinggu[6];
-      return `Minggu ke ${minggu} dari tahun ${tahun}, ${tanggalPerMinggu[0]} - ${tanggalPerMinggu[6]}`;
+        //   return ''tanggalPerMinggu[0] + ' - ' +tanggalPerMinggu[6];
+        return `Minggu ke ${minggu} dari tahun ${tahun}, ${tanggalPerMinggu[0]} - ${tanggalPerMinggu[6]}`;
     }
 </script>
 

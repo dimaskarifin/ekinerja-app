@@ -118,12 +118,46 @@ class EkinerjaModel extends Model
         return $this->delete($id);
     }
 
-    public function getLaporan(array $params = [])
+    public function getLaporanMandor(array $params = [])
     {
         $query = $this->join('users', 'users.id = ekinerja.id_users')
             ->join('kegiatan', 'kegiatan.id = ekinerja.id_kegiatan')
             ->select('kegiatan.*, users.*, ekinerja.*')
             ->where('ekinerja.deleted_at', null);
+
+        if (!empty($params)) {
+            if (!empty($params['nik'])) {
+                $query->where('nik', $params['nik']);
+            }
+
+            if (!empty($params['tanggal'])) {
+                $date_explode = explode('-', $params['tanggal']);
+                if ($params['kategori'] == 'month' && count($date_explode) == 2) {
+                    $query->where('MONTH(ekinerja.created_at)', $date_explode[1])->where('YEAR(ekinerja.created_at)', $date_explode[0]);
+                } else if ($params['kategori'] == 'week') {
+                    $query->where("DATE(ekinerja.created_at) BETWEEN '{$params['date_range']['start_date']}' AND '{$params['date_range']['end_date']}'");
+                } else {
+                    $date_explode = explode('/', $params['tanggal']);
+                    if (count($date_explode) == 3) {
+                        $date_explode = $date_explode[2] . '-' . $date_explode[1] . '-' . $date_explode[0];
+                    } else {
+                        $date_explode = $params['tanggal'];
+                    }
+                    $query->where('DATE(ekinerja.created_at)', $date_explode);
+                }
+            }
+        }
+
+        return $query->find();
+    }
+
+    public function getLaporanTukang(array $params = [])
+    {
+        $query = $this->join('users', 'users.id = ekinerja.id_users')
+            ->join('kegiatan', 'kegiatan.id = ekinerja.id_kegiatan')
+            ->select('kegiatan.*, users.*, ekinerja.*')
+            ->where('ekinerja.deleted_at', null)
+            ->where('nik', session('nik'));
 
         if (!empty($params)) {
             if (!empty($params['nik'])) {

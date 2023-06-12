@@ -53,10 +53,6 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('profile-user', 'ProfileUser::index');
     $routes->post('profile-user/(:num)', 'ProfileUser::update/$1');
 
-    //laporan
-    $routes->get('laporan', 'LaporanController::index');
-    $routes->get('laporan/export-pdf', 'LaporanController::exportPdf');
-
     //Routes Mandor
     $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
         //Users
@@ -93,6 +89,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
         $routes->post('kelola-ekinerja/update', 'EkinerjaController::update');
         $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::delete/$1');
+
+        //laporan
+        $routes->get('laporan', 'LaporanController::indexMandor');
+        $routes->get('laporan/export-pdf', 'LaporanController::exportPdfMandor');
     });
 
     //Routes Pelaksana
@@ -110,6 +110,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
         $routes->post('kelola-ekinerja/update', 'EkinerjaController::updatePelaksana');
         $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::deletePelaksana/$1');
+
+        //laporan
+        $routes->get('laporan', 'LaporanController::indexPelaksana');
+        $routes->get('laporan/export-pdf', 'LaporanController::exportPdfPelaksana');
     });
 
     //Routes Tukang
@@ -120,6 +124,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::editTukang');
         $routes->post('kelola-ekinerja/update', 'EkinerjaController::updateTukang');
         $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::deleteTukang/$1');
+
+        //laporan
+        $routes->get('laporan', 'LaporanController::indexLapTukang');
+        $routes->get('laporan/export-pdf', 'LaporanController::exportPdfTukang');
     });
 });
 

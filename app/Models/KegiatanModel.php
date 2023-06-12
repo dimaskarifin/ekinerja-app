@@ -110,19 +110,19 @@ class KegiatanModel extends Model
         return $this->delete($id);
     }
 
-    public function getTotalKegiatanEachUser($tanggal = '')
-    {
-        $query = $this->join('users', 'kegiatan.id_users = users.id')
-            ->select('users.nama, COUNT(kegiatan.id_users) as total_kegiatan')
-            ->where('kegiatan.deleted_at', null)
-            ->groupBy('kegiatan.id_users');
+    // public function getTotalKegiatanEachUser($tanggal = '')
+    // {
+    //     $query = $this->join('users', 'kegiatan.id_users = users.id')
+    //         ->select('users.nama, COUNT(kegiatan.id_users) as total_kegiatan')
+    //         ->where('kegiatan.deleted_at', null)
+    //         ->groupBy('kegiatan.id_users');
 
-        if (!empty($tanggal)) {
-            $explode = explode('-', $tanggal['tanggal']);
-            $query->where('MONTH(kegiatan.created_at)', $explode[1]);
-            $query->where('YEAR(kegiatan.created_at)', $explode[0]);
-        }
+    //     if (!empty($tanggal)) {
+    //         $explode = explode('-', $tanggal['tanggal']);
+    //         $query->where('MONTH(kegiatan.created_at)', $explode[1]);
+    //         $query->where('YEAR(kegiatan.created_at)', $explode[0]);
+    //     }
 
-        return $query->find();
-    }
+    //     return $query->find();
+    // }
 }

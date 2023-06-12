@@ -12,7 +12,7 @@
             <div class="row mb-3 border-bottom">
                 <div class="col-md-6">
                     <h5>Filter</h5>
-                    <form action="<?= base_url('tukang/laporan') ?>" method="get">
+                    <form action="<?= base_url('pelaksana/laporan') ?>" method="get">
                         <div class="row">
                             <div class="col-md-4">
                                 <div class="form-group">
@@ -37,12 +37,25 @@
                                 <div class="form-group">
                                     <label for="">NIK</label>
                                     <select name="nik" id="nik" class="form-select">
+                                        <option value="">Pilih NIK</option>
                                         <?php
-                                        foreach ($users as $user) {
-                                            $selected = ($_SESSION['nik'] == $user['nik']) ? 'selected' : '';
-                                            echo '<option value="' . $user['nik'] . '" ' . $selected . '>' . $user['nik'] . ' - ' . $user['nama'] . '</option>';
-                                        }
-                                        ?>
+                                        $old_value_nik = isset($_GET['nik']) ? $_GET['nik'] : '';
+
+                                        foreach ($users as $user) { ?>
+                                            <?php if (!empty($old_value_nik)) { ?>
+                                                <?php if ($user['nik'] == $old_value_nik) { ?>
+                                                    <option value="<?= $user['nik'] ?>" selected>
+                                                        <?= $user['nik'] . ' - ' . $user['nama'] ?>
+                                                    </option>
+                                                <?php } else { ?>
+                                                    <option value="<?= $user['nik'] ?>"><?= $user['nik'] . ' - ' . $user['nama'] ?>
+                                                    </option>
+                                                <?php } ?>
+                                            <?php } else { ?>
+                                                <option value="<?= $user['nik'] ?>"><?= $user['nik'] . ' - ' . $user['nama'] ?>
+                                                </option>
+                                            <?php } ?>
+                                        <?php } ?>
                                     </select>
                                 </div>
                                 <div class="form-group mt-2">
@@ -56,7 +69,7 @@
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="d-grid gap-2 mt-2 mb-3">
-                                            <a href="<?= base_url('tukang/laporan') ?>" class="btn btn-warning">Reset</a>
+                                            <a href="<?= base_url('pelaksana/laporan') ?>" class="btn btn-warning">Reset</a>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -80,6 +93,7 @@
                 <thead>
                     <tr>
                         <th>No</th>
+                        <th>Nama Pegawai</th>
                         <th>Kegiatan</th>
                         <th>Target</th>
                         <th>Waktu Mulai</th>
@@ -94,6 +108,9 @@
                         <tr>
                             <td>
                                 <?= $no++ ?>
+                            </td>
+                            <td>
+                                <?= $laporan['nama'] ?>
                             </td>
                             <td>
                                 <?= $laporan['uraian_kegiatan'] ?>
@@ -188,7 +205,8 @@
     $(".btn-export").click(function(e) {
         e.preventDefault();
 
-        window.location.href = '<?= base_url('tukang/laporan/export-pdf') ?>' + '?kategori=' + kategori + '&nik=' +
+        window.location.href = '<?= base_url('pelaksana/laporan/export-pdf') ?>' + '?kategori=' + kategori +
+            '&nik=' +
             nik +
             '&tanggal=' + tanggal;
     });
