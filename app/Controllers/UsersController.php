@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\BidangModel;
 use App\Models\JabatanModel;
-use App\Models\PengawasModel;
 use App\Models\UsersModel;
 
 class UsersController extends BaseController
@@ -19,7 +18,6 @@ class UsersController extends BaseController
     {
         helper(['form', 'url', 'validation', 'session', 'text']);
         $this->users = new UsersModel();
-        $this->pengawas = new PengawasModel();
         $this->jabatan = new JabatanModel();
         $this->bidang = new BidangModel();
     }
