@@ -24,14 +24,6 @@ class KegiatanController extends BaseController
                 'label' => 'Uraian Kegiatan',
                 'rules' => 'required'
             ],
-            'satuan' => [
-                'label' => 'Satuan',
-                'rules' => 'required'
-            ],
-            'target' => [
-                'label' => 'Target',
-                'rules' => 'required'
-            ]
         ];
         return $rulesKG;
     }
@@ -63,8 +55,6 @@ class KegiatanController extends BaseController
 
         $dataKG = [
             'uraian_kegiatan' => $data['uraian_kegiatan'],
-            'satuan' => $data['satuan'],
-            'target' => $data['target']
         ];
 
         $this->kegiatan->insertKegiatan($dataKG);
@@ -103,8 +93,6 @@ class KegiatanController extends BaseController
 
         $dataKG = [
             'uraian_kegiatan' => $data['uraian_kegiatan'],
-            'satuan' => $data['satuan'],
-            'target' => $data['target']
         ];
 
         $this->kegiatan->updateKegiatan($dataKG, $data['id']);

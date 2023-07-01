@@ -13,8 +13,6 @@
                     <tr>
                         <th>No</th>
                         <th>Uraian Kegiatan</th>
-                        <th>Satuan</th>
-                        <th>Target</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
@@ -26,8 +24,6 @@
                     <tr>
                         <td><?= $no++; ?></td>
                         <td><?= $row->uraian_kegiatan; ?></td>
-                        <td><?= $row->satuan; ?></td>
-                        <td><?= $row->target; ?></td>
                         <td>
                             <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $row->id ?>"><i
                                     class="bi bi-pencil-square"></i></a>
@@ -64,7 +60,7 @@
                                     rows="3"></textarea>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <!-- <div class="col-md-8">
                             <label>Satuan</label>
                             <div class="form-group">
                                 <select name="satuan" id="addSatuan" class="selectize">
@@ -81,7 +77,7 @@
                                 <input id="target" name="target" type="text" placeholder="Masukkan Target"
                                     class="form-control">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -115,7 +111,7 @@
                                     rows="3"></textarea>
                             </div>
                         </div>
-                        <div class="col-md-8">
+                        <!-- <div class="col-md-8">
                             <label>Satuan</label>
                             <div class="form-group">
                                 <select name="satuan" id="editSatuan" class="selectize">
@@ -129,10 +125,9 @@
                         <div class="col-md-8">
                             <label>Target</label>
                             <div class="form-group">
-                                <input id="editTarget" name="target" type="text" placeholder="Masukkan Target"
-                                    class="form-control">
+                                <input id="editTarget" name="target" type="text" placeholder="Masukkan Target" class="form-control">
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -148,18 +143,18 @@
 <?= $this->section('script'); ?>
 <?= $this->include('layouts/message-alert'); ?>
 <script>
-$(function() {
-    $('#addSatuan').selectize({
-        placeholder: 'Pilih Satuan',
-        searchField: 'label',
-        create: true
-    });
-    $('#editSatuan').selectize({
-        placeholder: 'Pilih Satuan',
-        searchField: 'label',
-        create: true
-    });
-})
+// $(function() {
+//     $('#addSatuan').selectize({
+//         placeholder: 'Pilih Satuan',
+//         searchField: 'label',
+//         create: true
+//     });
+//     $('#editSatuan').selectize({
+//         placeholder: 'Pilih Satuan',
+//         searchField: 'label',
+//         create: true
+//     });
+// })
 
 
 
@@ -175,11 +170,11 @@ $('body').on('click', '#btnEdit', function() {
             $('#modalUpdate').modal('show');
             var encoded_data = response.data;
             var decoded_data = JSON.parse(atob(encoded_data));
-            console.log(decoded_data);
+            // console.log(decoded_data);
             $('#editId').val(decoded_data.kegiatan[0].id);
             $('#editKegiatan').val(decoded_data.kegiatan[0].uraian_kegiatan);
-            $('#editSatuan')[0].selectize.setValue(decoded_data.kegiatan[0].satuan);
-            $('#editTarget').val(decoded_data.kegiatan[0].target);
+            // $('#editSatuan')[0].selectize.setValue(decoded_data.kegiatan[0].satuan);
+            // $('#editTarget').val(decoded_data.kegiatan[0].target);
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log('AJAX Error: ');

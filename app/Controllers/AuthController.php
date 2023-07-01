@@ -37,7 +37,7 @@ class AuthController extends BaseController
         if ($users) {
             //cek password, jika salah kembalikan dengan error di halaman login
             if (!password_verify($data['password'], $users['password'])) {
-                return redirect()->to(base_url('/'))->with('error', 'Invalid username or password');
+                return redirect()->to(base_url('signin'))->with('error', 'Invalid username or password');
             }
             //jika sesuai, arahkan user masuk ke admin dashboard
 
@@ -60,7 +60,7 @@ class AuthController extends BaseController
         $session = session();
         $session->destroy();
 
-        return redirect()->to(base_url('/'));
+        return redirect()->to(base_url('signin'));
     }
 
     public function errors()

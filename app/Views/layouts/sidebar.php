@@ -51,34 +51,40 @@
                     </a>
                 </li>
 
-                <?php if (session()->get('role') === 'mandor') : ?>
-                <li class="sidebar-item <?= uri_string() === 'mandor/kelola-users' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('mandor/kelola-users'); ?>" class="sidebar-link">
+                <?php if (session()->get('role') === 'admin') : ?>
+
+                <li class="sidebar-item <?= uri_string() === 'admin/kelola-pengguna' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('admin/kelola-pengguna'); ?>" class="sidebar-link">
                         <i class="bi bi-person-badge-fill"></i>
-                        <span>Kelola Users</span>
+                        <span>Kelola Pengguna</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item <?= uri_string() === 'mandor/kelola-pengawas' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('mandor/kelola-pengawas'); ?>" class="sidebar-link">
+                <li class="sidebar-item <?= uri_string() === 'admin/kelola-pelaksana' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('admin/kelola-pelaksana'); ?>" class="sidebar-link">
                         <i class="bi bi-person-vcard"></i>
-                        <span>Kelola Pengawas</span>
+                        <span>Kelola Pelaksana</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item <?= uri_string() === 'mandor/kelola-jabatan' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('mandor/kelola-jabatan'); ?>" class="sidebar-link">
+                <li class="sidebar-item <?= uri_string() === 'admin/kelola-jabatan' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('admin/kelola-jabatan'); ?>" class="sidebar-link">
                         <i class="bi bi-credit-card-2-back-fill"></i>
                         <span>Kelola Jabatan</span>
                     </a>
                 </li>
 
-                <li class="sidebar-item <?= uri_string() === 'mandor/kelola-bidang' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('mandor/kelola-bidang'); ?>" class="sidebar-link">
+                <li class="sidebar-item <?= uri_string() === 'admin/kelola-bidang' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('admin/kelola-bidang'); ?>" class="sidebar-link">
                         <i class="bi bi-filter-square-fill"></i>
                         <span>Kelola Bidang</span>
                     </a>
                 </li>
+
+                <?php endif ?>
+
+                <?php if (session()->get('role') === 'mandor') : ?>
+
 
                 <li class="sidebar-title">Manajemen Kinerja</li>
 
@@ -89,10 +95,10 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item <?= uri_string() === 'mandor/kelola-ekinerja' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('mandor/kelola-ekinerja'); ?>" class="sidebar-link">
+                <li class="sidebar-item <?= uri_string() === 'mandor/kelola-proyek' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('mandor/kelola-proyek'); ?>" class="sidebar-link">
                         <i class="bi bi-clipboard2-data-fill"></i>
-                        <span>Kelola E-Kinerja</span>
+                        <span>Kelola Proyek</span>
                     </a>
                 </li>
 
@@ -108,12 +114,6 @@
 
 
                 <?php if (session()->get('role') === 'pelaksana') : ?>
-                <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-tukang' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('pelaksana/kelola-tukang'); ?>" class="sidebar-link">
-                        <i class="bi bi-person-badge-fill"></i>
-                        <span>Kelola Tukang</span>
-                    </a>
-                </li>
 
                 <li class="sidebar-title">Manajemen Kinerja</li>
 
@@ -128,6 +128,13 @@
                     <a href="<?= base_url('pelaksana/kelola-ekinerja'); ?>" class="sidebar-link">
                         <i class="bi bi-clipboard2-data-fill"></i>
                         <span>Kelola E-Kinerja</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-proyek' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('pelaksana/kelola-proyek'); ?>" class="sidebar-link">
+                        <i class="bi bi-clipboard2-data-fill"></i>
+                        <span>Kelola Proyek</span>
                     </a>
                 </li>
 
@@ -157,6 +164,20 @@
                     <a href="<?= base_url('tukang/kelola-ekinerja'); ?>" class="sidebar-link">
                         <i class="bi bi-clipboard2-data-fill"></i>
                         <span>Kelola E-Kinerja</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-proyek' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('pelaksana/kelola-proyek'); ?>" class="sidebar-link">
+                        <i class="bi bi-clipboard2-data-fill"></i>
+                        <span>Kelola Proyek</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item <?= uri_string() === 'tukang/kelola-proyek' ? 'active' : ''; ?>">
+                    <a href="<?= base_url('tukang/kelola-ekinerja'); ?>" class="sidebar-link">
+                        <i class="bi bi-clipboard2-data-fill"></i>
+                        <span>Kelola Proyek</span>
                     </a>
                 </li>
 

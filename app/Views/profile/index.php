@@ -26,6 +26,18 @@
                             <label for="">Nama <span class="text-danger">*</span></label>
                             <input type="text" class="form-control" name="nama" value="<?= $user['nama'] ?>" required>
                         </div>
+                        <div class="form-group">
+                            <label for="">Tempat Lahir <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control" name="tempat_lahir" value="<?= $user['tempat_lahir'] ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Tanggal Lahir <span class="text-danger">*</span></label>
+                            <input type="date" class="form-control" name="tanggal_lahir" value="<?= $user['tanggal_lahir'] ?>" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="">Alamat <span class="text-danger">*</span></label>
+                            <textarea class="form-control" name="alamat" rows="3"><?= $user['alamat']; ?></textarea>
+                        </div>
                         <div class="d-grid gap-2 mt-4">
                             <button type="submit" class="btn btn-success">Perbarui Data</button>
                         </div>

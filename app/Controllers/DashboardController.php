@@ -9,7 +9,7 @@ use App\Models\UsersModel;
 
 class DashboardController extends BaseController
 {
-    protected $kegiatan, $ekinerja, $user;
+    protected $kegiatan, $ekinerja, $users;
 
     public function __construct()
     {
@@ -17,7 +17,7 @@ class DashboardController extends BaseController
 
         $this->kegiatan = new KegiatanModel;
         $this->ekinerja = new EkinerjaModel;
-        $this->user = new UsersModel;
+        $this->users = new UsersModel;
     }
 
     public function index()
@@ -28,7 +28,7 @@ class DashboardController extends BaseController
             'title' => 'Dashboard Panel E-Kinerja',
             'total_kegiatan' => $this->kegiatan->where('deleted_at', null)->countAllResults(),
             'total_ekinerja' => $this->ekinerja->where('deleted_at', null)->countAllResults(),
-            'total_user' => $this->user->where('deleted_at', null)->countAllResults(),
+            'total_user' => $this->users->where('deleted_at', null)->countAllResults(),
             'chart' => $this->ekinerja->getTotalEkinerjaEachUser($get_data)
         ];
 

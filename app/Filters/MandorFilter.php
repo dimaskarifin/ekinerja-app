@@ -2,6 +2,7 @@
 
 namespace App\Filters;
 
+use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\Filters\FilterInterface;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
@@ -27,11 +28,12 @@ class MandorFilter implements FilterInterface
     {
         $session = session();
         if (!$session->has('role')) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('signin'));
         }
 
         if ($session->get('role') !== 'mandor') {
-            return redirect()->to(base_url('errors'));
+            throw PageNotFoundException::forPageNotFound();
+            // return redirect()->to(base_url('errors'));
         }
     }
 

@@ -87,7 +87,7 @@ class KegiatanModel extends Model
     public function getKegiatans()
     {
         $builder = $this->db->table('kegiatan');
-        $builder->select('kegiatan.*');
+        $builder->select('kegiatan.*')->where('kegiatan.deleted_at', null);
         $query = $builder->get();
         return $query->getResult();
     }

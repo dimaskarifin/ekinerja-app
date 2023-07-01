@@ -2,6 +2,7 @@
 
 namespace Config;
 
+use App\Filters\AdminFilter;
 use App\Filters\AuthFilter;
 use App\Filters\MandorFilter;
 use App\Filters\PelaksanaFilter;
@@ -29,6 +30,7 @@ class Filters extends BaseConfig
         'MandorFilter'        => MandorFilter::class,
         'PelaksanaFilter'     => PelaksanaFilter::class,
         'TukangFilter'        => TukangFilter::class,
+        'AdminFilter'         => AdminFilter::class,
     ];
 
     /**

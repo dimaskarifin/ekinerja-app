@@ -30,9 +30,13 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
+// $routes->get('/', 'Home::index');
+
+//Landingpage
+$routes->get('/', 'LandingPageController::index');
 
 //Routes Auth
-$routes->get('/', 'AuthController::index');
+$routes->get('signin', 'AuthController::index');
 $routes->post('postLogin', 'AuthController::postLogin');
 $routes->get('logout', 'AuthController::logout');
 
@@ -53,42 +57,49 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     $routes->get('profile-user', 'ProfileUser::index');
     $routes->post('profile-user/(:num)', 'ProfileUser::update/$1');
 
-    //Routes Mandor
-    $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
-        //Users
-        $routes->get('kelola-users', 'UsersController::index');
-        $routes->post('kelola-users/store', 'UsersController::store');
-        $routes->get('kelola-users/edit', 'UsersController::editMandor');
-        $routes->post('kelola-users/update', 'UsersController::updateMandor');
-        $routes->get('kelola-users/delete/(:num)', 'UsersController::delete/$1');
+    //Routes Admin
+    $routes->group('admin', ['filter' => 'AdminFilter'], function ($routes) {
+        //kelola pengguna
+        $routes->get('kelola-pengguna', 'UsersController::index');
+        $routes->post('kelola-pengguna/store', 'UsersController::store');
+        $routes->get('kelola-pengguna/edit', 'UsersController::edit');
+        $routes->post('kelola-pengguna/update', 'UsersController::update');
+        $routes->get('kelola-pengguna/delete/(:num)', 'UsersController::delete/$1');
 
-        //pengawas
-        $routes->get('kelola-pengawas', 'PengawasController::index');
-        $routes->post('kelola-pengawas/store', 'PengawasController::store');
-        $routes->get('kelola-pengawas/edit', 'PengawasController::edit');
-        $routes->post('kelola-pengawas/update', 'PengawasController::update');
-        $routes->get('kelola-pengawas/delete/(:num)', 'PengawasController::delete/$1');
+        //kelola pelaksana
+        $routes->get('kelola-pelaksana', 'PelaksanaController::index');
+        $routes->post('kelola-pelaksana/store', 'PelaksanaController::store');
+        $routes->get('kelola-pelaksana/edit', 'PelaksanaController::edit');
+        $routes->post('kelola-pelaksana/update', 'PelaksanaController::update');
+        $routes->get('kelola-pelaksana/delete/(:num)', 'PelaksanaController::delete/$1');
 
-        //jabatan
+        //kelola jabatan
         $routes->get('kelola-jabatan', 'JabatanController::index');
         $routes->post('kelola-jabatan/store', 'JabatanController::store');
         $routes->get('kelola-jabatan/edit', 'JabatanController::edit');
         $routes->post('kelola-jabatan/update', 'JabatanController::update');
         $routes->get('kelola-jabatan/delete/(:num)', 'JabatanController::delete/$1');
 
-        //bidang
+        //kelola bidang
         $routes->get('kelola-bidang', 'BidangController::index');
         $routes->post('kelola-bidang/store', 'BidangController::store');
         $routes->get('kelola-bidang/edit', 'BidangController::edit');
         $routes->post('kelola-bidang/update', 'BidangController::update');
         $routes->get('kelola-bidang/delete/(:num)', 'BidangController::delete/$1');
+    });
+
+    //Routes Mandor
+    $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
 
         //kinerja
         $routes->get('kelola-ekinerja', 'EkinerjaController::indexMandor');
-        // $routes->post('kelola-ekinerja/store', 'EkinerjaController::store');
+        $routes->post('kelola-ekinerja/store', 'EkinerjaController::store');
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
         $routes->post('kelola-ekinerja/update', 'EkinerjaController::update');
         $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::delete/$1');
+
+        //proyek
+        $routes->get('kelola-proyek', 'ProyekController::indexMandor');
 
         //laporan
         $routes->get('laporan', 'LaporanController::indexMandor');
@@ -97,12 +108,6 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
 
     //Routes Pelaksana
     $routes->group('pelaksana', ['filter' => 'PelaksanaFilter'], function ($routes) {
-        //data Tukang
-        $routes->get('kelola-tukang', 'UsersController::indexPelaksana');
-        $routes->post('kelola-tukang/store', 'UsersController::storePelaksana');
-        $routes->get('kelola-tukang/edit', 'UsersController::editMandor');
-        $routes->post('kelola-tukang/update', 'UsersController::updatePelaksana');
-        $routes->get('kelola-tukang/delete/(:num)', 'UsersController::deletePelaksana/$1');
 
         //kinerja
         $routes->get('kelola-ekinerja', 'EkinerjaController::indexPelaksana');
@@ -110,6 +115,9 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
         $routes->post('kelola-ekinerja/update', 'EkinerjaController::updatePelaksana');
         $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::deletePelaksana/$1');
+
+        //Proyek
+        $routes->get('kelola-proyek', 'ProyekController::indexPelaksana');
 
         //laporan
         $routes->get('laporan', 'LaporanController::indexPelaksana');
@@ -124,6 +132,9 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         $routes->get('kelola-ekinerja/edit', 'EkinerjaController::editTukang');
         $routes->post('kelola-ekinerja/update', 'EkinerjaController::updateTukang');
         $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::deleteTukang/$1');
+
+        //proyek
+        $routes->get('kelola-proyek', 'ProyekController::indexTukang');
 
         //laporan
         $routes->get('laporan', 'LaporanController::indexLapTukang');

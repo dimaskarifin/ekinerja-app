@@ -33,7 +33,7 @@ class BidangController extends BaseController
             'bidang' => $this->bidang->getBidangs()
         ];
 
-        return view('mandor/bidang/index', $data);
+        return view('admin/bidang/index', $data);
     }
     public function store()
     {
@@ -46,7 +46,7 @@ class BidangController extends BaseController
             $errors = $validation->getErrors();
             $arr = implode("<br>", $errors);
             session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('mandor/kelola-bidang'));
+            return redirect()->to(base_url('admin/kelola-bidang'));
         }
 
         $bidang = [
@@ -55,7 +55,7 @@ class BidangController extends BaseController
 
         $this->bidang->insertBidang($bidang);
         session()->setFlashdata("success", "Berhasil menambahkan data");
-        return redirect()->to(base_url('mandor/kelola-bidang'));
+        return redirect()->to(base_url('admin/kelola-bidang'));
     }
 
     public function edit()
@@ -82,7 +82,7 @@ class BidangController extends BaseController
             $errors = $validation->getErrors();
             $arr = implode("<br>", $errors);
             session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('mandor/kelola-bidang'));
+            return redirect()->to(base_url('admin/kelola-bidang'));
         }
 
         $bidang = [
@@ -90,13 +90,13 @@ class BidangController extends BaseController
         ];
         $this->bidang->updateBidang($bidang, $data['id']);
         session()->setFlashdata('success', 'Berhasil memperbarui data');
-        return redirect()->to(base_url('mandor/kelola-bidang'));
+        return redirect()->to(base_url('admin/kelola-bidang'));
     }
 
     public function delete($id)
     {
         $this->bidang->deleteBidang($id);
         session()->setFlashdata('success', 'Data berhasil dihapus');
-        return redirect()->to(base_url('mandor/kelola-bidang'));
+        return redirect()->to(base_url('admin/kelola-bidang'));
     }
 }

@@ -13,14 +13,14 @@ use Dompdf\Dompdf;
 
 class LaporanController extends BaseController
 {
-    protected $ekinerja, $user;
+    protected $ekinerja, $users;
 
     public function __construct()
     {
         helper(['form', 'url', 'validation', 'session', 'text']);
 
         $this->ekinerja = new EkinerjaModel;
-        $this->user = new UsersModel;
+        $this->users = new UsersModel;
     }
 
     public function indexMandor()
@@ -36,7 +36,7 @@ class LaporanController extends BaseController
         $data = [
             'title' => 'Laporan',
             'laporans' => $this->ekinerja->getLaporanMandor($get_data),
-            'users' => $this->user->where('deleted_at', null)->find(),
+            'users' => $this->users->where('deleted_at', null)->find(),
         ];
 
         return view('mandor/pelaporan/index', $data);
@@ -54,7 +54,7 @@ class LaporanController extends BaseController
         $data = [
             'title' => 'Laporan',
             'laporans' => $this->ekinerja->getLaporanMandor($get_data),
-            'users' => $this->user->where('deleted_at', null)->find(),
+            'users' => $this->users->where('deleted_at', null)->find(),
         ];
 
         return view('pelaksana/pelaporan/index', $data);
@@ -73,7 +73,7 @@ class LaporanController extends BaseController
         $data = [
             'title' => 'Laporan',
             'laporans' => $this->ekinerja->getLaporanTukang($get_data),
-            'users' => $this->user->where('deleted_at', null)->where('nik', session('nik'))->find(),
+            'users' => $this->users->where('deleted_at', null)->where('nik', session('nik'))->find(),
         ];
 
         return view('tukang/pelaporan/index', $data);
@@ -88,7 +88,7 @@ class LaporanController extends BaseController
         $tanggal_sekarang = $this->tanggalIndo(date('Y-m-d'));
 
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
-            $user = $this->user->where('nik', $get_data['nik'])->first();
+            $user = $this->users->where('nik', $get_data['nik'])->first();
 
             if ($get_data['kategori'] == 'date') {
                 $kategori = "Harian";
@@ -115,7 +115,7 @@ class LaporanController extends BaseController
 
         $is_date = !empty($tanggal) ? $tanggal : $tanggal_sekarang;
 
-        $mandor = $this->user->where('role', 'mandor')->first();
+        $mandor = $this->users->where('role', 'mandor')->first();
 
         $data = [];
         $data['kinerjas'] = $this->ekinerja->getLaporanMandor($get_data);
@@ -141,7 +141,7 @@ class LaporanController extends BaseController
         $tanggal_sekarang = $this->tanggalIndo(date('Y-m-d'));
 
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
-            $user = $this->user->where('nik', $get_data['nik'])->first();
+            $user = $this->users->where('nik', $get_data['nik'])->first();
 
             if ($get_data['kategori'] == 'date') {
                 $kategori = "Harian";
@@ -168,7 +168,7 @@ class LaporanController extends BaseController
 
         $is_date = !empty($tanggal) ? $tanggal : $tanggal_sekarang;
 
-        $mandor = $this->user->where('role', 'mandor')->first();
+        $mandor = $this->users->where('role', 'mandor')->first();
 
         $data = [];
         $data['kinerjas'] = $this->ekinerja->getLaporanMandor($get_data);
@@ -194,7 +194,7 @@ class LaporanController extends BaseController
         $tanggal_sekarang = $this->tanggalIndo(date('Y-m-d'));
 
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
-            $user = $this->user->where('nik', $get_data['nik'])->first();
+            $user = $this->users->where('nik', $get_data['nik'])->first();
 
             if ($get_data['kategori'] == 'date') {
                 $kategori = "Harian";
@@ -221,7 +221,7 @@ class LaporanController extends BaseController
 
         $is_date = !empty($tanggal) ? $tanggal : $tanggal_sekarang;
 
-        $mandor = $this->user->where('role', 'mandor')->first();
+        $mandor = $this->users->where('role', 'mandor')->first();
 
         $data = [];
         $data['kinerjas'] = $this->ekinerja->getLaporanTukang($get_data);

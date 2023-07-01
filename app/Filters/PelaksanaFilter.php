@@ -29,7 +29,7 @@ class PelaksanaFilter implements FilterInterface
     {
         $session = session();
         if (!$session->has('role')) {
-            return redirect()->to(base_url('/'));
+            return redirect()->to(base_url('signin'));
         }
 
         if ($session->get('role') !== 'pelaksana') {

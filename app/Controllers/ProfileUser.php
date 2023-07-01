@@ -48,6 +48,18 @@ class ProfileUser extends BaseController
                     'label' => 'Nama',
                     'rules' => 'required'
                 ],
+                'tempat_lahir' => [
+                    'label' => 'Tempat lahir',
+                    'rules' => 'required'
+                ],
+                'tanggal_lahir' => [
+                    'label' => 'Tanggal lahir',
+                    'rules' => 'required'
+                ],
+                'alamat' => [
+                    'label' => 'Alamat',
+                    'rules' => 'required'
+                ],
                 'foto' => [
                     'label' => 'Foto',
                     'rules' => 'uploaded[foto]|max_size[foto,5120]|ext_in[foto,jpg,jpeg,png]'
@@ -93,10 +105,13 @@ class ProfileUser extends BaseController
                 session()->setFlashdata("warning", $arr);
                 return redirect()->to(base_url('profile-user'));
             }
-            
+
             $dataUpdate = [
                 'nik' => $input['nik'],
                 'nama' => $input['nama'],
+                'tempat_lahir' => $input['tempat_lahir'],
+                'tanggal_lahir' => $input['tanggal_lahir'],
+                'alamat' => $input['alamat'],
             ];
 
             //condition jika file valid maka jalankan

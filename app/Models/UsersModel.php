@@ -57,8 +57,7 @@ class UsersModel extends Model
     public function getDetails()
     {
         $builder = $this->db->table('users');
-        $builder->select('users.*, users.id as id_users, pengawas.*, jabatan.*, bidang.*')
-            ->join('pengawas', 'pengawas.id = users.pengawas_id')
+        $builder->select('users.*, users.id as id_users, jabatan.*, bidang.*')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
             ->join('bidang', 'bidang.id = users.bidang_id')
             ->where('users.deleted_at', null)
@@ -84,13 +83,12 @@ class UsersModel extends Model
     public function getDetailEdit($id)
     {
         $builder = $this->db->table('users');
-        $builder->select('users.*, users.id as id_users, pengawas.*, jabatan.*, bidang.*')
-            ->join('pengawas', 'pengawas.id = users.pengawas_id')
+        $builder->select('users.*, users.id as id_users, jabatan.*, bidang.*')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
             ->join('bidang', 'bidang.id = users.bidang_id')
             ->where('users.id', $id);
         $query = $builder->get();
-        
+
         return $query->getResult();
     }
 

@@ -22,7 +22,6 @@ class EkinerjaModel extends Model
         }
     }
 
-    protected $DBGroup = 'default';
     protected $table = 'ekinerja';
     protected $primaryKey = 'id';
     protected $useAutoIncrement = true;

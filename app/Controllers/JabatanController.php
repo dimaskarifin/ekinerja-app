@@ -34,7 +34,7 @@ class JabatanController extends BaseController
             'jabatan' => $this->jabatan->getJabatans(),
         ];
 
-        return view('mandor/jabatan/index', $data);
+        return view('admin/jabatan/index', $data);
     }
 
     public function store()
@@ -49,7 +49,7 @@ class JabatanController extends BaseController
             $arr = implode("<br>", $errors);
 
             session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('mandor/kelola-jabatan'));
+            return redirect()->to(base_url('admin/kelola-jabatan'));
         }
 
         $jabatan = [
@@ -58,7 +58,7 @@ class JabatanController extends BaseController
 
         $this->jabatan->insertJabatan($jabatan);
         session()->setFlashdata("success", "Data berhasil ditambahkan");
-        return redirect()->to(base_url('mandor/kelola-jabatan'));
+        return redirect()->to(base_url('admin/kelola-jabatan'));
     }
 
     public function edit()
@@ -86,7 +86,7 @@ class JabatanController extends BaseController
             $errors = $validation->getErrors();
             $arr = implode("<br>", $errors);
             session()->setFlashdata("warning", $arr);
-            return redirect()->to(base_url('mandor/kelola-jabatan'));
+            return redirect()->to(base_url('admin/kelola-jabatan'));
         }
 
         $jabatan = [
@@ -95,13 +95,13 @@ class JabatanController extends BaseController
         $this->jabatan->updateJabatan($jabatan, $data['id']);
 
         session()->setFlashdata('success', 'Berhasil memperbarui data');
-        return redirect()->to(base_url('mandor/kelola-jabatan'));
+        return redirect()->to(base_url('admin/kelola-jabatan'));
     }
 
     public function delete($id)
     {
         $this->jabatan->deleteJabatan($id);
         session()->setFlashdata('success', 'Data berhasil dihapus');
-        return redirect()->to(base_url('mandor/kelola-jabatan'));
+        return redirect()->to(base_url('admin/kelola-jabatan'));
     }
 }

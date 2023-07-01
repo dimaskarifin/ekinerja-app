@@ -23,6 +23,17 @@ class Users extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255
             ],
+            'tempat_lahir' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ],
+            'tanggal_lahir' => [
+                'type' => 'DATE',
+            ],
+            'alamat' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ],
             'password' => [
                 'type' => 'VARCHAR',
                 'constraint' => 255
@@ -35,17 +46,14 @@ class Users extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255
             ],
-            'pengawas_id' => [
-                'type' => 'BIGINT',
-                'constraint' => 10
-            ],
             'jabatan_id' => [
                 'type' => 'BIGINT',
                 'constraint' => 10
             ],
             'bidang_id' => [
                 'type' => 'BIGINT',
-                'constraint' => 10
+                'constraint' => 10,
+                'null' => true,
             ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
