@@ -22,6 +22,13 @@ class ProyekController extends BaseController
         $this->proyek = new ProyekModel();
     }
 
+    function rulesProyek()
+    {
+        $rules = [];
+
+        return $rules;
+    }
+
 
     function indexPelaksana()
     {
@@ -29,10 +36,11 @@ class ProyekController extends BaseController
             'title' => 'Kelola Proyek',
             'mandor' => $this->users->where('role', 'mandor')->findAll(),
             'pelaksana' => $this->users->where('role', 'pelaksana')->findAll(),
-            'proyek' => $this->proyek->getDetailProyekPelaksana()
+            'proyek' => $this->proyek->getDetailProyekPelaksana(),
+            'kegiatan' => $this->kegiatan->getKegiatans(),
         ];
 
-        dd($data['proyek']);
+        // dd($data['mandor']);
 
         return view('pelaksana/proyek/index', $data);
     }
@@ -52,5 +60,13 @@ class ProyekController extends BaseController
         ];
 
         return view('tukang/proyek/index', $data);
+    }
+
+    function storePelaksana()
+    {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        // $validation->setRules($this->rulesProyek);
     }
 }

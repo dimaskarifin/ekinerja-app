@@ -57,9 +57,15 @@ class ProyekModel extends Model
     function getDetailProyekPelaksana()
     {
         $builder = $this->db->table('proyek');
-        $builder->select();
+        $builder->select('proyek.*, proyek.id as proyek_id, m.nama as nama_mandor, p.nama as nama_pelaksana, t.nama as nama_tukang ,kegiatan.*')
+            ->join('users as m', 'm.id = proyek.mandor_id')
+            ->join('users as p', 'p.id = proyek.pelaksana_id')
+            ->join('users as t', 't.id = proyek.tukang_id')
+            ->join('kegiatan', 'kegiatan.id = proyek.kegiatan_id')
+            ->where('proyek.deleted_at', null)
+            ->where('p.nik', session('nik'));
 
         $query = $builder->get();
-        return $query->getResultArray();
+        return $query->getResult();
     }
 }
