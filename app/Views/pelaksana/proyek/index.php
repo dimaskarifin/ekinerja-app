@@ -16,7 +16,6 @@
                         <th>No.Proyek</th>
                         <th>Nama Proyek</th>
                         <th>Kegiatan</th>
-                        <th>Output</th>
                         <th>Tanggal Mulai</th>
                         <th>Tanggal Selesai</th>
                         <th>Mandor</th>
@@ -24,23 +23,26 @@
                     </tr>
                 </thead>
                 <tbody>
+
                     <?php
                     $no = 1;
                     ?>
                     <?php foreach ($proyek as $row) : ?>
-                        <td><?= $no++; ?></th>
-                        <td><strong><?= $row->no_proyek; ?></strong></td>
-                        <td><?= $row->nama_proyek; ?></th>
-                        <td><?= $row->uraian_kegiatan; ?></td>
-                        <td><?= $row->output; ?></td>
-                        <td><?= $row->tanggal_pelaksanaan; ?></td>
-                        <td><?= $row->tanggal_selesai_pelaksanaan; ?></td>
-                        <td><?= $row->nama_mandor; ?></td>
-                        <td>
-                            <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $row->proyek_id ?>"><i class="bi bi-pencil-square"></i></a>
-                            <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('pelaksana/kelola-proyek/delete/' . $row->proyek_id); ?>"><i class="bi bi-trash"></i></a>
-                        </td>
+                        <tr>
+                            <td><?= $no++; ?></th>
+                            <td><strong><?= $row->no_proyek; ?></strong></td>
+                            <td><?= $row->nama_proyek; ?></th>
+                            <td><?= $row->uraian_kegiatan; ?></td>
+                            <td><?= $row->tanggal_pelaksanaan; ?></td>
+                            <td><?= $row->tanggal_selesai_pelaksanaan; ?></td>
+                            <td><?= $row->nama_mandor; ?></td>
+                            <td>
+                                <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $row->proyek_id ?>"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn icon btn-lg btn-danger" id="btnDelete" data-id="<?= base_url('pelaksana/kelola-proyek/delete/' . $row->proyek_id); ?>"><i class="bi bi-trash"></i></a>
+                            </td>
+                        </tr>
                     <?php endforeach ?>
+
                 </tbody>
             </table>
         </div>
@@ -56,11 +58,10 @@
                     Tambah Data Proyek
                 </h4>
             </div>
-            <form action="<?= base_url('kelola-proyek/store') ?>" method="POST">
+            <form action="<?= base_url('pelaksana/kelola-proyek/store') ?>" method="POST">
                 <?= csrf_field() ?>
                 <div class="modal-body">
                     <div class="row">
-                        <input type="hidden" value="<?= session()->get('id'); ?>" name="pelaksana_id" id="addPelaksana">
                         <div class="col-md-6">
                             <label>No. Proyek <span class="text-danger">*</span></label>
                             <div class="form-group">
@@ -70,7 +71,14 @@
                         <div class="col-md-6">
                             <label>Nama Pelaksana <span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <input type="text" value="<?= session()->get('nama'); ?>" class="form-control" readonly>
+                                <select name="pelaksana_id" id="addPelaksana" class="selectize">
+                                    <?php foreach ($pelaksana as $row) : ?>
+                                        <?php if (session()->get('id') === $row['id']) : ?>
+                                            <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                                <?= $row['nama'] ?></option>
+                                        <?php endif ?>
+                                    <?php endforeach; ?>
+                                </select>
                             </div>
                         </div>
                         <div class="col-md-12">
@@ -94,7 +102,7 @@
                         <div class="col-md-12">
                             <label>Uraian Kegiatan <span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <select name="id_kegiatan" id="addKegiatan" class="selectize">
+                                <select name="kegiatan_id" id="addKegiatan" class="selectize">
                                     <option value=""></option>
                                     <?php foreach ($kegiatan as $row) : ?>
                                         <option value="<?= $row->id ?>" data-nama="<?= $row->uraian_kegiatan; ?>">
@@ -115,21 +123,21 @@
                                 <select name="satuan" id="addSatuan" class="selectize">
                                     <option value=""></option>
                                     <option value="M">M (Meter)</option>
-                                    <option value="Cm">CM (Centimeter)</option>
                                     <option value="Km">KM (Kilometer)</option>
+                                    <option value="Cm">CM (Centimeter)</option>
                                 </select>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="">Tanggal Pelaksanaan <span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <input type="date" class="form-control" id="tanggal_mulai" name="tanggal_mulai" min="<?php echo date('Y-m-d', strtotime('now')); ?>" />
+                                <input type="date" class="form-control" name="tanggal_pelaksanaan" min="<?php echo date('Y-m-d', strtotime('now')); ?>" />
                             </div>
                         </div>
                         <div class="col-md-6">
                             <label for="">Tanggal Selesai Pelaksanaan <span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <input type="date" class="form-control" id="tanggal_selesai" name="tanggal_selesai" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" />
+                                <input type="date" class="form-control" name="tanggal_selesai_pelaksanaan" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" />
                             </div>
                         </div>
                     </div>
@@ -157,31 +165,98 @@
                 <input type="hidden" name="id" id="editId">
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-md-12">
-                            <label>Nama Pegawai</label>
-
-                        </div>
-                        <div class="col-md-12">
-                            <label>Uraian Kegiatan</label>
-
-                        </div>
-                        <div class="col-md-12">
-                            <label>Output</label>
-                            <div class="form-floating">
-                                <textarea class="form-control" placeholder="Leave a comment here" id="editOutput" name="output" rows="6"></textarea>
-                                <label for="floatingTextarea">Output Kegiatan</label>
+                        <div class="col-md-6">
+                            <label>No. Proyek <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input id="editNoProyek" name="no_proyek" type="text" placeholder="Masukkan No. Proyek" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="tanggal_mulai">Tanggal Mulai</label>
+                            <label>Nama Pelaksana <span class="text-danger">*</span></label>
                             <div class="form-group">
-                                <input type="date" class="form-control" id="editMulai" name="tanggal_mulai" min="<?php echo date('Y-m-d', strtotime('now')); ?>" />
+                                <select name="pelaksana_id" id="editPelaksana" class="selectize">
+                                    <?php foreach ($pelaksana as $row) : ?>
+                                        <?php if (session()->get('id') === $row['id']) : ?>
+                                            <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                                <?= $row['nama'] ?></option>
+                                        <?php endif ?>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Nama Proyek <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input id="editNamaProyek" name="nama_proyek" type="text" placeholder="Masukkan Nama Proyek" class="form-control">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="tanggal_selesai">Tanggal Selesai</label>
+                            <label>Nama Mandor</label>
                             <div class="form-group">
-                                <input type="date" class="form-control" id="editSelesai" name="tanggal_selesai" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" />
+                                <select name="mandor_id" id="editMandor" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($mandor as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                            <?= $row['nama'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Nama Tukang <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <select name="tukang_id" id="editTukang" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($tukang as $row) : ?>
+                                        <option value="<?= $row['id'] ?>" data-nama="<?= $row['nama']; ?>">
+                                            <?= $row['nama'] ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label>Uraian Kegiatan <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <select name="kegiatan_id" id="editKegiatan" class="selectize">
+                                    <option value=""></option>
+                                    <?php foreach ($kegiatan as $row) : ?>
+                                        <option value="<?= $row->id ?>" data-nama="<?= $row->uraian_kegiatan; ?>">
+                                            <?= $row->uraian_kegiatan ?></option>
+                                    <?php endforeach; ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-12">
+                            <label for="" class="form-label">Output Proyek</label>
+                            <textarea class="form-control" id="editOutput" name="output" rows="3"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Target Pengerjaan <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input id="editTarget" name="target" type="number" placeholder="Masukkan Target Pengerjaan" class="form-control">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Satuan Pengerjaan <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <select name="satuan" id="editSatuan" class="selectize">
+                                    <option value=""></option>
+                                    <option value="M">M (Meter)</option>
+                                    <option value="Km">KM (Kilometer)</option>
+                                    <option value="Cm">CM (Centimeter)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Tanggal Pelaksanaan <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="tanggal_pelaksanaan" id="editPelaksanaan" min="<?php echo date('Y-m-d', strtotime('now')); ?>" />
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="">Tanggal Selesai Pelaksanaan <span class="text-danger">*</span></label>
+                            <div class="form-group">
+                                <input type="date" class="form-control" name="tanggal_selesai_pelaksanaan" id="editSelesaiPelaksanaan" min="<?php echo date('Y-m-d', strtotime('+1 day')); ?>" />
                             </div>
                         </div>
                     </div>
@@ -200,6 +275,9 @@
 <?= $this->include('layouts/message-alert'); ?>
 <script>
     $(function() {
+        $('#addPelaksana').selectize({
+            placeholder: "Pilih Pelaksana",
+        })
         $('#addMandor').selectize({
             placeholder: "Pilih Mandor",
         });
@@ -209,8 +287,14 @@
         $('#addSatuan').selectize({
             placeholder: "Pilih Satuan",
         });
+        $('#editPelaksana').selectize({
+            placeholder: "Pilih Pelaksana",
+        })
         $('#editMandor').selectize({
-            placeholder: "Pilih Pegawai",
+            placeholder: "Pilih Mandor",
+        });
+        $('#editTukang').selectize({
+            placeholder: "Pilih Tukang",
         });
         $('#editKegiatan').selectize({
             placeholder: "Pilih Kegiatan",
@@ -218,12 +302,12 @@
         $('#editSatuan').selectize({
             placeholder: "Pilih Satuan",
         });
+
     })
 
 
     $('body').on('click', '#btnEdit', function() {
         var this_id = $(this).data('id');
-        // alert(this_id);
         $.ajax({
             type: "GET",
             url: "<?= base_url('pelaksana/kelola-proyek/edit'); ?>",
@@ -234,13 +318,21 @@
                 $('#modalUpdate').modal('show');
                 var encoded_data = response.data;
                 var decoded_data = JSON.parse(atob(encoded_data));
-                // console.log(decoded_data);
-                $('#editId').val(decoded_data.kinerja[0].id);
-                $('#editPegawai')[0].selectize.setValue(decoded_data.kinerja[0].id_users);
-                $('#editKegiatan')[0].selectize.setValue(decoded_data.kinerja[0].id_kegiatan);
-                $('#editOutput').val(decoded_data.kinerja[0].output);
-                $('#editMulai').val(decoded_data.kinerja[0].waktu_mulai);
-                $('#editSelesai').val(decoded_data.kinerja[0].waktu_selesai);
+                console.log(decoded_data);
+                $('#editId').val(decoded_data.proyek[0].id);
+                $('#editNoProyek').val(decoded_data.proyek[0].no_proyek);
+                $('#editNamaProyek').val(decoded_data.proyek[0].nama_proyek);
+                $('#editPelaksana')[0].selectize.setValue(decoded_data.proyek[0].pelaksana_id);
+                $('#editMandor')[0].selectize.setValue(decoded_data.proyek[0].mandor_id);
+                $('#editTukang')[0].selectize.setValue(decoded_data.proyek[0].tukang_id);
+                $('#editTukang')[0].selectize.disable();
+                $('#editKegiatan')[0].selectize.setValue(decoded_data.proyek[0].kegiatan_id);
+                $('#editOutput').val(decoded_data.proyek[0].output);
+                $('#editOutput').prop('disabled', true);
+                $('#editTarget').val(decoded_data.proyek[0].target);
+                $('#editSatuan')[0].selectize.setValue(decoded_data.proyek[0].satuan);
+                $('#editPelaksanaan').val(decoded_data.proyek[0].tanggal_pelaksanaan);
+                $('#editSelesaiPelaksanaan').val(decoded_data.proyek[0].tanggal_selesai_pelaksanaan);
             },
             error: function(jqXHR, textStatus, errorThrown) {
                 console.log('AJAX Error: ');

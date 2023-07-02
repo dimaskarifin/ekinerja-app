@@ -124,13 +124,6 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-ekinerja' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('pelaksana/kelola-ekinerja'); ?>" class="sidebar-link">
-                        <i class="bi bi-clipboard2-data-fill"></i>
-                        <span>Kelola E-Kinerja</span>
-                    </a>
-                </li>
-
                 <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-proyek' ? 'active' : ''; ?>">
                     <a href="<?= base_url('pelaksana/kelola-proyek'); ?>" class="sidebar-link">
                         <i class="bi bi-clipboard2-data-fill"></i>
@@ -160,26 +153,13 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item <?= uri_string() === 'tukang/kelola-ekinerja' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('tukang/kelola-ekinerja'); ?>" class="sidebar-link">
-                        <i class="bi bi-clipboard2-data-fill"></i>
-                        <span>Kelola E-Kinerja</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item <?= uri_string() === 'pelaksana/kelola-proyek' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('pelaksana/kelola-proyek'); ?>" class="sidebar-link">
-                        <i class="bi bi-clipboard2-data-fill"></i>
-                        <span>Kelola Proyek</span>
-                    </a>
-                </li>
-
                 <li class="sidebar-item <?= uri_string() === 'tukang/kelola-proyek' ? 'active' : ''; ?>">
-                    <a href="<?= base_url('tukang/kelola-ekinerja'); ?>" class="sidebar-link">
+                    <a href="<?= base_url('tukang/kelola-proyek'); ?>" class="sidebar-link">
                         <i class="bi bi-clipboard2-data-fill"></i>
                         <span>Kelola Proyek</span>
                     </a>
                 </li>
+
 
                 <li class="sidebar-title">Pelaporan</li>
 

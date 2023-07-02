@@ -34,7 +34,8 @@ class Proyek extends Migration
             'tukang_id' => [
                 'type' => 'BIGINT',
                 'constraint' => 20,
-                'null' => true
+                'null' => true,
+                'default' => 0,
             ],
             'kegiatan_id' => [
                 'type' => 'BIGINT',
@@ -52,6 +53,7 @@ class Proyek extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255,
                 'null' => true,
+                'default' => '-'
             ],
             'tanggal_pelaksanaan' => [
                 'type' => 'DATE',
