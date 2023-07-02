@@ -27,6 +27,14 @@ class Ekinerja extends Migration
                 'type' => 'VARCHAR',
                 'constraint' => 255
             ],
+            'target' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ],
+            'satuan' => [
+                'type' => 'VARCHAR',
+                'constraint' => 255
+            ],
             'waktu_mulai' => [
                 'type' => 'DATE',
             ],

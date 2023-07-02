@@ -294,7 +294,7 @@
             placeholder: "Pilih Mandor",
         });
         $('#editTukang').selectize({
-            placeholder: "Pilih Tukang",
+            placeholder: "-",
         });
         $('#editKegiatan').selectize({
             placeholder: "Pilih Kegiatan",
@@ -318,7 +318,7 @@
                 $('#modalUpdate').modal('show');
                 var encoded_data = response.data;
                 var decoded_data = JSON.parse(atob(encoded_data));
-                console.log(decoded_data);
+                // console.log(decoded_data);
                 $('#editId').val(decoded_data.proyek[0].id);
                 $('#editNoProyek').val(decoded_data.proyek[0].no_proyek);
                 $('#editNamaProyek').val(decoded_data.proyek[0].nama_proyek);
