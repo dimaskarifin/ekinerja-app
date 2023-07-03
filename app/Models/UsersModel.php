@@ -59,7 +59,7 @@ class UsersModel extends Model
         $builder = $this->db->table('users');
         $builder->select('users.*, users.id as id_users, jabatan.*, bidang.*')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
-            ->join('bidang', 'bidang.id = users.bidang_id')
+            ->join('bidang', 'bidang.id = users.bidang_id', 'left')
             ->where('users.deleted_at', null)
             ->orderBy('users.updated_at', 'desc');
         $query = $builder->get();
@@ -85,7 +85,7 @@ class UsersModel extends Model
         $builder = $this->db->table('users');
         $builder->select('users.*, users.id as id_users, jabatan.*, bidang.*')
             ->join('jabatan', 'jabatan.id = users.jabatan_id')
-            ->join('bidang', 'bidang.id = users.bidang_id')
+            ->join('bidang', 'bidang.id = users.bidang_id', 'left')
             ->where('users.id', $id);
         $query = $builder->get();
 

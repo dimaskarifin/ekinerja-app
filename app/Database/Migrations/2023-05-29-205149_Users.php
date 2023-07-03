@@ -53,7 +53,7 @@ class Users extends Migration
             'bidang_id' => [
                 'type' => 'BIGINT',
                 'constraint' => 10,
-                'null' => true,
+                'default' => 0
             ],
             'created_at datetime default current_timestamp',
             'updated_at datetime default current_timestamp on update current_timestamp',
