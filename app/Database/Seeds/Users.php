@@ -19,7 +19,7 @@ class Users extends Seeder
                 'role' => 'admin',
                 'foto' => 'Agung.jpg',
                 'jabatan_id' => 7,
-                'bidang_id' => null
+                'bidang_id' => 3
             ],
             [
                 'nik' => 3506220101610010,
