@@ -78,7 +78,6 @@ class UsersController extends BaseController
         $data = [
             'title' => 'Kelola Data Pengguna',
             'users' => $this->users->getDetails(),
-
             'jabatan' => $this->jabatan->getJabatans(),
             'bidang' => $this->bidang->getBidangs()
         ];
@@ -87,18 +86,6 @@ class UsersController extends BaseController
 
         return view('admin/pengguna/index', $data);
     }
-
-    // public function indexPelaksana()
-    // {
-    //     $data = [
-    //         'title' => 'Kelola Data Tukang',
-    //         'users' => $this->users->getDetailTukang(),
-    //         'pengawas' => $this->pengawas->getAllPengawas(),
-    //         'jabatan' => $this->jabatan->getJabatans(),
-    //         'bidang' => $this->bidang->getBidangs()
-    //     ];
-    //     return view('pelaksana/tukang/index', $data);
-    // }
 
     public function store()
     {

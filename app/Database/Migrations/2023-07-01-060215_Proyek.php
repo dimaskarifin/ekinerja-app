@@ -35,7 +35,7 @@ class Proyek extends Migration
                 'type' => 'BIGINT',
                 'constraint' => 20,
                 'null' => true,
-                'default' => 0,
+                'default' => '0',
             ],
             'kegiatan_id' => [
                 'type' => 'BIGINT',

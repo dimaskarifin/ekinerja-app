@@ -22,18 +22,6 @@ class Users extends Seeder
                 'bidang_id' => 0
             ],
             [
-                'nik' => 3506220101610010,
-                'nama' => 'Imam Sururi',
-                'tempat_lahir' => 'Kediri',
-                'tanggal_lahir' => date('Y-m-d ', strtotime('1961-01-01')),
-                'alamat'     => 'DSN. SAMBIREJO, RT:05/RW:01, Kel. Tiron, Kec.Banyakan',
-                'password' => password_hash('12345678', PASSWORD_DEFAULT),
-                'role' => 'mandor',
-                'foto' => 'Imam.jpeg',
-                'jabatan_id' => 5,
-                'bidang_id' => 3,
-            ],
-            [
                 'nik' => 3504050606790003,
                 'nama' => 'Suryono',
                 'tempat_lahir' => 'Tulungagung',
@@ -57,6 +45,19 @@ class Users extends Seeder
                 'jabatan_id' => 3,
                 'bidang_id' => 3,
             ],
+            [
+                'nik' => 3506220101610010,
+                'nama' => 'Imam Sururi',
+                'tempat_lahir' => 'Kediri',
+                'tanggal_lahir' => date('Y-m-d ', strtotime('1961-01-01')),
+                'alamat'     => 'DSN. SAMBIREJO, RT:05/RW:01, Kel. Tiron, Kec.Banyakan',
+                'password' => password_hash('12345678', PASSWORD_DEFAULT),
+                'role' => 'mandor',
+                'foto' => 'Imam.jpeg',
+                'jabatan_id' => 5,
+                'bidang_id' => 3,
+            ],
+
             [
                 'nik' => 3506220104920001,
                 'nama' => 'Andrian Prasetyo',

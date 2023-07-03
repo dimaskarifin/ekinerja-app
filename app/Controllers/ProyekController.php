@@ -105,6 +105,7 @@ class ProyekController extends BaseController
             'title' => 'Kelola Proyek',
             'mandor' => $this->users->where('role', 'mandor')->findAll(),
             'pelaksana' => $this->users->where('role', 'pelaksana')->findAll(),
+            'tukang' => $this->users->where('role', 'tukang')->findAll(),
             'kegiatan' => $this->kegiatan->getKegiatans(),
             'proyek' => $this->proyek->getDetailProyekTukang(),
         ];
@@ -150,7 +151,7 @@ class ProyekController extends BaseController
             $id = $this->request->getVar('id');
 
             $data = [
-                'proyek' => $this->proyek->editDetailProyekPelaksana($id)
+                'proyek' => $this->proyek->editDetailProyek($id)
             ];
 
             $encoded_data = base64_encode(json_encode($data));
@@ -213,17 +214,91 @@ class ProyekController extends BaseController
 
     function editMandor()
     {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+        }
+
+        $data = [
+            'proyek' => $this->proyek->editDetailProyek($id)
+        ];
+
+        $encoded_data = base64_encode(json_encode($data));
+        return $this->response->setContentType('application/json')->setJSON(array('data' => $encoded_data));
     }
 
     function updateMandor()
     {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules(
+            [
+                'tukang_id' => [
+                    'label' => 'Nama Tukang',
+                    'rules' => 'required',
+                ]
+            ]
+        );
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('mandor/kelola-proyek'));
+        }
+
+        $dataTK = [
+            'tukang_id' => $data['tukang_id']
+        ];
+
+        $this->proyek->updateProyek($dataTK, $data['id']);
+
+        session()->setFlashdata("success", "Berhasil memperbarui data proyek");
+        return redirect()->to(base_url('mandor/kelola-proyek'));
     }
 
     function editTukang()
     {
+        if ($this->request->isAJAX()) {
+            $id = $this->request->getVar('id');
+        }
+
+        $data = [
+            'proyek' => $this->proyek->editDetailProyek($id)
+        ];
+
+        $encoded_data = base64_encode(json_encode($data));
+        return $this->response->setContentType('application/json')->setJSON(array('data' => $encoded_data));
     }
 
     function updateTukang()
     {
+        $data = $this->request->getPost();
+
+        $validation = \Config\Services::validation();
+        $validation->setRules(
+            [
+                'output' => [
+                    'label' => 'Output Proyek',
+                    'rules' => 'required',
+                ]
+            ]
+        );
+
+        if (!$validation->run($_POST)) {
+            $errors = $validation->getErrors();
+            $arr = implode("<br>", $errors);
+            session()->setFlashdata("warning", $arr);
+            return redirect()->to(base_url('tukang/kelola-proyek'));
+        }
+
+        $dataOT = [
+            'output' => $data['output']
+        ];
+
+        $this->proyek->updateProyek($dataOT, $data['id']);
+
+        session()->setFlashdata("success", "Berhasil memperbarui data proyek");
+        return redirect()->to(base_url('tukang/kelola-proyek'));
     }
 }

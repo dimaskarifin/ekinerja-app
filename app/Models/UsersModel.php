@@ -65,21 +65,7 @@ class UsersModel extends Model
         $query = $builder->get();
         return $query->getResult();
     }
-    public function getDetailTukang()
-    {
-        $builder = $this->db->table('users');
-        $builder->select('users.*, users.id as id_users, pengawas.*, jabatan.*, bidang.*')
-            ->join('pengawas', 'pengawas.id = users.pengawas_id')
-            ->join('jabatan', 'jabatan.id = users.jabatan_id')
-            ->join('bidang', 'bidang.id = users.bidang_id')
-            ->where('users.deleted_at', null)
-            ->where('role', 'tukang')
-            ->orderBy('users.updated_at', 'desc');
-        $query = $builder->get();
-        return $query->getResult();
-    }
 
-    //users model
     public function getDetailEdit($id)
     {
         $builder = $this->db->table('users');

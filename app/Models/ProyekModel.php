@@ -68,7 +68,7 @@ class ProyekModel extends Model
         return $query->getResult();
     }
 
-    function editDetailProyekPelaksana($id)
+    function editDetailProyek($id)
     {
         $builder = $this->db->table('proyek');
         $builder->select('proyek.*, proyek.id as proyek_id, m.nama as nama_mandor, p.nama as nama_pelaksana, t.nama as nama_tukang ,kegiatan.uraian_kegiatan')

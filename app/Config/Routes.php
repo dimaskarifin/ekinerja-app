@@ -91,13 +91,6 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     //Routes Pelaksana
     $routes->group('pelaksana', ['filter' => 'PelaksanaFilter'], function ($routes) {
 
-        // //kinerja
-        // $routes->get('kelola-ekinerja', 'EkinerjaController::indexPelaksana');
-        // $routes->post('kelola-ekinerja/store', 'EkinerjaController::storePelaksana');
-        // $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
-        // $routes->post('kelola-ekinerja/update', 'EkinerjaController::updatePelaksana');
-        // $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::deletePelaksana/$1');
-
         //Proyek
         $routes->get('kelola-proyek', 'ProyekController::indexPelaksana');
         $routes->post('kelola-proyek/store', 'ProyekController::storePelaksana');
@@ -113,15 +106,10 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
     //Routes Mandor
     $routes->group('mandor', ['filter' => 'MandorFilter'], function ($routes) {
 
-        // //kinerja
-        // $routes->get('kelola-ekinerja', 'EkinerjaController::indexMandor');
-        // $routes->post('kelola-ekinerja/store', 'EkinerjaController::store');
-        // $routes->get('kelola-ekinerja/edit', 'EkinerjaController::edit');
-        // $routes->post('kelola-ekinerja/update', 'EkinerjaController::update');
-        // $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::delete/$1');
-
         //proyek
         $routes->get('kelola-proyek', 'ProyekController::indexMandor');
+        $routes->get('kelola-proyek/edit', 'ProyekController::editMandor');
+        $routes->post('kelola-proyek/update', 'ProyekController::updateMandor');
 
         //laporan
         $routes->get('laporan', 'LaporanController::indexMandor');
@@ -130,15 +118,11 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
 
     //Routes Tukang
     $routes->group('tukang', ['filter' => 'TukangFilter'], function ($routes) {
-        //kinerja
-        // $routes->get('kelola-ekinerja', 'EkinerjaController::indexTukang');
-        // $routes->post('kelola-ekinerja/store', 'EkinerjaController::storeTukang');
-        // $routes->get('kelola-ekinerja/edit', 'EkinerjaController::editTukang');
-        // $routes->post('kelola-ekinerja/update', 'EkinerjaController::updateTukang');
-        // $routes->get('kelola-ekinerja/delete/(:num)', 'EkinerjaController::deleteTukang/$1');
 
         //proyek
         $routes->get('kelola-proyek', 'ProyekController::indexTukang');
+        $routes->get('kelola-proyek/edit', 'ProyekController::editTukang');
+        $routes->post('kelola-proyek/update', 'ProyekController::updateTukang');
 
         //laporan
         $routes->get('laporan', 'LaporanController::indexLapTukang');
