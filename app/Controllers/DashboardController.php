@@ -5,11 +5,12 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\EkinerjaModel;
 use App\Models\KegiatanModel;
+use App\Models\ProyekModel;
 use App\Models\UsersModel;
 
 class DashboardController extends BaseController
 {
-    protected $kegiatan, $ekinerja, $users;
+    protected $kegiatan, $ekinerja, $users, $proyek;
 
     public function __construct()
     {
@@ -18,6 +19,7 @@ class DashboardController extends BaseController
         $this->kegiatan = new KegiatanModel;
         $this->ekinerja = new EkinerjaModel;
         $this->users = new UsersModel;
+        $this->proyek = new ProyekModel;
     }
 
     public function index()
@@ -27,9 +29,9 @@ class DashboardController extends BaseController
         $data = [
             'title' => 'Dashboard Panel E-Kinerja',
             'total_kegiatan' => $this->kegiatan->where('deleted_at', null)->countAllResults(),
-            'total_ekinerja' => $this->ekinerja->where('deleted_at', null)->countAllResults(),
+            'total_proyek' => $this->proyek->where('deleted_at', null)->countAllResults(),
             'total_user' => $this->users->where('deleted_at', null)->countAllResults(),
-            'chart' => $this->ekinerja->getTotalEkinerjaEachUser($get_data)
+            'chart' => $this->proyek->getTotalProyekTukangUser($get_data)
         ];
 
         return view('dashboard', $data);

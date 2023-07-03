@@ -12,7 +12,6 @@ class MainSeeder extends Seeder
         $this->call('bidang');
         $this->call('jabatan');
         $this->call('kegiatan');
-        $this->call('ekinerja');
         $this->call('proyek');
     }
 }

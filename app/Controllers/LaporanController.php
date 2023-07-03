@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\EkinerjaModel;
+use App\Models\ProyekModel;
 use App\Models\UsersModel;
 use CodeIgniter\HTTP\Request;
 use DateInterval;
@@ -13,7 +14,7 @@ use Dompdf\Dompdf;
 
 class LaporanController extends BaseController
 {
-    protected $ekinerja, $users;
+    protected $ekinerja, $users, $proyek;
 
     public function __construct()
     {
@@ -21,6 +22,7 @@ class LaporanController extends BaseController
 
         $this->ekinerja = new EkinerjaModel;
         $this->users = new UsersModel;
+        $this->proyek = new ProyekModel;
     }
 
     public function indexMandor()
@@ -35,7 +37,7 @@ class LaporanController extends BaseController
 
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->ekinerja->getLaporanMandor($get_data),
+            'laporans' => $this->proyek->getLaporan($get_data),
             'users' => $this->users->where('deleted_at', null)->find(),
         ];
 
@@ -53,7 +55,7 @@ class LaporanController extends BaseController
 
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->ekinerja->getLaporanMandor($get_data),
+            'laporans' => $this->proyek->getLaporan($get_data),
             'users' => $this->users->where('deleted_at', null)->find(),
         ];
 
@@ -72,9 +74,11 @@ class LaporanController extends BaseController
 
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->ekinerja->getLaporanTukang($get_data),
+            'laporans' => $this->proyek->getLaporanTukang($get_data),
             'users' => $this->users->where('deleted_at', null)->where('nik', session('nik'))->find(),
         ];
+
+        // dd($data['laporans']);
 
         return view('tukang/pelaporan/index', $data);
     }
