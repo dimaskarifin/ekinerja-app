@@ -162,7 +162,7 @@ class ProyekModel extends Model
 
         if (!empty($params)) {
             if (!empty($params['nik'])) {
-                $query->where('nik', $params['nik']);
+                $query->where('t.nik', $params['nik']);
             }
 
             if (!empty($params['tanggal'])) {

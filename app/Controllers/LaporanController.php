@@ -77,7 +77,7 @@ class LaporanController extends BaseController
 
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->proyek->getLaporan($get_data),
+            'laporans' => $this->proyek->getLaporanTukang($get_data),
             'users' => $this->users->where('deleted_at', null)->where('nik', session('nik'))->find(),
         ];
 
