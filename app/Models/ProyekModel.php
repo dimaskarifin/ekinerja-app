@@ -124,8 +124,8 @@ class ProyekModel extends Model
             ->where('proyek.deleted_at', null);
 
         if (!empty($params)) {
-            if (!empty($params['nik_tukang'])) {
-                $query->where('nik_tukang', $params['nik_tukang']);
+            if (!empty($params['nik'])) {
+                $query->where('t.nik', $params['nik']);
             }
 
             if (!empty($params['tanggal'])) {
