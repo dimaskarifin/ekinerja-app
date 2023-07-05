@@ -37,7 +37,7 @@ class AuthController extends BaseController
         if ($users) {
             //cek password, jika salah kembalikan dengan error di halaman login
             if (!password_verify($data['password'], $users['password'])) {
-                return redirect()->to(base_url('signin'))->with('error', 'Invalid username or password');
+                return redirect()->to(base_url('signin'))->with('error', 'Invalid nik or password');
             }
             //jika sesuai, arahkan user masuk ke admin dashboard
 
@@ -51,7 +51,7 @@ class AuthController extends BaseController
 
             return redirect()->to(base_url('dashboard'));
         } else {
-            return redirect()->to(base_url('/'))->with('error', 'Invalid nik or password');
+            return redirect()->to(base_url('signin'))->with('error', 'Invalid nik or password');
         }
     }
 
