@@ -119,12 +119,13 @@ class ProyekModel extends Model
             ->join('users as p', 'p.id = proyek.pelaksana_id')
             ->join('users as t', 't.id = proyek.tukang_id', 'left')
             ->join('kegiatan', 'kegiatan.id = proyek.kegiatan_id')
-            ->select('proyek.*, proyek.id as proyek_id, m.nama as nama_mandor, p.nama as nama_pelaksana, t.nama as nama_tukang ,kegiatan.uraian_kegiatan')
+            ->select('proyek.*, proyek.id as proyek_id, m.nama as nama_mandor, m.nik as nik_mandor, p.nama as nama_pelaksana, 
+            p.nik as nik_pelaksana, t.nama as nama_tukang, t.nik as nik_tukang ,kegiatan.uraian_kegiatan')
             ->where('proyek.deleted_at', null);
 
         if (!empty($params)) {
-            if (!empty($params['nik'])) {
-                $query->where('nik', $params['nik']);
+            if (!empty($params['nik_tukang'])) {
+                $query->where('nik_tukang', $params['nik_tukang']);
             }
 
             if (!empty($params['tanggal'])) {
