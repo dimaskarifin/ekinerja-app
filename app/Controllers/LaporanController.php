@@ -77,7 +77,7 @@ class LaporanController extends BaseController
 
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->proyek->getLaporanTukang($get_data),
+            'laporans' => $this->proyek->getLaporan($get_data),
             'users' => $this->users->where('deleted_at', null)->where('nik', session('nik'))->find(),
         ];
 
@@ -125,7 +125,7 @@ class LaporanController extends BaseController
         $mandor = $this->users->where('role', 'mandor')->first();
 
         $data = [];
-        $data['kinerjas'] = $this->ekinerja->getLaporanMandor($get_data);
+        $data['kinerjas'] = $this->proyek->getLaporan($get_data);
         $data['nik_mandor'] = $mandor['nik'];
         $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;
@@ -178,7 +178,7 @@ class LaporanController extends BaseController
         $mandor = $this->users->where('role', 'mandor')->first();
 
         $data = [];
-        $data['kinerjas'] = $this->ekinerja->getLaporanMandor($get_data);
+        $data['kinerjas'] = $this->proyek->getLaporan($get_data);
         $data['nik_mandor'] = $mandor['nik'];
         $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;
