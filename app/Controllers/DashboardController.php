@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\EkinerjaModel;
 use App\Models\KegiatanModel;
 use App\Models\ProyekModel;
 use App\Models\UsersModel;
@@ -17,7 +16,6 @@ class DashboardController extends BaseController
         helper(['form', 'url', 'validation', 'session', 'text']);
 
         $this->kegiatan = new KegiatanModel;
-        $this->ekinerja = new EkinerjaModel;
         $this->users = new UsersModel;
         $this->proyek = new ProyekModel;
     }
