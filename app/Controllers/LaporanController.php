@@ -19,8 +19,6 @@ class LaporanController extends BaseController
     public function __construct()
     {
         helper(['form', 'url', 'validation', 'session', 'text']);
-
-        $this->ekinerja = new EkinerjaModel;
         $this->users = new UsersModel;
         $this->proyek = new ProyekModel;
     }
@@ -100,7 +98,7 @@ class LaporanController extends BaseController
             session()->setFlashdata("warning", "Tanggal wajib di isi");
             return redirect()->to(base_url('pelaksana/laporan'));
         }
-        
+
         $user = $this->users->where('nik', session()->get('nik'))->first();
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
             $pegawai = $this->users->where('nik', $get_data['nik'])->first();
@@ -143,7 +141,7 @@ class LaporanController extends BaseController
         $data['pegawai'] = $pegawai;
         $data['user'] = $user;
 
-        $dompdf->loadHtml(view('pelaksana/pelaporan/'.$nameFile, $data));
+        $dompdf->loadHtml(view('pelaksana/pelaporan/' . $nameFile, $data));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream("Laporan Kinerja $kategori - $is_date.pdf");
@@ -163,7 +161,7 @@ class LaporanController extends BaseController
             session()->setFlashdata("warning", "Tanggal wajib di isi");
             return redirect()->to(base_url('mandor/laporan'));
         }
-        
+
         // $pelaksana = $this->users->where('jabatan_id', 3)->find();
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
             $pegawai = $this->users->where('nik', $get_data['nik'])->first();
@@ -206,7 +204,7 @@ class LaporanController extends BaseController
         $data['pegawai'] = $pegawai;
         $data['user'] = $user;
 
-        $dompdf->loadHtml(view('mandor/pelaporan/'.$nameFile, $data));
+        $dompdf->loadHtml(view('mandor/pelaporan/' . $nameFile, $data));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream("Laporan Kinerja $kategori - $is_date.pdf");
@@ -265,7 +263,7 @@ class LaporanController extends BaseController
         $data['tanggal_sekarang'] = $tanggal_sekarang;
         $data['user'] = $user;
 
-        $dompdf->loadHtml(view('tukang/pelaporan/'.$nameFile, $data));
+        $dompdf->loadHtml(view('tukang/pelaporan/' . $nameFile, $data));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream("Laporan Kinerja $kategori - $is_date.pdf");
