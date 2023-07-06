@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Proyek</title>
+</head>
+<style>
+    .table,
+    th,
+    td {
+        border: 1px solid;
+        border-collapse: collapse;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+
+    .w-25 {
+        width: 25%;
+    }
+
+    .w-50 {
+        width: 50%;
+    }
+
+    .w-75 {
+        width: 75%;
+    }
+
+    .w-100 {
+        width: 100%;
+    }
+
+    .m-1 {
+        margin: 1em;
+    }
+
+    .m-2 {
+        margin: 2em;
+    }
+
+    .mt-2 {
+        margin-top: 2em;
+    }
+
+    .mt-3 {
+        margin-top: 3em;
+    }
+
+    .mt-4 {
+        margin-top: 4em;
+    }
+
+    .mb-3 {
+        margin-bottom: 3em;
+    }
+
+    .text-undeline {
+        text-decoration: underline;
+    }
+
+    .row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 10px;
+    }
+
+    .col {
+        flex: 1;
+        padding: 10px;
+    }
+
+    .border {
+        border: 1px solid;
+        border-collapse: collapse;
+    }
+
+    .fs-5 {
+        font-size: 15px;
+    }
+
+    .fw-bold {
+        font-weight: bold;
+    }
+</style>
+
+<body>
+    <div class="container m-2">
+    
+        <h3 class="text-undeline text-center">Laporan Proyek
+            <?= $kategori ?>
+        </h3>
+        <p class="text-center mb-3">Hari / Tanggal :
+            <?= $tanggal ?>
+        </p>
+        <?php if (!empty($user)) { ?>
+        <div style="display: flex;">
+            <div style="flex-direction: row; margin-right: 150px;">
+                <p>Pelaksana :
+                    <?= $user['nama'] ?>
+                </p>
+            </div>
+            <div style="flex-direction: row; margin-left: 150px;">
+                <p>Mandor :
+                    <?= $mandor ?>
+                </p>
+            </div>
+        </div>
+        <?php } ?>
+
+        <!-- table -->
+        <table class="table w-100">
+            <thead>
+                <tr>
+                    <th>No.</th>
+                    <th>No. Proyek</th>
+                    <th>Pegawai</th>
+                    <th>Proyek</th>
+                    <th>Uraian Kegiatan</th>
+                    <th>Satuan</th>
+                    <th>Rincian</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                $no = 1;
+                if (count($kinerjas) > 0) {
+                    foreach ($kinerjas as $kinerja) { ?>
+                <tr>
+                    <td class="text-center">
+                        <?= $no++ ?>
+                    </td>
+                    <td>
+                        <?= $kinerja['no_proyek']; ?>
+                    </td>
+                    <td>
+                        <?= $kinerja['nama_tukang']; ?>
+                    </td>
+                    <td>
+                        <?= $kinerja['nama_proyek']; ?>
+                    </td>
+                    <td>
+                        <?= $kinerja['uraian_kegiatan'] ?>
+                    </td>
+                    <td class="text-center">
+                        <?= $kinerja['target'] . ' ' . $kinerja['satuan'] ?>
+                    </td>
+                    <td>
+                        <?= $kinerja['output'] ?>
+                    </td>
+                </tr>
+                <?php } ?>
+                <?php } else { ?>
+                <tr>
+                    <td colspan="7" class="text-center">Tidak ada data</td>
+                </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+        <!-- end table -->
+    </div>
+</body>
+
+</html>

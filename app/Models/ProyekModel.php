@@ -112,7 +112,7 @@ class ProyekModel extends Model
         return $query->getResult();
     }
 
-    public function getLaporan(array $params = [])
+    public function getLaporan(array $params = [], $idPelaksana = null)
     {
         $query = $this
             ->join('users as m', 'm.id = proyek.mandor_id')
@@ -144,6 +144,10 @@ class ProyekModel extends Model
                     $query->where('DATE(proyek.created_at)', $date_explode);
                 }
             }
+        }
+
+        if (!empty($idPelaksana)) {
+            // $query->where('proyek.pelaksana_id', $idPelaksana);
         }
 
         return $query->find();

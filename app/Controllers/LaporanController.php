@@ -91,11 +91,20 @@ class LaporanController extends BaseController
         $get_data = $this->request->getGet();
         $kategori = "";
         $user = "";
+        $pegawai = "";
         $tanggal = "";
         $tanggal_sekarang = $this->tanggalIndo(date('Y-m-d'));
+        $nameFile = 'export-pdf-all-tukang';
 
+        if (empty($get_data['tanggal'])) {
+            session()->setFlashdata("warning", "Tanggal wajib di isi");
+            return redirect()->to(base_url('pelaksana/laporan'));
+        }
+        
+        $user = $this->users->where('nik', session()->get('nik'))->first();
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
-            $user = $this->users->where('nik', $get_data['nik'])->first();
+            $pegawai = $this->users->where('nik', $get_data['nik'])->first();
+            $nameFile = 'export-pdf-tukang-search';
 
             if ($get_data['kategori'] == 'date') {
                 $kategori = "Harian";
@@ -131,9 +140,10 @@ class LaporanController extends BaseController
         $data['kategori'] = $kategori;
         $data['tanggal'] = $is_date;
         $data['tanggal_sekarang'] = $tanggal_sekarang;
+        $data['pegawai'] = $pegawai;
         $data['user'] = $user;
 
-        $dompdf->loadHtml(view('pelaksana/pelaporan/export-pdf', $data));
+        $dompdf->loadHtml(view('pelaksana/pelaporan/'.$nameFile, $data));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream("Laporan Kinerja $kategori - $is_date.pdf");
@@ -144,11 +154,20 @@ class LaporanController extends BaseController
         $get_data = $this->request->getGet();
         $kategori = "";
         $user = "";
+        $pegawai = "";
         $tanggal = "";
         $tanggal_sekarang = $this->tanggalIndo(date('Y-m-d'));
+        $nameFile = 'export-pdf-all-tukang';
 
+        if (empty($get_data['tanggal'])) {
+            session()->setFlashdata("warning", "Tanggal wajib di isi");
+            return redirect()->to(base_url('mandor/laporan'));
+        }
+        
+        // $pelaksana = $this->users->where('jabatan_id', 3)->find();
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
-            $user = $this->users->where('nik', $get_data['nik'])->first();
+            $pegawai = $this->users->where('nik', $get_data['nik'])->first();
+            $nameFile = 'export-pdf-tukang-search';
 
             if ($get_data['kategori'] == 'date') {
                 $kategori = "Harian";
@@ -184,9 +203,10 @@ class LaporanController extends BaseController
         $data['kategori'] = $kategori;
         $data['tanggal'] = $is_date;
         $data['tanggal_sekarang'] = $tanggal_sekarang;
+        $data['pegawai'] = $pegawai;
         $data['user'] = $user;
 
-        $dompdf->loadHtml(view('mandor/pelaporan/export-pdf', $data));
+        $dompdf->loadHtml(view('mandor/pelaporan/'.$nameFile, $data));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream("Laporan Kinerja $kategori - $is_date.pdf");
@@ -200,7 +220,13 @@ class LaporanController extends BaseController
         $tanggal = "";
         $tanggal_sekarang = $this->tanggalIndo(date('Y-m-d'));
 
+        if (empty($get_data['tanggal'])) {
+            session()->setFlashdata("warning", "Tanggal wajib di isi");
+            return redirect()->to(base_url('tukang/laporan'));
+        }
+
         if (!empty($get_data['kategori']) && !empty($get_data['tanggal']) || !empty($get_data['nik'])) {
+            $nameFile = 'export-pdf-tukang-search';
             $user = $this->users->where('nik', $get_data['nik'])->first();
 
             if ($get_data['kategori'] == 'date') {
@@ -231,7 +257,7 @@ class LaporanController extends BaseController
         $mandor = $this->users->where('role', 'mandor')->first();
 
         $data = [];
-        $data['kinerjas'] = $this->ekinerja->getLaporanTukang($get_data);
+        $data['kinerjas'] = $this->proyek->getLaporanTukang($get_data);
         $data['nik_mandor'] = $mandor['nik'];
         $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;
@@ -239,7 +265,7 @@ class LaporanController extends BaseController
         $data['tanggal_sekarang'] = $tanggal_sekarang;
         $data['user'] = $user;
 
-        $dompdf->loadHtml(view('tukang/pelaporan/export-pdf', $data));
+        $dompdf->loadHtml(view('tukang/pelaporan/'.$nameFile, $data));
         $dompdf->setPaper('A4', 'portrait');
         $dompdf->render();
         $dompdf->stream("Laporan Kinerja $kategori - $is_date.pdf");

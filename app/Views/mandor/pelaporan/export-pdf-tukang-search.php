@@ -90,26 +90,34 @@
 
 <body>
     <div class="container m-2">
-        <h3 class="text-undeline text-center">Laporan Proyek
+        <h3 class="text-undeline text-center">Laporan Pekerjaan
             <?= $kategori ?>
         </h3>
         <p class="text-center mb-3">Hari / Tanggal :
             <?= $tanggal ?>
         </p>
-        <?php if (!empty($user)) { ?>
         <div style="display: flex; ;">
             <div style="flex-direction: row; margin-right: 150px;">
                 <p>Pelaksana :
-                    <?= $user['nama_pelaksana'] ?>
+                    <?php foreach ($kinerjas as $a) : ?>
+                        <?= $a['nama_pelaksana'] ?>
+                    <?php endforeach?>
                 </p>
             </div>
-            <div style="flex-direction: row; margin-left: 150px;">
+            <div style="flex-direction: row; margin-left: 100px;">
                 <p>Mandor :
-                    <?= $user['nama_mandor'] ?>
+                    <?= $mandor ?>
                 </p>
             </div>
         </div>
-        <?php } ?>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="flex-direction: row;">
+                <p>Pegawai :
+                    <?= $pegawai['nama'] ?>
+                </p>
+            </div>
+        </div>
+
 
         <!-- table -->
         <table class="table w-100">
@@ -117,7 +125,6 @@
                 <tr>
                     <th>No.</th>
                     <th>No. Proyek</th>
-                    <th>Pegawai</th>
                     <th>Proyek</th>
                     <th>Uraian Kegiatan</th>
                     <th>Satuan</th>
@@ -139,11 +146,6 @@
                     <td>
                         <?= $kinerja['nama_proyek']; ?>
                     </td>
-                    <?php if (empty($user)) { ?>
-                    <td>
-                        <?= $kinerja['nama'] ?>
-                    </td>
-                    <?php } ?>
                     <td>
                         <?= $kinerja['uraian_kegiatan'] ?>
                     </td>
@@ -157,7 +159,7 @@
                 <?php } ?>
                 <?php } else { ?>
                 <tr>
-                    <td colspan="7" class="text-center">Tidak ada data</td>
+                    <td colspan="6" class="text-center">Tidak ada data</td>
                 </tr>
                 <?php } ?>
             </tbody>

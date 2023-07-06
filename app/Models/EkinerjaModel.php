@@ -159,9 +159,6 @@ class EkinerjaModel extends Model
             ->where('nik', session('nik'));
 
         if (!empty($params)) {
-            if (!empty($params['nik'])) {
-                $query->where('nik', $params['nik']);
-            }
 
             if (!empty($params['tanggal'])) {
                 $date_explode = explode('-', $params['tanggal']);

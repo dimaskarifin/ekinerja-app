@@ -90,34 +90,27 @@
 
 <body>
     <div class="container m-2">
-        <h3 class="text-undeline text-center">Laporan Pekerjaan
+    
+        <h3 class="text-undeline text-center">Laporan Proyek
             <?= $kategori ?>
         </h3>
         <p class="text-center mb-3">Hari / Tanggal :
             <?= $tanggal ?>
         </p>
-        <?php if (!empty($user)) { ?>
-        <div style="display: flex; ;">
+        <div style="display: flex;">
             <div style="flex-direction: row; margin-right: 150px;">
                 <p>Pelaksana :
-                    <?= $user['nama_pelaksana'] ?>pwppwpwpw
+                    <?php foreach ($kinerjas as $a) : ?>
+                        <?= $a['nama_pelaksana'] ?>
+                    <?php endforeach?>
                 </p>
             </div>
-            <div style="flex-direction: row; margin-left: 100px;">
+            <div style="flex-direction: row; margin-left: 150px;">
                 <p>Mandor :
-                    <?= $user['nama_mandor'] ?>
+                    <?= $mandor ?>
                 </p>
             </div>
         </div>
-        <div style="display: flex; justify-content: space-between;">
-            <div style="flex-direction: row;">
-                <p>Pegawai :
-                    <?= $nama_tukang ?>
-                </p>
-            </div>
-        </div>
-
-        <?php } ?>
 
         <!-- table -->
         <table class="table w-100">
@@ -125,6 +118,7 @@
                 <tr>
                     <th>No.</th>
                     <th>No. Proyek</th>
+                    <th>Pegawai</th>
                     <th>Proyek</th>
                     <th>Uraian Kegiatan</th>
                     <th>Satuan</th>
@@ -144,6 +138,9 @@
                         <?= $kinerja['no_proyek']; ?>
                     </td>
                     <td>
+                        <?= $kinerja['nama_tukang']; ?>
+                    </td>
+                    <td>
                         <?= $kinerja['nama_proyek']; ?>
                     </td>
                     <td>
@@ -159,7 +156,7 @@
                 <?php } ?>
                 <?php } else { ?>
                 <tr>
-                    <td colspan="6" class="text-center">Tidak ada data</td>
+                    <td colspan="7" class="text-center">Tidak ada data</td>
                 </tr>
                 <?php } ?>
             </tbody>
