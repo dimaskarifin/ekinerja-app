@@ -9,7 +9,7 @@ use App\Models\UsersModel;
 
 class DashboardController extends BaseController
 {
-    protected $kegiatan, $ekinerja, $users, $proyek;
+    protected $kegiatan, $users, $proyek;
 
     public function __construct()
     {
