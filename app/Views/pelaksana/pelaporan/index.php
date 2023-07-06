@@ -24,8 +24,7 @@
                                         if (!empty($old_value_kategori)) { ?>
                                             <option value="date" <?php if ($old_value_kategori == 'date') { ?> selected <?php } ?>>Harian</option>
                                             <option value="week" <?php if ($old_value_kategori == 'week') { ?> selected <?php } ?>>Minggu</option>
-                                            <option value="month" <?php if ($old_value_kategori == 'month') { ?> selected
-                                            <?php } ?>>Bulan</option>
+                                            <option value="month" <?php if ($old_value_kategori == 'month') { ?> selected <?php } ?>>Bulan</option>
                                         <?php } else { ?>
                                             <option value="date">Harian</option>
                                             <option value="week">Minggu</option>
@@ -64,15 +63,13 @@
                                     $old_value_tanggal = isset($_GET['tanggal']) ? $_GET['tanggal'] : '';
                                     ?>
                                     <label for="">Tanggal <span class="text-danger">*</span></label>
-                                    <input type="" name="tanggal" id="tanggal" class="form-control"
-                                        placeholder="Pilih Kategori Dulu" required>
+                                    <input type="" name="tanggal" id="tanggal" class="form-control" placeholder="Pilih Kategori Dulu" required>
                                     <span><small id="keterangan"></small></span>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="d-grid gap-2 mt-2 mb-3">
-                                            <a href="<?= base_url('pelaksana/laporan') ?>"
-                                                class="btn btn-warning">Reset</a>
+                                            <a href="<?= base_url('pelaksana/laporan') ?>" class="btn btn-warning">Reset</a>
                                         </div>
                                     </div>
                                     <div class="col-6">
@@ -113,7 +110,7 @@
                                 <?= $no++ ?>
                             </td>
                             <td>
-                                <?= $laporan['nama_tukang'] ?>
+                                <?= isset($laporan['nama_tukang']) ? $laporan['nama_tukang'] : '-' ?>
                             </td>
                             <td>
                                 <?= $laporan['uraian_kegiatan'] ?>
@@ -146,7 +143,7 @@
     let table;
     let type, kategori, nik, tanggal;
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         datatable();
 
         $("#tanggal").attr('readonly', true);
@@ -169,7 +166,7 @@
         }
     });
 
-    $('#kategori').change(function (e) {
+    $('#kategori').change(function(e) {
         e.preventDefault();
         type = $(this).val();
         kategori = $(this).val();
@@ -189,7 +186,7 @@
     });
 
 
-    $("#tanggal").change(function (e) {
+    $("#tanggal").change(function(e) {
         e.preventDefault();
 
         tanggal = $(this).val();
@@ -199,13 +196,13 @@
         }
     });
 
-    $("#nik").change(function (e) {
+    $("#nik").change(function(e) {
         e.preventDefault()
 
         nik = $(this).val();
     });
 
-    $(".btn-export").click(function (e) {
+    $(".btn-export").click(function(e) {
         e.preventDefault();
 
         window.location.href = '<?= base_url('pelaksana/laporan/export-pdf') ?>' + '?kategori=' + kategori +
