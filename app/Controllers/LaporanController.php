@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Controllers\BaseController;
-use App\Models\EkinerjaModel;
 use App\Models\ProyekModel;
 use App\Models\UsersModel;
 use CodeIgniter\HTTP\Request;
@@ -14,7 +13,7 @@ use Dompdf\Dompdf;
 
 class LaporanController extends BaseController
 {
-    protected $ekinerja, $users, $proyek;
+    protected $users, $proyek;
 
     public function __construct()
     {
