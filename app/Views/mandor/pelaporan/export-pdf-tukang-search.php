@@ -100,8 +100,8 @@
             <div style="flex-direction: row; margin-right: 150px;">
                 <p>Pelaksana :
                     <?php foreach ($kinerjas as $a) : ?>
-                        <?= $a['nama_pelaksana'] ?>
-                    <?php endforeach?>
+                        <?= $a['data']['nama_pelaksana'] ?>
+                    <?php endforeach ?>
                 </p>
             </div>
             <div style="flex-direction: row; margin-left: 100px;">
@@ -136,31 +136,31 @@
                 $no = 1;
                 if (count($kinerjas) > 0) {
                     foreach ($kinerjas as $kinerja) { ?>
-                <tr>
-                    <td class="text-center">
-                        <?= $no++ ?>
-                    </td>
-                    <td>
-                        <?= $kinerja['no_proyek']; ?>
-                    </td>
-                    <td>
-                        <?= $kinerja['nama_proyek']; ?>
-                    </td>
-                    <td>
-                        <?= $kinerja['uraian_kegiatan'] ?>
-                    </td>
-                    <td class="text-center">
-                        <?= $kinerja['target'] . ' ' . $kinerja['satuan'] ?>
-                    </td>
-                    <td>
-                        <?= $kinerja['output'] ?>
-                    </td>
-                </tr>
-                <?php } ?>
+                        <tr>
+                            <td class="text-center">
+                                <?= $no++ ?>
+                            </td>
+                            <td>
+                                <?= $kinerja['data']['no_proyek']; ?>
+                            </td>
+                            <td>
+                                <?= $kinerja['data']['nama_proyek']; ?>
+                            </td>
+                            <td>
+                                <?= $kinerja['data']['uraian_kegiatan'] ?>
+                            </td>
+                            <td class="text-center">
+                                <?= $kinerja['data']['target'] . ' ' . $kinerja['data']['satuan'] ?>
+                            </td>
+                            <td>
+                                <?= implode('<br>', $kinerja['output']) ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
                 <?php } else { ?>
-                <tr>
-                    <td colspan="6" class="text-center">Tidak ada data</td>
-                </tr>
+                    <tr>
+                        <td colspan="6" class="text-center">Tidak ada data</td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>

@@ -338,7 +338,7 @@ $('body').on('click', '#btnEdit', function() {
             $('#editTukang')[0].selectize.setValue(decoded_data.proyek[0].tukang_id);
             $('#editKegiatan')[0].selectize.setValue(decoded_data.proyek[0].kegiatan_id);
             $('#editKegiatan')[0].selectize.disable();
-            $('#editOutput').val(decoded_data.proyek[0].output);
+            $('#editOutput').val(decoded_data.timelineKegiatan);
             $('#editOutput').prop('disabled', true);
             $('#editTarget').val(decoded_data.proyek[0].target);
             $('#editTarget').prop('disabled', true);

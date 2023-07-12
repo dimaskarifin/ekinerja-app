@@ -11,7 +11,6 @@ class KegiatanModel extends Model
 
     public function __construct()
     {
-
         parent::__construct();
         //get all fields array
         $fields = $this->db->getFieldNames('kegiatan');
@@ -22,6 +21,8 @@ class KegiatanModel extends Model
                 $this->allowedFields[] = $field;
             }
         }
+
+        helper(['session']);
     }
 
 
@@ -84,6 +85,7 @@ class KegiatanModel extends Model
         $query = $builder->get();
         return $query->getResult();
     }
+
     public function getKegiatans()
     {
         $builder = $this->db->table('kegiatan');
@@ -95,6 +97,17 @@ class KegiatanModel extends Model
     public function getKegiatansAll()
     {
         return $this->orderBy('updated_at', 'desc')->findAll();
+    }
+
+    public function getKegiatanByUser() {
+        $builder = $this->db->table('kegiatan');
+        $builder->select('kegiatan.*')
+            ->join('proyek', 'proyek.kegiatan_id = kegiatan.id')
+            ->where('kegiatan.deleted_at', null)
+            ->where('proyek.tukang_id', session()->get('id'));
+
+        $query = $builder->get();
+        return $query->getResult();
     }
 
     public function insertKegiatan($data)

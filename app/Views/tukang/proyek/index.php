@@ -35,7 +35,7 @@
                             <td><?= $row->tanggal_pelaksanaan; ?></td>
                             <td><?= isset($row->nama_tukang) ? $row->nama_tukang : '-'; ?></td>
                             <td>
-                                <a class="btn icon btn-lg btn-warning" id="btnEdit" data-id="<?= $row->proyek_id ?>"><i class="bi bi-pencil-square"></i></a>
+                                <a class="btn icon btn-lg btn-info text-white" id="btnEdit" data-id="<?= $row->proyek_id ?>"><i class="bi bi-clipboard-check-fill"></i></a>
                             </td>
                         </tr>
                     <?php endforeach ?>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="" class="form-label">Output Proyek</label>
-                            <textarea class="form-control" id="editOutput" name="output" rows="3" placeholder="-"></textarea>
+                            <textarea class="form-control" id="editOutput" name="output" rows="3" placeholder="-" readonly></textarea>
                         </div>
                         <div class="col-md-6">
                             <label>Target Pengerjaan <span class="text-danger">*</span></label>
@@ -225,7 +225,8 @@
                 $('#editTukang')[0].selectize.disable();
                 $('#editKegiatan')[0].selectize.setValue(decoded_data.proyek[0].kegiatan_id);
                 $('#editKegiatan')[0].selectize.disable();
-                $('#editOutput').val(decoded_data.proyek[0].output);
+                $('#editOutput').val(decoded_data.timelineKegiatan);
+                $('#editOutput').prop('disabled', true);
                 $('#editTarget').val(decoded_data.proyek[0].target);
                 $('#editTarget').prop('disabled', true);
                 $('#editSatuan')[0].selectize.setValue(decoded_data.proyek[0].satuan);

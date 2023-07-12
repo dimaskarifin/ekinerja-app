@@ -128,17 +128,17 @@
                             </td>
                             <?php if (empty($user)) { ?>
                                 <td>
-                                    <?= $kinerja['nama'] ?>
+                                    <?= $kinerja['data']['nama'] ?>
                                 </td>
                             <?php } ?>
                             <td>
-                                <?= $kinerja['uraian_kegiatan'] ?>
+                                <?= $kinerja['data']['uraian_kegiatan'] ?>
                             </td>
                             <td class="text-center">
-                                <?= $kinerja['target'] . ' ' . $kinerja['satuan'] ?>
+                                <?= $kinerja['data']['target'] . ' ' . $kinerja['data']['satuan'] ?>
                             </td>
                             <td>
-                                <?= $kinerja['output'] ?>
+                                <?= implode('<br>', $kinerja['output']) ?>
                             </td>
                         </tr>
                     <?php } ?>

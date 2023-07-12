@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\ProyekModel;
+use App\Models\TimelineKegiatanModel;
 use App\Models\UsersModel;
 use CodeIgniter\HTTP\Request;
 use DateInterval;
@@ -13,13 +14,14 @@ use Dompdf\Dompdf;
 
 class LaporanController extends BaseController
 {
-    protected $users, $proyek;
+    protected $users, $proyek, $timelineKegiatan;
 
     public function __construct()
     {
         helper(['form', 'url', 'validation', 'session', 'text']);
         $this->users = new UsersModel;
         $this->proyek = new ProyekModel;
+        $this->timelineKegiatan = new TimelineKegiatanModel;
     }
 
     public function indexPelaksana()
@@ -32,9 +34,45 @@ class LaporanController extends BaseController
             $get_data['date_range']['end_date'] = "$tanggal[6]";
         }
 
+        $data_laporan = $this->proyek->getLaporan($get_data);
+
+        $no = 0;
+        $array_list = [];
+
+        foreach ($data_laporan as $item) {
+            $no++;
+            $row = [];
+
+            $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($item['kegiatan_id']);
+
+            $listTimelineKegiatan = [];
+
+            if (!empty($dataTimelineKegiatan)) {
+                $no_timeline = 0;
+                foreach ($dataTimelineKegiatan as $timeline) {
+                    $no_timeline++;
+                    array_push($listTimelineKegiatan, "{$no_timeline}. Pada tanggal {$this->tanggalIndo($timeline->tanggal_kegiatan)}, Kegiatan {$timeline->detail_kegiatan}.<br>");
+                }
+            } else {
+                array_push($listTimelineKegiatan, '-');
+            }
+
+            $row['no'] = $no;
+            $row['nama_tukang'] = $item['nama_tukang'] ? $item['nama_tukang'] : '-';
+            $row['uraian_kegiatan'] = $item['uraian_kegiatan'];
+            $row['target'] = $item['target'];
+            $row['satuan'] = $item['satuan'];
+            $row['tanggal_pelaksanaan'] = $item['tanggal_pelaksanaan'];
+            $row['nama_mandor'] = $item['nama_mandor'];
+            $row['output'] = $listTimelineKegiatan;
+
+            $array_list[] = $row;
+        }
+
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->proyek->getLaporan($get_data),
+            'laporans' => $data_laporan,
+            'tables' => $array_list,
             'users' => $this->users->where('deleted_at', null)->where('role', 'tukang')->find(),
         ];
 
@@ -53,10 +91,46 @@ class LaporanController extends BaseController
             $get_data['date_range']['end_date'] = "$tanggal[6]";
         }
 
+        $data_laporan = $this->proyek->getLaporan($get_data);
+
+        $no = 0;
+        $array_list = [];
+
+        foreach ($data_laporan as $item) {
+            $no++;
+            $row = [];
+
+            $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($item['kegiatan_id']);
+
+            $listTimelineKegiatan = [];
+
+            if (!empty($dataTimelineKegiatan)) {
+                $no_timeline = 0;
+                foreach ($dataTimelineKegiatan as $timeline) {
+                    $no_timeline++;
+                    array_push($listTimelineKegiatan, "{$no_timeline}. Pada tanggal {$this->tanggalIndo($timeline->tanggal_kegiatan)}, Kegiatan {$timeline->detail_kegiatan}.<br>");
+                }
+            } else {
+                array_push($listTimelineKegiatan, '-');
+            }
+
+            $row['no'] = $no;
+            $row['nama_tukang'] = $item['nama_tukang'] ? $item['nama_tukang'] : '-';
+            $row['uraian_kegiatan'] = $item['uraian_kegiatan'];
+            $row['target'] = $item['target'];
+            $row['satuan'] = $item['satuan'];
+            $row['tanggal_pelaksanaan'] = $item['tanggal_pelaksanaan'];
+            $row['nama_mandor'] = $item['nama_mandor'];
+            $row['output'] = $listTimelineKegiatan;
+
+            $array_list[] = $row;
+        }
+
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->proyek->getLaporan($get_data),
-            'users' => $this->users->where('deleted_at', null)->find(),
+            'laporans' => $data_laporan,
+            'tables' => $array_list,
+            'users' => $this->users->where('deleted_at', null)->where('role', 'tukang')->find(),
         ];
 
         return view('mandor/pelaporan/index', $data);
@@ -72,9 +146,45 @@ class LaporanController extends BaseController
             $get_data['date_range']['end_date'] = "$tanggal[6]";
         }
 
+        $data_laporan = $this->proyek->getLaporanTukang($get_data);
+
+        $no = 0;
+        $array_list = [];
+
+        foreach ($data_laporan as $item) {
+            $no++;
+            $row = [];
+
+            $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($item['kegiatan_id']);
+
+            $listTimelineKegiatan = [];
+
+            if (!empty($dataTimelineKegiatan)) {
+                $no_timeline = 0;
+                foreach ($dataTimelineKegiatan as $timeline) {
+                    $no_timeline++;
+                    array_push($listTimelineKegiatan, "{$no_timeline}. Pada tanggal {$this->tanggalIndo($timeline->tanggal_kegiatan)}, Kegiatan {$timeline->detail_kegiatan}.<br>");
+                }
+            } else {
+                array_push($listTimelineKegiatan, '-');
+            }
+
+            $row['no'] = $no;
+            $row['nama_tukang'] = $item['nama_tukang'] ? $item['nama_tukang'] : '-';
+            $row['uraian_kegiatan'] = $item['uraian_kegiatan'];
+            $row['target'] = $item['target'];
+            $row['satuan'] = $item['satuan'];
+            $row['tanggal_pelaksanaan'] = $item['tanggal_pelaksanaan'];
+            $row['nama_mandor'] = $item['nama_mandor'];
+            $row['output'] = $listTimelineKegiatan;
+
+            $array_list[] = $row;
+        }
+
         $data = [
             'title' => 'Laporan',
-            'laporans' => $this->proyek->getLaporanTukang($get_data),
+            'laporans' => $data_laporan,
+            'tables' => $array_list,
             'users' => $this->users->where('deleted_at', null)->where('nik', session('nik'))->find(),
         ];
 
@@ -130,8 +240,33 @@ class LaporanController extends BaseController
 
         $mandor = $this->users->where('role', 'mandor')->first();
 
+        $data_laporan = $this->proyek->getLaporan($get_data);
+        $array_list = [];
+        foreach ($data_laporan as $item) {
+            $row = [];
+
+            $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($item['kegiatan_id']);
+
+            $listTimelineKegiatan = [];
+
+            if (!empty($dataTimelineKegiatan)) {
+                $no_timeline = 0;
+                foreach ($dataTimelineKegiatan as $timeline) {
+                    $no_timeline++;
+                    array_push($listTimelineKegiatan, "{$no_timeline}. Pada tanggal {$this->tanggalIndo($timeline->tanggal_kegiatan)}, Kegiatan {$timeline->detail_kegiatan}.<br>");
+                }
+            } else {
+                array_push($listTimelineKegiatan, '-');
+            }
+
+            $row['data'] = $item;
+            $row['output'] = $listTimelineKegiatan;
+
+            $array_list[] = $row;
+        }
+
         $data = [];
-        $data['kinerjas'] = $this->proyek->getLaporan($get_data);
+        $data['kinerjas'] = $array_list;
         $data['nik_mandor'] = $mandor['nik'];
         $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;
@@ -193,8 +328,33 @@ class LaporanController extends BaseController
 
         $mandor = $this->users->where('role', 'mandor')->first();
 
+        $data_laporan = $this->proyek->getLaporan($get_data);
+        $array_list = [];
+        foreach ($data_laporan as $item) {
+            $row = [];
+
+            $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($item['kegiatan_id']);
+
+            $listTimelineKegiatan = [];
+
+            if (!empty($dataTimelineKegiatan)) {
+                $no_timeline = 0;
+                foreach ($dataTimelineKegiatan as $timeline) {
+                    $no_timeline++;
+                    array_push($listTimelineKegiatan, "{$no_timeline}. Pada tanggal {$this->tanggalIndo($timeline->tanggal_kegiatan)}, Kegiatan {$timeline->detail_kegiatan}.<br>");
+                }
+            } else {
+                array_push($listTimelineKegiatan, '-');
+            }
+
+            $row['data'] = $item;
+            $row['output'] = $listTimelineKegiatan;
+
+            $array_list[] = $row;
+        }
+
         $data = [];
-        $data['kinerjas'] = $this->proyek->getLaporan($get_data);
+        $data['kinerjas'] = $array_list;
         $data['nik_mandor'] = $mandor['nik'];
         $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;
@@ -253,8 +413,33 @@ class LaporanController extends BaseController
 
         $mandor = $this->users->where('role', 'mandor')->first();
 
+        $data_laporan = $this->proyek->getLaporanTukang($get_data);
+        $array_list = [];
+        foreach ($data_laporan as $item) {
+            $row = [];
+
+            $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($item['kegiatan_id']);
+
+            $listTimelineKegiatan = [];
+
+            if (!empty($dataTimelineKegiatan)) {
+                $no_timeline = 0;
+                foreach ($dataTimelineKegiatan as $timeline) {
+                    $no_timeline++;
+                    array_push($listTimelineKegiatan, "{$no_timeline}. Pada tanggal {$this->tanggalIndo($timeline->tanggal_kegiatan)}, Kegiatan {$timeline->detail_kegiatan}.<br>");
+                }
+            } else {
+                array_push($listTimelineKegiatan, '-');
+            }
+
+            $row['data'] = $item;
+            $row['output'] = $listTimelineKegiatan;
+
+            $array_list[] = $row;
+        }
+
         $data = [];
-        $data['kinerjas'] = $this->proyek->getLaporanTukang($get_data);
+        $data['kinerjas'] = $array_list;
         $data['nik_mandor'] = $mandor['nik'];
         $data['mandor'] = $mandor['nama'];
         $data['kategori'] = $kategori;

@@ -228,7 +228,7 @@
                         </div>
                         <div class="col-md-12">
                             <label for="" class="form-label">Output Proyek</label>
-                            <textarea class="form-control" id="editOutput" name="output" rows="3"></textarea>
+                            <textarea class="form-control" id="editOutput" name="output" rows="3" placeholder="-"></textarea>
                         </div>
                         <div class="col-md-6">
                             <label>Target Pengerjaan <span class="text-danger">*</span></label>
@@ -327,7 +327,7 @@
                 $('#editTukang')[0].selectize.setValue(decoded_data.proyek[0].tukang_id);
                 $('#editTukang')[0].selectize.disable();
                 $('#editKegiatan')[0].selectize.setValue(decoded_data.proyek[0].kegiatan_id);
-                $('#editOutput').val(decoded_data.proyek[0].output);
+                $('#editOutput').val(decoded_data.timelineKegiatan);
                 $('#editOutput').prop('disabled', true);
                 $('#editTarget').val(decoded_data.proyek[0].target);
                 $('#editSatuan')[0].selectize.setValue(decoded_data.proyek[0].satuan);

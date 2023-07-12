@@ -103,11 +103,10 @@
                 </thead>
                 <tbody>
                     <?php
-                    $no = 1;
-                    foreach ($laporans as $laporan) { ?>
+                    foreach ($tables as $laporan) { ?>
                         <tr>
                             <td>
-                                <?= $no++ ?>
+                                <?= $laporan['no'] ?>
                             </td>
                             <td>
                                 <?= isset($laporan['nama_tukang']) ? $laporan['nama_tukang'] : '-' ?>
@@ -125,7 +124,7 @@
                                 <?= $laporan['nama_mandor'] ?>
                             </td>
                             <td>
-                                <?= $laporan['output'] ?>
+                                <?= implode('<br>', $laporan['output']) ?>
                             </td>
                         </tr>
                     <?php } ?>

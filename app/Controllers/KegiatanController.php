@@ -95,6 +95,11 @@ class KegiatanController extends BaseController
             'uraian_kegiatan' => $data['uraian_kegiatan'],
         ];
 
+        if (session()->get('role') == 'mandor') {
+            $dataKG['deadline_start'] = $data['deadline_start'];
+            $dataKG['deadline_end'] = $data['deadline_end'];
+        }
+        
         $this->kegiatan->updateKegiatan($dataKG, $data['id']);
 
         session()->setFlashdata('success', 'Berhasil memperbarui data');

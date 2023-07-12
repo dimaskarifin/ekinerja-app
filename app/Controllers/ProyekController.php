@@ -4,14 +4,15 @@ namespace App\Controllers;
 
 use App\Controllers\BaseController;
 use App\Models\KegiatanModel;
+use App\Models\TimelineKegiatanModel;
 use App\Models\ProyekModel;
 use App\Models\UsersModel;
 
 class ProyekController extends BaseController
 {
-
     protected $users;
     protected $kegiatan;
+    protected $timelineKegiatan;
     protected $proyek;
 
     public function __construct()
@@ -19,7 +20,29 @@ class ProyekController extends BaseController
         helper(['form', 'url', 'validation', 'session', 'text']);
         $this->users = new UsersModel();
         $this->kegiatan = new KegiatanModel();
+        $this->timelineKegiatan = new TimelineKegiatanModel();
         $this->proyek = new ProyekModel();
+    }
+
+    private function date_indo($date, $delimiter)
+    {
+        $array_month = [
+            '01' => 'januari',
+            '02' => 'februari',
+            '03' => 'maret',
+            '04' => 'april',
+            '05' => 'mei',
+            '06' => 'juni',
+            '07' => 'juli',
+            '08' => 'agustus',
+            '09' => 'september',
+            '10' => 'oktober',
+            '11' => 'november',
+            '12' => 'december'
+        ];
+        $explode_date = explode($delimiter, $date);
+        $date_return = $explode_date[2] . ' ' . ucfirst($array_month[$explode_date[1]]) . ' ' . $explode_date[0];
+        return $date_return;
     }
 
     function rulesProyekPelaksana()
@@ -68,7 +91,6 @@ class ProyekController extends BaseController
 
         return $rules;
     }
-
 
     function indexPelaksana()
     {
@@ -150,8 +172,19 @@ class ProyekController extends BaseController
         if ($this->request->isAJAX()) {
             $id = $this->request->getVar('id');
 
+            $dataProyek = $this->proyek->editDetailProyek($id);
+            $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($dataProyek[0]->kegiatan_id);
+
+            $listTimelineKegiatan = [];
+            $no = 0;
+            foreach ($dataTimelineKegiatan as $item) {
+                $no++;
+                array_push($listTimelineKegiatan, "{$no}. Pada tanggal {$this->date_indo($item->tanggal_kegiatan, '-')}, Kegiatan {$item->detail_kegiatan}.<br>");
+            }
+
             $data = [
-                'proyek' => $this->proyek->editDetailProyek($id)
+                'proyek' => $dataProyek,
+                'timelineKegiatan' => implode('', str_replace('<br>', "\n", $listTimelineKegiatan))
             ];
 
             $encoded_data = base64_encode(json_encode($data));
@@ -164,7 +197,6 @@ class ProyekController extends BaseController
         $data = $this->request->getPost();
 
         $validation = \Config\Services::validation();
-
 
         $arrRules = $this->rulesProyekPelaksana();
         //check no. proyek baru atau lama
@@ -218,8 +250,19 @@ class ProyekController extends BaseController
             $id = $this->request->getVar('id');
         }
 
+        $dataProyek = $this->proyek->editDetailProyek($id);
+        $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($dataProyek[0]->kegiatan_id);
+
+        $listTimelineKegiatan = [];
+        $no = 0;
+        foreach ($dataTimelineKegiatan as $item) {
+            $no++;
+            array_push($listTimelineKegiatan, "{$no}. Pada tanggal {$this->date_indo($item->tanggal_kegiatan, '-')}, Kegiatan {$item->detail_kegiatan}.<br>");
+        }
+
         $data = [
-            'proyek' => $this->proyek->editDetailProyek($id)
+            'proyek' => $dataProyek,
+            'timelineKegiatan' => implode('', str_replace('<br>', "\n", $listTimelineKegiatan))
         ];
 
         $encoded_data = base64_encode(json_encode($data));
@@ -263,8 +306,19 @@ class ProyekController extends BaseController
             $id = $this->request->getVar('id');
         }
 
+        $dataProyek = $this->proyek->editDetailProyek($id);
+        $dataTimelineKegiatan = $this->timelineKegiatan->getTimelineKegiatanByKegiatanId($dataProyek[0]->kegiatan_id);
+
+        $listTimelineKegiatan = [];
+        $no = 0;
+        foreach ($dataTimelineKegiatan as $item) {
+            $no++;
+            array_push($listTimelineKegiatan, "{$no}. Pada tanggal {$this->date_indo($item->tanggal_kegiatan, '-')}, Kegiatan {$item->detail_kegiatan}.<br>");
+        }
+
         $data = [
-            'proyek' => $this->proyek->editDetailProyek($id)
+            'proyek' => $dataProyek,
+            'timelineKegiatan' => implode('', str_replace('<br>', "\n", $listTimelineKegiatan))
         ];
 
         $encoded_data = base64_encode(json_encode($data));

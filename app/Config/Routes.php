@@ -127,6 +127,13 @@ $routes->group('', ['filter' => 'AuthFilter'], function ($routes) {
         //laporan
         $routes->get('laporan', 'LaporanController::indexLapTukang');
         $routes->get('laporan/export-pdf', 'LaporanController::exportPdfTukang');
+
+        //timeline
+        $routes->get('kelola-timeline-kegiatan', 'TimelineKegiatanController::index');
+        $routes->post('kelola-timeline-kegiatan/store', 'TimelineKegiatanController::store');
+        $routes->get('kelola-timeline-kegiatan/edit', 'TimelineKegiatanController::edit');
+        $routes->post('kelola-timeline-kegiatan/update', 'TimelineKegiatanController::update');
+        $routes->get('kelola-timeline-kegiatan/delete/(:num)', 'TimelineKegiatanController::delete/$1');
     });
 });
 
